@@ -1,0 +1,45 @@
+{
+  "name": "neetings",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "audit": "npm audit --omit=dev",
+    "audit:fix": "npm audit fix",
+    "build:secure": "npm run audit && npm run lint && npm run test && npm run build",
+    "pre-release:secure": "npm run audit && just pre-release"
+  },
+  "dependencies": {
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/sortable": "^10.0.0",
+    "@dnd-kit/utilities": "^3.2.2",
+    "docx": "^9.5.0",
+    "preact": "^10.28.2",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@preact/preset-vite": "^2.10.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/preact": "^3.2.4",
+    "@testing-library/user-event": "^14.6.1",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.36.0",
+    "@vitest/ui": "^4.0.17",
+    "eslint": "^9.39.2",
+    "eslint-config-preact": "^2.0.0",
+    "eslint-plugin-compat": "^6.0.2",
+    "jsdom": "^27.4.0",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.5"
+  }
+}

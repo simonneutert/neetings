@@ -1,0 +1,575 @@
+{
+  "blocks": {
+    "types": {
+      "goalblock": "Goal",
+      "todoblock": "TODO",
+      "followupblock": "Follow-up",
+      "ideablock": "Idea",
+      "factblock": "Fact",
+      "researchblock": "Research",
+      "textblock": "Note",
+      "qandablock": "Q&A",
+      "referenceblock": "Reference",
+      "decisionblock": "Decision",
+      "issueblock": "Issue"
+    },
+    "creator": {
+      "title": "Add New Block",
+      "buttonPrefix": "+"
+    },
+    "fields": {
+      "text": "text",
+      "question": "question",
+      "answer": "answer",
+      "topic": "topic",
+      "result": "result",
+      "fact": "fact",
+      "decision": "decision",
+      "issue": "issue",
+      "todo": "todo",
+      "goal": "goal",
+      "followup": "followup",
+      "idea": "idea",
+      "reference": "reference"
+    },
+    "placeholders": {
+      "text": "Enter note...",
+      "question": "Enter question...",
+      "answer": "Enter answer...",
+      "topic": "Enter research topic...",
+      "result": "Enter research result...",
+      "fact": "Enter fact...",
+      "decision": "Enter decision...",
+      "issue": "Enter issue...",
+      "todo": "Enter todo...",
+      "goal": "Enter goal...",
+      "followup": "Enter followup...",
+      "idea": "Enter idea...",
+      "reference": "Enter reference..."
+    },
+    "status": {
+      "completed": "✅ Completed",
+      "pending": "⏳ Pending"
+    },
+    "actions": {
+      "moveUp": "Move up",
+      "moveDown": "Move down",
+      "delete": "Delete block"
+    },
+    "modal": {
+      "title": "Choose Block Type",
+      "addingTo": "Adding to: {{topicName}}",
+      "tip": "💡 Tip: Press numbers 1-9 for quick selection or Esc to close",
+      "descriptions": {
+        "textblock": "General notes or narrative content",
+        "qandablock": "Question and answer format",
+        "researchblock": "Research findings and insights",
+        "factblock": "Important facts and data points",
+        "decisionblock": "Final decisions made",
+        "issueblock": "Problems that need attention",
+        "todoblock": "Action items and tasks",
+        "goalblock": "Objectives and targets",
+        "followupblock": "Follow-up actions needed",
+        "ideablock": "Creative ideas and suggestions",
+        "referenceblock": "External links and references"
+      }
+    }
+  },
+  "topics": {
+    "labels": {
+      "addGroup": "Add Topic Group",
+      "editGroup": "Edit Topic Group",
+      "deleteGroup": "Delete Topic Group",
+      "createColumn": "Create Column",
+      "moveBlock": "Move Block",
+      "topicGroupsTitle": "Topic Groups",
+      "createGroupButton": "Add",
+      "mainAgenda": "Main Agenda"
+    },
+    "topicGroupManager": {
+      "title": "Manage Topic Groups",
+      "addGroupButton": "Add Topic Group",
+      "editGroupButton": "Edit",
+      "deleteGroupButton": "Delete",
+      "confirmDelete": "Are you sure you want to delete the topic group \"{{topicName}}\"? All blocks within this group will be moved to the Main Agenda.",
+      "topicNamePlaceholder": "Enter topic name..."
+    },
+    "dragOverlay": {
+      "blockDefaultName": "Block"
+    },
+    "placeholders": {
+      "groupName": "Enter topic name...",
+      "emptyColumn": "No blocks yet. Drag blocks here or add new ones."
+    },
+    "confirmations": {
+      "deleteGroup": "Delete this topic group? Blocks will be moved to the Main Agenda."
+    },
+    "tooltips": {
+      "cancelEditGroup": "Cancel Edit",
+      "navigateToMainAgenda": "Go to Main Agenda",
+      "moveLeft": "Move topic group left",
+      "moveRight": "Move topic group right"
+    },
+    "blockCount_one": "{{count}} block",
+    "blockCount_other": "{{count}} blocks",
+    "emptyDefaultColumn": "No blocks yet. Create your first block below.",
+    "emptyTopicColumn": "No blocks in this topic. Drag blocks here or add new ones.",
+    "addBlockButton": "Add Block",
+    "addBlockTo": "to {{topicName}}"
+  },
+  "colors": {
+    "colorName": {
+      "blue": "Blue",
+      "green": "Green",
+      "orange": "Orange",
+      "purple": "Purple",
+      "red": "Red",
+      "teal": "Teal",
+      "yellow": "Yellow",
+      "pink": "Pink",
+      "cyan": "Cyan",
+      "gray": "Gray"
+    }
+  },
+  "confirmations": {
+    "clearMeeting": "Are you sure you want to clear the entire meeting? This will delete all notes and metadata.",
+    "clearAllData": "Are you sure you want to clear ALL DATA? This will permanently delete ALL meetings and cannot be undone.",
+    "deleteMeeting": "Delete this meeting? This cannot be undone."
+  },
+  "search": {
+    "placeholder": "Search meetings and blocks...",
+    "noResults": "No results found"
+  },
+  "filter": {
+    "showAll": "Show All",
+    "showFilters": "View Filters",
+    "hideFilters": "Hide Filters",
+    "filtersTitle": "Filters",
+    "searchPlaceholder": "Search across all content",
+    "clearSearch": "Clear search",
+    "searchingFor": "Searching for: \"{{query}}\"",
+    "showing": "showing: {{filters}}",
+    "noFiltersSelected": "no filters selected",
+    "dateRangeTitle": "📅 Filter by Meeting Date",
+    "dateFrom": "From:",
+    "dateTo": "To:",
+    "showAllDates": "Show All",
+    "pastTen": "Past 10",
+    "meetingsInRange": "{{count}} meeting{{plural}} in selected range",
+    "noResultsFor": "No results found for \"{{query}}\"",
+    "noFiltersMessage": "Please select at least one filter to view content, or use search to find content.",
+    "noContentFound": "No {{filters}} found.",
+    "filterTypes": {
+      "todos_completed": "Completed TODOs",
+      "todos_uncompleted": "Uncompleted TODOs",
+      "facts": "Facts",
+      "qandas": "Q&As",
+      "decisions": "Decisions",
+      "issues": "Issues",
+      "research": "Research",
+      "stories": "Notes",
+      "goals": "Goals",
+      "followups": "Follow-ups",
+      "ideas": "Ideas",
+      "references": "References"
+    },
+    "todoStats": "{{completed}}/{{total}} TODOs completed",
+    "noDate": "No date"
+  },
+  "meeting": {
+    "untitled": "Untitled Meeting",
+    "createdOn": "Created on",
+    "lastModified": "Last modified",
+    "blocks": "blocks",
+    "title": "📝 Meeting Title",
+    "titlePlaceholder": "Enter meeting title...",
+    "date": "📅 Date",
+    "timeRange": "⏰ Time Range",
+    "startTime": "Start Time",
+    "startTimeShort": "Start",
+    "endTime": "End Time",
+    "endTimeShort": "End",
+    "lastUpdate": "Last update",
+    "series": {
+      "title": "📋 Meeting Series Title",
+      "titlePlaceholder": "Enter meeting series title...",
+      "agenda": "📝 Meeting Series Agenda",
+      "agendaPlaceholder": "Enter meeting series agenda...",
+      "defaultTitle": "New Meeting Series"
+    }
+  },
+  "meetingIndex": {
+    "title": "Meetings",
+    "newMeeting": "New Meeting",
+    "noMeetings": "No meetings yet. Click \"+ New Meeting\" to get started.",
+    "deleteMeetingTitle": "Delete meeting"
+  },
+  "importExport": {
+    "import": "Import Meetings",
+    "export": "Export Meetings",
+    "importSuccess": "Meetings imported from file.",
+    "importError": "Failed to import meetings: invalid JSON file.",
+    "importConfirm": {
+      "title": "Import Meetings",
+      "message": "Importing will overwrite all your current meetings. This action cannot be undone.\n\nAre you sure you want to continue?",
+      "confirm": "Yes, Import"
+    },
+    "exportConfirm": {
+      "message": "Export all meetings and attendees to {{format}} format?",
+      "includes": "This export includes",
+      "meetings": "All meetings and their blocks",
+      "attendees": "All attendees",
+      "seriesInfo": "Meeting series information"
+    },
+    "noMeetingsToExport": "No meetings to export.",
+    "exportSuccess": "All meetings exported and downloaded as JSON file.",
+    "exportError": "Failed to export meetings.",
+    "modal": {
+      "title": "Export Meeting",
+      "format": "Export Format",
+      "formatMarkdown": "Markdown (.md)",
+      "formatRTF": "Rich Text (.rtf)",
+      "formatDOCX": "Word Document (.docx)",
+      "formatHTML": "HTML Document (.html)",
+      "formatDescription": "Choose the format that best suits your needs",
+      "filename": "Filename",
+      "filenamePlaceholder": "Enter filename...",
+      "filenameRequired": "Filename is required",
+      "exportFailed": "Export failed",
+      "exporting": "Exporting...",
+      "exportButton": "Export"
+    },
+    "actions": {
+      "exportMeeting": "Export meeting to markdown",
+      "exportButtonText": "Download Meeting"
+    },
+    "content": {
+      "date": "Date",
+      "time": "Time",
+      "created": "Created",
+      "lastModified": "Last Modified",
+      "totalBlocks": "Total Blocks",
+      "attendees": "Attendees",
+      "attendeesWithCount": "Attendees ({{count}})",
+      "tableOfContents": "Table of Contents",
+      "blocks": "Blocks",
+      "noBlocksInSection": "No blocks in this section",
+      "exported": "Exported",
+      "from": "from"
+    }
+  },
+  "attendees": {
+    "title_one": "Meeting Attendee ({{count}})",
+    "title_other": "Meeting Attendees ({{count}})",
+    "addPlaceholder": "Add attendee by name or email...",
+    "noAttendees": "No attendees assigned to this meeting yet. Start typing above to add attendees.",
+    "remove": "Remove",
+    "removeTooltip": "Remove from meeting",
+    "totalStats": "{{current}} of {{total}} total attendees assigned",
+    "duplicateEmail": "An attendee with this email already exists",
+    "noEmail": "No email provided",
+    "loadingError": "Error loading attendees",
+    "autocomplete": {
+      "placeholder": "Type name or email to add attendee...",
+      "addButton": "Add",
+      "createNew": "Create new attendee",
+      "nameOnly": "(name only)",
+      "meetingCount_one": "{{count}} meeting",
+      "meetingCount_other": "{{count}} meetings",
+      "searchPrompt": "Start typing to search attendees...",
+      "noResults": "No matching attendees found."
+    }
+  },
+  "attendeeManager": {
+    "title": "All Attendees",
+    "description": "Manage all attendees who have ever participated in meetings.",
+    "addNewTitle": "Add New Attendee",
+    "nameLabel": "Name",
+    "emailLabel": "Email (optional)",
+    "namePlaceholder": "Enter attendee name",
+    "emailPlaceholder": "Enter attendee email",
+    "addButton": "Add",
+    "noAttendeesYet": "No attendees added yet.",
+    "attendeesListTitle": "Attendees ({{count}})",
+    "attendeesListTitle_one": "Attendee ({{count}})",
+    "attendeesListTitle_other": "Attendees ({{count}})",
+    "addedLabel": "Added:",
+    "editButton": "Edit",
+    "deleteButton": "Delete",
+    "editNamePlaceholder": "Name",
+    "editEmailPlaceholder": "Email",
+    "validationError": "Please enter a name",
+    "duplicateEmailError": "An attendee with this email already exists",
+    "deleteConfirmation": "⚠️ Delete Attendee?\n\nThis will permanently delete \"{{name}}\" from your attendee list.\n\n• They will be removed from {{meetingCount}} meeting(s)\n• This action cannot be undone\n• All their participation history will be lost\n\nAre you sure you want to continue?",
+    "deleteConfirmationNoMeetings": "⚠️ Delete Attendee?\n\nThis will permanently delete \"{{name}}\" from your attendee list.\n\n• This action cannot be undone\n• They are not currently assigned to any meetings\n\nAre you sure you want to continue?",
+    "deleteSuccess": "Attendee \"{{name}}\" has been deleted successfully.",
+    "searchPlaceholder": "Search by name or email...",
+    "clearSearch": "Clear search",
+    "searchResults_one": "{{count}} result for \"{{query}}\"",
+    "searchResults_other": "{{count}} results for \"{{query}}\"",
+    "noSearchResults": "No attendees found for \"{{query}}\"",
+    "loadingError": "Error loading attendees"
+  },
+  "navigation": {
+    "brand": "neetings",
+    "meetings": "Meetings",
+    "attendees": "Attendees",
+    "faq": "FAQ",
+    "imprint": "Imprint",
+    "github": "Project on GitHub",
+    "github_discussion": "Feedback via GitHub",
+    "clearMeeting": "Clear Meeting",
+    "clearAllData": "Clear All Data",
+    "toggleNavigation": "Toggle navigation"
+  },
+  "theme": {
+    "light": "Light theme",
+    "dark": "Dark theme",
+    "system": "System theme"
+  },
+  "meetingHeader": {
+    "attendeeCount_one": "{{count}} attendee",
+    "attendeeCount_other": "{{count}} attendees"
+  },
+  "common": {
+    "backToMeetings": "← Back to Meetings",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "retry": "Try Again",
+    "loading": "Loading...",
+    "searching": "Searching..."
+  },
+  "cta": {
+    "title": "Ready to Transform Your Meetings? 🚀",
+    "description": "Join teams who've already eliminated meeting chaos. Try Neetings now - no installation required!",
+    "button": "🎯 Start Your First Meeting"
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about Neetings",
+    "tableOfContents": "Table of Contents",
+    "hero": {
+      "title": "🚀 Streamline Your Meeting Notes",
+      "description": "Stop hunting through scattered notes. Neetings transforms your meetings into productive workflows with intelligent organization - all running 100% in your browser.",
+      "badges": {
+        "blocks": "🧱 11 Smart Block Types",
+        "kanban": "📋 Visual Kanban",
+        "private": "🔐 100% Private",
+        "setup": "⚡ Zero Setup"
+      },
+      "startButton": "🚀 Start Taking Notes",
+      "termsAgreement": "By using this service, you agree to our",
+      "termsLink": "Terms of Service"
+    },
+    "questions": {
+      "confluence": {
+        "question": "🔗 Does Neetings work with Confluence™?",
+        "answer": "Absolutely! 📋 Download your meeting as Markdown, copy the content to your clipboard, and paste it directly into Confluence™. ✨ Your structured blocks, formatting, and organization transfer seamlessly! 🚀"
+      },
+      "whyChoose": {
+        "question": "Why choose Neetings over traditional note-taking apps?",
+        "answer": "Stop fighting with generic text boxes! Neetings provides 11 specialized block types (Stories, TODOs, Decisions, Issues, etc.) that understand your meeting content. Plus, instant Kanban view, smart attendee tracking, and powerful filtering - all running 100% in your browser with zero setup."
+      },
+      "security": {
+        "question": "Is my meeting data secure and private?",
+        "answer": "Yes, your data never leaves your device. Neetings stores everything in your browser's localStorage - no backend servers, no data collection, no cloud sync. You maintain complete control and can export your data anytime as JSON files."
+      },
+      "quickStart": {
+        "question": "How quickly can I get started?",
+        "answer": "Literally 30 seconds! Try our live demo instantly with no installation, or run locally with just 'npm install && npm run dev'. Create your first meeting, add some blocks, and experience the difference immediately."
+      },
+      "blockSystem": {
+        "question": "What makes the block system so powerful?",
+        "answer": "Each content type gets its own intelligent structure: TODOs have completion tracking, Q&As have separate question/answer fields, Research blocks track topics and results. No more forcing everything into plain text - your content gets the structure it deserves."
+      },
+      "organization": {
+        "question": "Can I organize complex meetings effectively?",
+        "answer": "Yes! Switch to Kanban view to organize blocks into topic columns. Drag and drop between topics as discussions evolve. Use advanced filtering to find specific content types, completion status, or date ranges. Perfect for multi-topic meetings and sprint planning."
+      },
+      "attendees": {
+        "question": "How does attendee management work?",
+        "answer": "Smart autocomplete by name or email, global attendee registry across all meetings, visual participation tracking, and one-click assignment. See who attends which meetings and track engagement patterns over time."
+      },
+      "teamSize": {
+        "question": "Is Neetings suitable for my team size and use case?",
+        "answer": "Neetings works well for various team sizes and use cases: team leads managing projects, product managers tracking decisions, consultants organizing client meetings, agile teams running sprints, or anyone managing meeting notes. Suitable for individual users to large organizations."
+      },
+      "dataPortability": {
+        "question": "What about data portability and backups?",
+        "answer": "Export all your meetings as JSON files anytime. Import/export for easy backups, cross-device sync via file transfer, and zero vendor lock-in. You maintain complete control over your data."
+      }
+    }
+  },
+  "imprint": {
+    "title": "Imprint",
+    "legalNotice": "Information according to §5 TMG",
+    "name": "Simon Neutert",
+    "address": "Postfach 1120, 55258 Ingelheim",
+    "euDispute": {
+      "title": "EU Dispute Resolution",
+      "text": "The European Commission provides a platform for online dispute resolution (ODR):",
+      "linkText": "Here's the link",
+      "linkUrl": "https://ec.europa.eu/consumers/odr/",
+      "emailNote": "Our email address can be found above."
+    },
+    "consumerDispute": {
+      "title": "Consumer Dispute Resolution/Universal Arbitration",
+      "text": "We are not willing or obligated to participate in dispute resolution procedures before a consumer arbitration board."
+    }
+  },
+  "marketing": {
+    "noCookies": "No cookies",
+    "noDataTransfer": "No data transfer",
+    "termsOfService": "Terms of Service",
+    "imprint": "Imprint"
+  },
+  "featureFlag": {
+    "notProductionReady": "* Not production ready (yet) - please provide feedback via GitHub!"
+  },
+  "terms": {
+    "title": "Terms of Service",
+    "dataProcessing": {
+      "title": "Data Processing",
+      "content": "This application processes all data locally in your browser. No personal information, meeting notes, or any other data is transmitted to external servers or third parties."
+    },
+    "localStorage": {
+      "title": "Local Storage",
+      "content": "All meeting data is stored exclusively in your browser's local storage. This data remains on your device and is not accessible to anyone else unless you explicitly export and share it."
+    },
+    "noCookies": {
+      "title": "No Cookies Policy",
+      "content": "This application does not use cookies, tracking pixels, analytics services, or any other tracking technologies. Your privacy is completely protected."
+    },
+    "privacy": {
+      "title": "Privacy Guarantee",
+      "content": "We guarantee complete privacy: no data collection, no user tracking, no analytics, no external API calls for core functionality. Your meeting notes and personal information stay private and secure."
+    },
+    "serviceAvailability": {
+      "title": "Service Availability",
+      "content": "This service is provided free of charge with no guarantees of availability, uptime, or continuity. We reserve the right to discontinue, modify, or suspend the service at any time without prior notice. Users have no right to demand continued service or updates."
+    },
+    "noSupport": {
+      "title": "No Support Obligation",
+      "content": "We provide this service without any obligation to offer technical support, bug fixes, updates, or improvements. Any updates or improvements are provided at our sole discretion and users have no right to demand such services."
+    },
+    "asIs": {
+      "title": "\"As-Is\" Service",
+      "content": "This application is provided \"as is\" and \"as available\" without warranties of any kind, either express or implied. We do not warrant that the service will be uninterrupted, error-free, or meet your specific requirements."
+    },
+    "liability": {
+      "title": "Limitation of Liability",
+      "content": "In no event shall we be liable for any direct, indirect, incidental, special, or consequential damages arising from your use of this service. Users assume all risks associated with using this application and are solely responsible for backing up their data."
+    },
+    "userResponsibility": {
+      "title": "User Responsibility",
+      "content": "Users are solely responsible for their data and must regularly export and backup their meeting notes. We are not responsible for any data loss, regardless of cause."
+    },
+    "changes": {
+      "title": "Changes to Terms",
+      "content": "We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting. Continued use of the service constitutes acceptance of any modifications."
+    }
+  },
+  "errors": {
+    "import": {
+      "invalid_file_type": "Please select a JSON file exported from Neetings",
+      "invalid_file_type_action": "Choose a different file with .json extension",
+      "file_too_large": "The selected file is too large to import",
+      "file_too_large_action": "Try splitting the data into smaller files or contact support",
+      "corrupted_data": "The file appears to be corrupted or incomplete",
+      "corrupted_data_action": "Try re-exporting the data from the original source",
+      "version_mismatch": "This file was exported from an incompatible version",
+      "version_mismatch_action": "Update your app or use a compatible export format",
+      "version_can_migrate": "This file is from an older version but can be updated",
+      "version_can_migrate_action": "Click \"Import Anyway\" to automatically update the format",
+      "missing_required_fields": "The file is missing essential information",
+      "missing_required_fields_action": "Check the original export or contact support",
+      "invalid_meeting_data": "Some meetings contain invalid information",
+      "invalid_meeting_data_action": "Review the meeting data and try importing again",
+      "invalid_attendee_data": "Some attendee information is invalid",
+      "invalid_attendee_data_action": "Check attendee names and email addresses",
+      "invalid_block_data": "Some meeting content blocks are invalid",
+      "invalid_block_data_action": "Review the meeting content and try again",
+      "orphaned_attendees": "Some attendee references are broken",
+      "orphaned_attendees_action": "Import will continue but some attendees may be missing",
+      "orphaned_blocks": "Some content blocks are not properly organized",
+      "orphaned_blocks_action": "Blocks will be moved to the default section",
+      "security_validation_failed": "The file failed security checks",
+      "security_validation_failed_action": "Ensure the file is from a trusted source"
+    },
+    "export": {
+      "format_error": "The selected export format is not available",
+      "format_error_action": "Choose a different export format"
+    },
+    "general": {
+      "memory_error": "The operation requires too much memory",
+      "memory_error_action": "Try with a smaller dataset or refresh the page",
+      "network_error": "Unable to complete the operation due to network issues",
+      "network_error_action": "Check your internet connection and try again",
+      "unknown": "Something went wrong",
+      "unknown_action": "Please try again or contact support if the problem persists"
+    }
+  },
+  "success": {
+    "import": {
+      "partial_success": "Import completed with warnings",
+      "partial_success_action": "Review the imported data and fix any issues",
+      "complete": "Your data has been imported successfully",
+      "complete_action": "You can now work with the imported meetings"
+    },
+    "export": {
+      "complete": "Your data has been exported successfully",
+      "complete_action": "The file has been downloaded to your device"
+    }
+  },
+  "warnings": {
+    "validation": {
+      "general": "Some data may not be formatted correctly",
+      "general_action": "Review the warnings and continue if acceptable"
+    }
+  },
+  "import": {
+    "summary": {
+      "successful_one": "{{count}} item imported successfully",
+      "successful_other": "{{count}} items imported successfully",
+      "failed_one": "{{count}} item failed to import",
+      "failed_other": "{{count}} items failed to import",
+      "warnings_one": "{{count}} item imported with warnings",
+      "warnings_other": "{{count}} items imported with warnings",
+      "recovered_one": "Recovered {{recovered}} of {{total}} item",
+      "recovered_other": "Recovered {{recovered}} of {{total}} items",
+      "no_recovery": "No valid data could be recovered",
+      "failed_no_data": "Import failed - no valid data found"
+    },
+    "progress": {
+      "starting": "Starting import...",
+      "validating": "Validating file...",
+      "processing": "Processing data...",
+      "finalizing": "Finalizing import...",
+      "complete": "Import complete!",
+      "completed_successfully": "Import completed successfully",
+      "partial_completed": "Partial import completed",
+      "failed": "Import failed",
+      "reading_file": "Reading file content...",
+      "validating_data": "Validating data structure...",
+      "attempting_recovery": "Attempting partial recovery...",
+      "finalizing_recovery": "Finalizing recovery...",
+      "processing_import": "Processing import..."
+    }
+  },
+  "export": {
+    "summary": {
+      "meetings_one": "{{count}} meeting",
+      "meetings_other": "{{count}} meetings",
+      "attendees_one": "{{count}} attendee",
+      "attendees_other": "{{count}} attendees",
+      "complete": "Exported {{meetings}} and {{attendees}} in {{format}} format"
+    },
+    "progress": {
+      "starting": "Starting export...",
+      "preparing": "Preparing data...",
+      "generating": "Generating file...",
+      "complete": "Export complete!"
+    }
+  }
+}

@@ -1,0 +1,131 @@
+/* Mobile optimization for Kanban drag & drop */
+
+/* Base styles for improved touch interaction */
+.kanban-board {
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Enhanced touch targets for mobile */
+@media (max-width: 768px) {
+  .kanban-column {
+    min-width: 280px !important;
+    margin: 0 0.25rem !important;
+    padding: 0.75rem !important;
+  }
+
+  .drag-handle {
+    min-width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    padding: 0.75rem !important;
+    font-size: 1.2rem !important;
+  }
+
+  .kanban-block {
+    margin-bottom: 1rem !important;
+    padding-left: 3.5rem !important;
+  }
+
+  /* Improve scrolling on mobile */
+  .kanban-board-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+  }
+
+  .kanban-column {
+    scroll-snap-align: start;
+  }
+
+  /* Enhanced visual feedback for mobile */
+  .dragging {
+    transform: scale(1.05) !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+  }
+
+  .drop-zone-active {
+    background-color: rgba(0, 123, 255, 0.1) !important;
+    border: 3px dashed #007bff !important;
+    transform: scale(1.02) !important;
+  }
+}
+
+/* Tablet and up: columns should never be less than 550px */
+@media (min-width: 769px) {
+  .kanban-column, .enhanced-topic-column {
+    min-width: 550px !important;
+    max-width: 1fr !important;
+  }
+}
+
+/* High DPI/Retina display optimization */
+@media (-webkit-min-device-pixel-ratio: 2) {
+  .drag-handle {
+    font-weight: bold;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .kanban-board,
+  .kanban-column,
+  .drag-handle,
+  .kanban-block {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* Dark mode support for topic colors */
+@media (prefers-color-scheme: dark) {
+  .topic-group-chip {
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+
+  .kanban-column {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3) !important;
+  }
+}
+
+/* Modal animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect reduced motion preferences for modal animations */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}

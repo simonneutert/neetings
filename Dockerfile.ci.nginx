@@ -1,0 +1,15 @@
+# Lightweight nginx container for CI/CD
+# Expects pre-built assets in dist/ folder
+FROM nginx:alpine
+
+# Copy pre-built application files
+COPY dist /usr/share/nginx/html
+
+# Copy nginx configuration
+COPY nginx.conf /etc/nginx/nginx.conf
+
+# Expose port 80
+EXPOSE 80
+
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]

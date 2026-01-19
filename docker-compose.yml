@@ -1,0 +1,44 @@
+services:
+  # Development service
+  dev:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+
+  # Production service
+  prod:
+    build:
+      context: .
+      target: production
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+
+  # Build artifacts service (for local testing of CI workflow)
+  build-artifacts:
+    build:
+      context: .
+      target: build-artifacts
+    volumes:
+      - ./dist:/dist
+
+  # CI/CD optimized production service
+  prod-ci:
+    build:
+      context: .
+      dockerfile: Dockerfile.ci.nginx
+    ports:
+      - "80:80"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - build-artifacts
+

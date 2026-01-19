@@ -1,0 +1,575 @@
+{
+  "blocks": {
+    "types": {
+      "goalblock": "Ziel",
+      "todoblock": "TODO",
+      "followupblock": "Nachverfolgung",
+      "ideablock": "Idee",
+      "factblock": "Fakt",
+      "researchblock": "Recherche",
+      "textblock": "Notiz",
+      "qandablock": "F&A",
+      "referenceblock": "Referenz",
+      "decisionblock": "Entscheidung",
+      "issueblock": "Problem"
+    },
+    "creator": {
+      "title": "Neuen Block hinzufügen",
+      "buttonPrefix": "+"
+    },
+    "fields": {
+      "text": "Text",
+      "question": "Frage",
+      "answer": "Antwort",
+      "topic": "Thema",
+      "result": "Ergebnis",
+      "fact": "Fakt",
+      "decision": "Entscheidung",
+      "issue": "Problem",
+      "todo": "Aufgabe",
+      "goal": "Ziel",
+      "followup": "Nachverfolgung",
+      "idea": "Idee",
+      "reference": "Referenz"
+    },
+    "placeholders": {
+      "text": "Notiz eingeben...",
+      "question": "Frage eingeben...",
+      "answer": "Antwort eingeben...",
+      "topic": "Forschungsthema eingeben...",
+      "result": "Forschungsergebnis eingeben...",
+      "fact": "Fakt eingeben...",
+      "decision": "Entscheidung eingeben...",
+      "issue": "Problem eingeben...",
+      "todo": "Aufgabe eingeben...",
+      "goal": "Ziel eingeben...",
+      "followup": "Nachverfolgung eingeben...",
+      "idea": "Idee eingeben...",
+      "reference": "Referenz eingeben..."
+    },
+    "status": {
+      "completed": "✅ Abgeschlossen",
+      "pending": "⏳ Ausstehend"
+    },
+    "actions": {
+      "moveUp": "Nach oben verschieben",
+      "moveDown": "Nach unten verschieben",
+      "delete": "Block löschen"
+    },
+    "modal": {
+      "title": "Block-Typ auswählen",
+      "addingTo": "Hinzufügen zu: {{topicName}}",
+      "tip": "💡 Tipp: Drücke die Zahlen 1-9 für eine schnelle Auswahl oder Esc zum Schließen",
+      "descriptions": {
+        "textblock": "Allgemeine Notizen oder Erzählung",
+        "qandablock": "Frage-und-Antwort-Format",
+        "researchblock": "Forschungsergebnisse und Erkenntnisse",
+        "factblock": "Wichtige Fakten und Datenpunkte",
+        "decisionblock": "Endgültige Entscheidungen",
+        "issueblock": "Probleme, die Aufmerksamkeit benötigen",
+        "todoblock": "Aktionselemente und Aufgaben",
+        "goalblock": "Ziele und Vorgaben",
+        "followupblock": "Erforderliche Nachfolgeaktionen",
+        "ideablock": "Kreative Ideen und Vorschläge",
+        "referenceblock": "Externe Links und Referenzen"
+      }
+    }
+  },
+  "topics": {
+    "blockCount_one": "{{count}} Block",
+    "blockCount_other": "{{count}} Blöcke",
+    "emptyDefaultColumn": "Noch keine Blöcke vorhanden. Erstellen Sie unten Ihren ersten Block.",
+    "emptyTopicColumn": "Keine Blöcke in diesem Thema. Ziehen Sie Blöcke hierher oder fügen Sie neue hinzu.",
+    "addBlockButton": "+ Block hinzufügen",
+    "addBlockTo": "zu {{topicName}}",
+    "labels": {
+      "addGroup": "Themengruppe hinzufügen",
+      "editGroup": "Gruppe bearbeiten",
+      "deleteGroup": "Gruppe löschen",
+      "createColumn": "Spalte erstellen",
+      "moveBlock": "Block verschieben",
+      "topicGroupsTitle": "Themengruppen",
+      "createGroupButton": "Hinzufügen",
+      "mainAgenda": "Hauptagenda"
+    },
+    "topicGroupManager": {
+      "title": "Themengruppen verwalten",
+      "addGroupButton": "Themengruppe hinzufügen",
+      "editGroupButton": "Bearbeiten",
+      "deleteGroupButton": "Löschen",
+      "confirmDelete": "Bist du sicher, dass du die Themengruppe \"{{topicName}}\" löschen möchtest? Alle Blöcke in dieser Gruppe werden zur Hauptagenda verschoben.",
+      "topicNamePlaceholder": "Themenname eingeben..."
+    },
+    "dragOverlay": {
+      "blockDefaultName": "Block"
+    },
+    "placeholders": {
+      "groupName": "Themenname eingeben...",
+      "emptyColumn": "Noch keine Blöcke. Ziehen Sie Blöcke hierher oder fügen Sie neue hinzu."
+    },
+    "confirmations": {
+      "deleteGroup": "Diese Themengruppe löschen? Blöcke werden zu ungruppiert verschoben."
+    },
+    "tooltips": {
+      "cancelEditGroup": "Abbrechen",
+      "navigateToMainAgenda": "Zur Hauptagenda wechseln",
+      "moveLeft": "Themengruppe nach links verschieben",
+      "moveRight": "Themengruppe nach rechts verschieben"
+    }
+  },
+  "colors": {
+    "colorName": {
+      "blue": "Blau",
+      "green": "Grün",
+      "orange": "Orange",
+      "purple": "Lila",
+      "red": "Rot",
+      "teal": "Türkis",
+      "yellow": "Gelb",
+      "pink": "Pink",
+      "cyan": "Zyan",
+      "gray": "Grau"
+    }
+  },
+  "confirmations": {
+    "clearMeeting": "Bist du sicher, dass du die gesamte Besprechung löschen möchtest? Dies wird alle Notizen und Metadaten löschen.",
+    "clearAllData": "Bist du sicher, dass du ALLE DATEN löschen möchtest? Dies wird dauerhaft ALLE Besprechungen löschen und kann nicht rückgängig gemacht werden.",
+    "deleteMeeting": "Diese Besprechung löschen? Dies kann nicht rückgängig gemacht werden."
+  },
+  "search": {
+    "placeholder": "Besprechungen und Blöcke durchsuchen...",
+    "noResults": "Keine Ergebnisse gefunden"
+  },
+  "filter": {
+    "showAll": "Alle anzeigen",
+    "showFilters": "Filter anzeigen",
+    "hideFilters": "Filter ausblenden",
+    "filtersTitle": "Filter",
+    "searchPlaceholder": "Inhalte durchsuchen",
+    "clearSearch": "Suche löschen",
+    "searchingFor": "Suche nach: \"{{query}}\"",
+    "showing": "Angezeigt: {{filters}}",
+    "noFiltersSelected": "Keine Filter ausgewählt",
+    "dateRangeTitle": "📅 Nach Besprechungsdatum filtern",
+    "dateFrom": "Von:",
+    "dateTo": "Bis:",
+    "showAllDates": "Alle anzeigen",
+    "pastTen": "Letzte 10",
+    "meetingsInRange": "{{count}} Besprechung{{plural}} im ausgewählten Bereich",
+    "noResultsFor": "Keine Ergebnisse für \"{{query}}\" gefunden",
+    "noFiltersMessage": "Bitte wählen Sie mindestens einen Filter aus, um Inhalte anzuzeigen, oder verwenden Sie die Suche, um Inhalte zu finden.",
+    "noContentFound": "Keine {{filters}} gefunden.",
+    "filterTypes": {
+      "todos_completed": "Erledigte TODOs",
+      "todos_uncompleted": "Unerledigte TODOs",
+      "facts": "Fakten",
+      "qandas": "Fragen & Antworten",
+      "decisions": "Entscheidungen",
+      "issues": "Probleme",
+      "research": "Recherche",
+      "stories": "Notizen",
+      "goals": "Ziele",
+      "followups": "Nachverfolgungen",
+      "ideas": "Ideen",
+      "references": "Referenzen"
+    },
+    "todoStats": "{{completed}}/{{total}} TODOs erledigt",
+    "noDate": "Kein Datum"
+  },
+  "meeting": {
+    "untitled": "Unbenannte Besprechung",
+    "createdOn": "Erstellt am",
+    "lastModified": "Zuletzt geändert",
+    "blocks": "Blöcke",
+    "title": "📝 Besprechungstitel",
+    "titlePlaceholder": "Besprechungstitel eingeben...",
+    "date": "📅 Datum",
+    "timeRange": "⏰ Zeitspanne",
+    "startTime": "Startzeit",
+    "startTimeShort": "Start",
+    "endTime": "Endzeit",
+    "endTimeShort": "Ende",
+    "lastUpdate": "Letzte Aktualisierung",
+    "series": {
+      "title": "📋 Besprechungsreihen-Titel",
+      "titlePlaceholder": "Besprechungsreihen-Titel eingeben...",
+      "agenda": "📝 Besprechungsreihen-Agenda",
+      "agendaPlaceholder": "Besprechungsreihen-Agenda eingeben...",
+      "defaultTitle": "Neue Besprechungsreihe"
+    }
+  },
+  "meetingIndex": {
+    "title": "Besprechungen",
+    "newMeeting": "Neue Besprechung",
+    "noMeetings": "Noch keine Besprechungen. Klicken Sie auf \"+ Neue Besprechung\", um zu beginnen.",
+    "deleteMeetingTitle": "Besprechung löschen"
+  },
+  "importExport": {
+    "import": "Besprechungen importieren",
+    "export": "Besprechungen exportieren",
+    "importSuccess": "Besprechungen aus Datei importiert.",
+    "importError": "Fehler beim Importieren der Besprechungen: ungültige JSON-Datei.",
+    "importConfirm": {
+      "title": "Besprechungen importieren",
+      "message": "Das Importieren wird alle deine aktuellen Besprechungen überschreiben. Diese Aktion kann nicht rückgängig gemacht werden.\n\nBist du sicher, dass du fortfahren möchtest?",
+      "confirm": "Ja, importieren"
+    },
+    "exportConfirm": {
+      "message": "Alle Besprechungen und Teilnehmer in {{format}}-Format exportieren?",
+      "includes": "Dieser Export enthält",
+      "meetings": "Alle Besprechungen und ihre Blöcke",
+      "attendees": "Alle Teilnehmer",
+      "seriesInfo": "Besprechungsserien-Informationen"
+    },
+    "noMeetingsToExport": "Keine Besprechungen zum Exportieren.",
+    "exportSuccess": "Alle Besprechungen exportiert und als JSON-Datei heruntergeladen.",
+    "exportError": "Fehler beim Exportieren der Besprechungen.",
+    "modal": {
+      "title": "Besprechung exportieren",
+      "format": "Export-Format",
+      "formatMarkdown": "Markdown (.md)",
+      "formatRTF": "Rich Text (.rtf)",
+      "formatDOCX": "Word-Dokument (.docx)",
+      "formatHTML": "HTML-Dokument (.html)",
+      "formatDescription": "Wählen Sie das Format, das Ihren Bedürfnissen am besten entspricht",
+      "filename": "Dateiname",
+      "filenamePlaceholder": "Dateiname eingeben...",
+      "filenameRequired": "Dateiname ist erforderlich",
+      "exportFailed": "Export fehlgeschlagen",
+      "exporting": "Exportiere...",
+      "exportButton": "Herunterladen"
+    },
+    "actions": {
+      "exportMeeting": "Besprechung als Markdown exportieren",
+      "exportButtonText": "Download Meeting"
+    },
+    "content": {
+      "date": "Datum",
+      "time": "Uhrzeit",
+      "created": "Erstellt",
+      "lastModified": "Zuletzt geändert",
+      "totalBlocks": "Blöcke insgesamt",
+      "attendees": "Teilnehmer",
+      "attendeesWithCount": "Teilnehmer ({{count}})",
+      "tableOfContents": "Inhaltsverzeichnis",
+      "blocks": "Blöcke",
+      "noBlocksInSection": "Keine Blöcke in diesem Abschnitt",
+      "exported": "Exportiert",
+      "from": "von"
+    }
+  },
+  "attendees": {
+    "title_one": "Teilnehmer ({{count}})",
+    "title_other": "Teilnehmer ({{count}})",
+    "addPlaceholder": "Teilnehmer nach Name oder E-Mail hinzufügen...",
+    "noAttendees": "Dieser Besprechung sind noch keine Teilnehmer zugewiesen. Beginnen Sie oben zu tippen, um Teilnehmer hinzuzufügen.",
+    "remove": "Entfernen",
+    "removeTooltip": "Aus Besprechung entfernen",
+    "totalStats": "{{current}} von {{total}} Teilnehmern insgesamt zugewiesen",
+    "duplicateEmail": "Ein Teilnehmer mit dieser E-Mail-Adresse existiert bereits",
+    "noEmail": "Keine E-Mail angegeben",
+    "loadingError": "Fehler beim Laden der Teilnehmer",
+    "autocomplete": {
+      "placeholder": "Name oder E-Mail eingeben, um Teilnehmer hinzuzufügen...",
+      "addButton": "Hinzufügen",
+      "createNew": "Neuen Teilnehmer erstellen",
+      "meetingCount_one": "{{count}} Besprechung",
+      "meetingCount_other": "{{count}} Besprechungen",
+      "searchPrompt": "Beginnen Sie zu tippen, um Teilnehmer zu suchen...",
+      "nameOnly": "(nur Name)",
+      "noResults": "Keine passenden Teilnehmer gefunden."
+    }
+  },
+  "attendeeManager": {
+    "title": "Alle Teilnehmer",
+    "description": "Verwalten Sie alle Teilnehmer, die jemals an Besprechungen teilgenommen haben.",
+    "addNewTitle": "Neuen Teilnehmer hinzufügen",
+    "nameLabel": "Name",
+    "emailLabel": "E-Mail (optional)",
+    "namePlaceholder": "Teilnehmername eingeben",
+    "emailPlaceholder": "E-Mail-Adresse eingeben",
+    "addButton": "Hinzufügen",
+    "noAttendeesYet": "Noch keine Teilnehmer hinzugefügt.",
+    "attendeesListTitle": "Teilnehmer ({{count}})",
+    "attendeesListTitle_one": "Teilnehmer ({{count}})",
+    "attendeesListTitle_other": "Teilnehmer ({{count}})",
+    "addedLabel": "Hinzugefügt:",
+    "editButton": "Bearbeiten",
+    "deleteButton": "Löschen",
+    "editNamePlaceholder": "Name",
+    "editEmailPlaceholder": "E-Mail",
+    "validationError": "Bitte gib einen Namen ein",
+    "duplicateEmailError": "Ein Teilnehmer mit dieser E-Mail-Adresse existiert bereits",
+    "deleteConfirmation": "⚠️ Teilnehmer löschen?\n\nDies wird \"{{name}}\" dauerhaft aus Ihrer Teilnehmerliste entfernen.\n\n• Sie werden aus {{meetingCount}} Besprechung(en) entfernt\n• Diese Aktion kann nicht rückgängig gemacht werden\n• Alle Teilnahmehistorien gehen verloren\n\nSind Sie sicher, dass Sie fortfahren möchten?",
+    "deleteConfirmationNoMeetings": "⚠️ Teilnehmer löschen?\n\nDies wird \"{{name}}\" dauerhaft aus Ihrer Teilnehmerliste entfernen.\n\n• Diese Aktion kann nicht rückgängig gemacht werden\n• Sie sind derzeit keiner Besprechung zugeordnet\n\nSind Sie sicher, dass Sie fortfahren möchten?",
+    "deleteSuccess": "Teilnehmer \"{{name}}\" wurde erfolgreich gelöscht.",
+    "searchPlaceholder": "Nach Name oder E-Mail suchen...",
+    "clearSearch": "Suche löschen",
+    "searchResults_one": "{{count}} Ergebnis für \"{{query}}\"",
+    "searchResults_other": "{{count}} Ergebnisse für \"{{query}}\"",
+    "noSearchResults": "Keine Teilnehmer für \"{{query}}\" gefunden",
+    "loadingError": "Fehler beim Laden der Teilnehmer"
+  },
+  "navigation": {
+    "brand": "neetings",
+    "meetings": "Besprechungen",
+    "attendees": "Teilnehmer",
+    "faq": "FAQ",
+    "imprint": "Impressum",
+    "github": "Projekt auf GitHub",
+    "github_discussion": "Feedback über GitHub",
+    "clearMeeting": "Besprechung löschen",
+    "clearAllData": "Alle Daten löschen",
+    "toggleNavigation": "Navigation umschalten"
+  },
+  "theme": {
+    "light": "Helles Design",
+    "dark": "Dunkles Design",
+    "system": "System-Design"
+  },
+  "meetingHeader": {
+    "attendeeCount_one": "{{count}} Teilnehmer",
+    "attendeeCount_other": "{{count}} Teilnehmer"
+  },
+  "common": {
+    "backToMeetings": "← Zurück zu Besprechungen",
+    "cancel": "Abbrechen",
+    "close": "Schließen",
+    "save": "Speichern",
+    "retry": "Erneut versuchen",
+    "loading": "Wird geladen...",
+    "searching": "Wird gesucht..."
+  },
+  "cta": {
+    "title": "Bereit deine Besprechungen zu transformieren? 🚀",
+    "description": "Schließ dich Teams an, die bereits das Besprechungschaos eliminiert haben. Probiere Neetings jetzt - keine Installation erforderlich!",
+    "button": "🎯 Deine erste Besprechung starten"
+  },
+  "faq": {
+    "title": "Häufig gestellte Fragen",
+    "subtitle": "Alles was du über Neetings wissen musst",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "hero": {
+      "title": "🚀 Besprechungsnotizen professionell erstellen",
+      "description": "Schluss mit der Suche durch verstreute Notizen. Neetings verwandelt deine Besprechungen in produktive Workflows mit intelligenter Organisation - alles läuft 100% in deinem Browser.",
+      "badges": {
+        "blocks": "🧱 11 Block-Typen",
+        "kanban": "📋 Visuelle Kanban-Ansicht",
+        "private": "🔐 100% privat",
+        "setup": "⚡ Null Setup"
+      },
+      "startButton": "🚀 Meeting starten",
+      "termsAgreement": "Durch die Nutzung dieses Dienstes akzeptierst du unsere",
+      "termsLink": "Nutzungsbedingungen"
+    },
+    "questions": {
+      "confluence": {
+        "question": "🔗 Funktioniert Neetings mit Confluence™?",
+        "answer": "Absolut! 📋 Lade dein Meeting im Markdown-Format herunter, kopiere den Inhalt in die Zwischenablage und füge ihn direkt in Confluence™ ein. ✨ Deine strukturierten Blöcke, Formatierungen und Organisation werden nahtlos übertragen! 🚀"
+      },
+      "whyChoose": {
+        "question": "Warum Neetings statt herkömmlicher Notiz-Apps wählen?",
+        "answer": "Schluss mit generischen Textfeldern! Neetings bietet 11 spezialisierte Block-Typen (Notizen, TODOs, Entscheidungen, Probleme, etc.) die deine Besprechungsinhalte verstehen. Dazu sofortige Kanban-Ansicht, intelligente Teilnehmerverfolgung und mächtige Filter - alles läuft 100% in deinem Browser ohne Setup."
+      },
+      "security": {
+        "question": "Sind meine Besprechungsdaten sicher und privat?",
+        "answer": "Ja! Deine Daten verlassen niemals dein Gerät. Neetings speichert alles im localStorage deines Browsers - keine Backend-Server, keine Datensammlung, keine Cloud-Synchronisation. Du behältst die vollständige Kontrolle und kannst deine Daten jederzeit als JSON-Dateien exportieren."
+      },
+      "quickStart": {
+        "question": "Wie schnell kann ich loslegen?",
+        "answer": "Buchstäblich in 30 Sekunden! Probiere unsere Live-Demo sofort ohne Installation, oder führe lokal mit nur 'npm install && npm run dev' aus. Erstelle deine erste Besprechung, füge einige Blöcke hinzu und erlebe sofort den Unterschied."
+      },
+      "blockSystem": {
+        "question": "Was macht das Block-System so genial?",
+        "answer": "Jeder Inhaltstyp bekommt seine eigene intelligente Struktur: TODOs haben Fortschrittsverfolgung, F&As haben separate Frage/Antwort-Felder, Recherche-Blöcke verfolgen Themen und Ergebnisse. Kein Zwang mehr alles in Klartext zu pressen - dein Inhalt bekommt die Struktur, die er verdient."
+      },
+      "organization": {
+        "question": "Kann ich komplexe Besprechungen effektiv organisieren?",
+        "answer": "Ja! Wechsle zur Kanban-Ansicht um Blöcke in Themen-Spalten zu organisieren. Ziehe zwischen Themen während sich Diskussionen entwickeln. Nutze erweiterte Filter für spezifische Inhaltstypen, Abschlussstatus oder Datumsbereiche. Perfekt für Multi-Themen-Besprechungen und Sprint-Planung."
+      },
+      "attendees": {
+        "question": "Wie funktioniert das Teilnehmermanagement?",
+        "answer": "Intelligente Autovervollständigung nach Name oder E-Mail, globales Teilnehmerregister über alle Besprechungen, visuelle Teilnahme-Verfolgung und Ein-Klick-Zuweisung. Sieh wer welche Besprechungen besucht und verfolge Engagement-Muster über die Zeit."
+      },
+      "teamSize": {
+        "question": "Ist Neetings für meine Teamgröße und meinen Anwendungsfall geeignet?",
+        "answer": "Neetings funktioniert gut für verschiedene Teamgrößen und Anwendungsfälle: Teamleiter die Projekte verwalten, Produktmanager die Entscheidungen verfolgen, Berater die Kundenbesprechungen organisieren, agile Teams die Sprints durchführen, oder jeden der chaotische Besprechungsnotizen satt hat. Funktioniert großartig für 1-Personen-Teams bis große Organisationen."
+      },
+      "dataPortability": {
+        "question": "Was ist mit Datenportabilität und Backups?",
+        "answer": "Exportiere alle deine Besprechungen jederzeit als JSON-Dateien. Import/Export für einfache Backups, geräteübergreifende Synchronisation via Dateitransfer und null Vendor-Lock-in. Du behältst die vollständige Kontrolle über deine Daten."
+      }
+    }
+  },
+  "imprint": {
+    "title": "Impressum",
+    "legalNotice": "Angaben gemäß §5 TMG",
+    "name": "Simon Neutert",
+    "address": "Postfach 1120, 55258 Ingelheim",
+    "euDispute": {
+      "title": "EU-Streitschlichtung",
+      "text": "Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:",
+      "linkText": "Hier geht's lang",
+      "linkUrl": "https://ec.europa.eu/consumers/odr/",
+      "emailNote": "Unsere E-Mail-Adresse finden Sie oben."
+    },
+    "consumerDispute": {
+      "title": "Verbraucherstreitbeilegung/Universalschlichtung",
+      "text": "Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+    }
+  },
+  "marketing": {
+    "noCookies": "Keine Cookies",
+    "noDataTransfer": "Keine Datenübertragung",
+    "termsOfService": "Nutzungsbedingungen",
+    "imprint": "Impressum"
+  },
+  "featureFlag": {
+    "notProductionReady": "* Noch nicht (ganz) produktionsreif - Feedback via Github!"
+  },
+  "terms": {
+    "title": "Nutzungsbedingungen",
+    "dataProcessing": {
+      "title": "Datenverarbeitung",
+      "content": "Diese Anwendung verarbeitet sämtliche Daten ausschließlich lokal in Ihrem Browser. Personenbezogene Daten, Besprechungsnotizen oder sonstige Informationen werden nicht an externe Server oder Drittanbieter übermittelt."
+    },
+    "localStorage": {
+      "title": "Lokale Datenspeicherung",
+      "content": "Alle Besprechungsdaten werden ausschließlich im lokalen Speicher Ihres Browsers abgelegt. Diese Daten verbleiben auf Ihrem Endgerät und sind für Dritte nicht zugänglich, es sei denn, Sie exportieren und teilen diese explizit."
+    },
+    "noCookies": {
+      "title": "Cookie-freier Betrieb",
+      "content": "Diese Anwendung verwendet keine Cookies, Tracking-Pixel, Analysedienste oder sonstige Verfolgungstechnologien. Ihr Datenschutz ist vollumfänglich gewährleistet."
+    },
+    "privacy": {
+      "title": "Datenschutzgarantie",
+      "content": "Wir garantieren vollständigen Datenschutz: keine Datenerhebung, kein Nutzer-Tracking, keine Webanalyse, keine externen API-Aufrufe für Kernfunktionen. Ihre Besprechungsnotizen und personenbezogenen Daten bleiben privat und sicher."
+    },
+    "serviceAvailability": {
+      "title": "Verfügbarkeit des Dienstes",
+      "content": "Dieser Dienst wird unentgeltlich ohne jegliche Gewährleistung hinsichtlich Verfügbarkeit, Betriebszeit oder Kontinuität bereitgestellt. Wir behalten uns das Recht vor, den Dienst jederzeit ohne Vorankündigung einzustellen, zu modifizieren oder zu unterbrechen. Nutzer haben keinen Anspruch auf Fortbestand des Dienstes oder auf Aktualisierungen."
+    },
+    "noSupport": {
+      "title": "Keine Support-Verpflichtung",
+      "content": "Wir erbringen diesen Dienst ohne jegliche Verpflichtung zur technischen Unterstützung, Fehlerbehebung, Aktualisierung oder Verbesserung. Etwaige Updates oder Verbesserungen erfolgen ausschließlich nach unserem Ermessen. Nutzer haben keinen Anspruch auf derartige Leistungen."
+    },
+    "asIs": {
+      "title": "Bereitstellung \"wie verfügbar\"",
+      "content": "Diese Anwendung wird \"wie gesehen\" und \"wie verfügbar\" ohne jegliche Gewährleistung bereitgestellt. Wir übernehmen keine Garantie dafür, dass der Dienst unterbrechungsfrei oder fehlerfrei funktioniert oder Ihren spezifischen Anforderungen entspricht."
+    },
+    "liability": {
+      "title": "Haftungsausschluss",
+      "content": "Wir haften nicht für unmittelbare, mittelbare, zufällige, besondere oder Folgeschäden, die aus der Nutzung dieses Dienstes entstehen. Die Nutzer tragen sämtliche Risiken im Zusammenhang mit der Verwendung dieser Anwendung und sind allein für die Datensicherung verantwortlich."
+    },
+    "userResponsibility": {
+      "title": "Nutzerverantwortung",
+      "content": "Die Nutzer tragen die alleinige Verantwortung für ihre Daten und sind verpflichtet, ihre Besprechungsnotizen regelmäßig zu exportieren und zu sichern. Wir übernehmen keine Haftung für Datenverluste, unabhängig von deren Ursache."
+    },
+    "changes": {
+      "title": "Änderung der Bedingungen",
+      "content": "Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. Änderungen werden mit ihrer Veröffentlichung wirksam. Die weitere Nutzung des Dienstes gilt als Zustimmung zu den geänderten Bedingungen."
+    }
+  },
+  "errors": {
+    "import": {
+      "invalid_file_type": "Bitte wählen Sie eine JSON-Datei aus, die von Neetings exportiert wurde",
+      "invalid_file_type_action": "Wählen Sie eine andere Datei mit .json-Erweiterung",
+      "file_too_large": "Die ausgewählte Datei ist zu groß zum Importieren",
+      "file_too_large_action": "Versuchen Sie, die Daten in kleinere Dateien aufzuteilen oder kontaktieren Sie den Support",
+      "corrupted_data": "Die Datei scheint beschädigt oder unvollständig zu sein",
+      "corrupted_data_action": "Versuchen Sie, die Daten aus der ursprünglichen Quelle erneut zu exportieren",
+      "version_mismatch": "Diese Datei wurde aus einer inkompatiblen Version exportiert",
+      "version_mismatch_action": "Aktualisieren Sie Ihre App oder verwenden Sie ein kompatibles Exportformat",
+      "version_can_migrate": "Diese Datei stammt aus einer älteren Version, kann aber aktualisiert werden",
+      "version_can_migrate_action": "Klicken Sie auf \"Trotzdem importieren\", um das Format automatisch zu aktualisieren",
+      "missing_required_fields": "Der Datei fehlen wesentliche Informationen",
+      "missing_required_fields_action": "Überprüfen Sie den ursprünglichen Export oder kontaktieren Sie den Support",
+      "invalid_meeting_data": "Einige Besprechungen enthalten ungültige Informationen",
+      "invalid_meeting_data_action": "Überprüfen Sie die Besprechungsdaten und versuchen Sie es erneut",
+      "invalid_attendee_data": "Einige Teilnehmerinformationen sind ungültig",
+      "invalid_attendee_data_action": "Überprüfen Sie Teilnehmernamen und E-Mail-Adressen",
+      "invalid_block_data": "Einige Besprechungsinhaltsblöcke sind ungültig",
+      "invalid_block_data_action": "Überprüfen Sie den Besprechungsinhalt und versuchen Sie es erneut",
+      "orphaned_attendees": "Einige Teilnehmerverweise sind defekt",
+      "orphaned_attendees_action": "Der Import wird fortgesetzt, aber einige Teilnehmer könnten fehlen",
+      "orphaned_blocks": "Einige Inhaltsblöcke sind nicht ordnungsgemäß organisiert",
+      "orphaned_blocks_action": "Blöcke werden in den Standardbereich verschoben",
+      "security_validation_failed": "Die Datei hat die Sicherheitsprüfungen nicht bestanden",
+      "security_validation_failed_action": "Stellen Sie sicher, dass die Datei aus einer vertrauenswürdigen Quelle stammt"
+    },
+    "export": {
+      "format_error": "Das ausgewählte Exportformat ist nicht verfügbar",
+      "format_error_action": "Wählen Sie ein anderes Exportformat"
+    },
+    "general": {
+      "memory_error": "Der Vorgang erfordert zu viel Speicher",
+      "memory_error_action": "Versuchen Sie es mit einem kleineren Datensatz oder aktualisieren Sie die Seite",
+      "network_error": "Der Vorgang konnte aufgrund von Netzwerkproblemen nicht abgeschlossen werden",
+      "network_error_action": "Überprüfen Sie Ihre Internetverbindung und versuchen Sie es erneut",
+      "unknown": "Etwas ist schiefgelaufen",
+      "unknown_action": "Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, falls das Problem weiterhin besteht"
+    }
+  },
+  "success": {
+    "import": {
+      "partial_success": "Import mit Warnungen abgeschlossen",
+      "partial_success_action": "Überprüfen Sie die importierten Daten und beheben Sie eventuelle Probleme",
+      "complete": "Ihre Daten wurden erfolgreich importiert",
+      "complete_action": "Sie können nun mit den importierten Besprechungen arbeiten"
+    },
+    "export": {
+      "complete": "Ihre Daten wurden erfolgreich exportiert",
+      "complete_action": "Die Datei wurde auf Ihr Gerät heruntergeladen"
+    }
+  },
+  "warnings": {
+    "validation": {
+      "general": "Einige Daten sind möglicherweise nicht korrekt formatiert",
+      "general_action": "Überprüfen Sie die Warnungen und fahren Sie fort, wenn akzeptabel"
+    }
+  },
+  "import": {
+    "summary": {
+      "successful_one": "{{count}} Element erfolgreich importiert",
+      "successful_other": "{{count}} Elemente erfolgreich importiert",
+      "failed_one": "{{count}} Element konnte nicht importiert werden",
+      "failed_other": "{{count}} Elemente konnten nicht importiert werden",
+      "warnings_one": "{{count}} Element mit Warnungen importiert",
+      "warnings_other": "{{count}} Elemente mit Warnungen importiert",
+      "recovered_one": "{{recovered}} von {{total}} Element wiederhergestellt",
+      "recovered_other": "{{recovered}} von {{total}} Elementen wiederhergestellt",
+      "no_recovery": "Keine gültigen Daten konnten wiederhergestellt werden",
+      "failed_no_data": "Import fehlgeschlagen - keine gültigen Daten gefunden"
+    },
+    "progress": {
+      "starting": "Import wird gestartet...",
+      "validating": "Datei wird validiert...",
+      "processing": "Daten werden verarbeitet...",
+      "finalizing": "Import wird abgeschlossen...",
+      "complete": "Import abgeschlossen!",
+      "completed_successfully": "Import erfolgreich abgeschlossen",
+      "partial_completed": "Teilimport abgeschlossen",
+      "failed": "Import fehlgeschlagen",
+      "reading_file": "Dateiinhalt wird gelesen...",
+      "validating_data": "Datenstruktur wird validiert...",
+      "attempting_recovery": "Teilwiederherstellung wird versucht...",
+      "finalizing_recovery": "Wiederherstellung wird abgeschlossen...",
+      "processing_import": "Import wird verarbeitet..."
+    }
+  },
+  "export": {
+    "summary": {
+      "meetings_one": "{{count}} Besprechung",
+      "meetings_other": "{{count}} Besprechungen",
+      "attendees_one": "{{count}} Teilnehmer",
+      "attendees_other": "{{count}} Teilnehmer",
+      "complete": "{{meetings}} und {{attendees}} im {{format}}-Format exportiert"
+    },
+    "progress": {
+      "starting": "Export wird gestartet...",
+      "preparing": "Daten werden vorbereitet...",
+      "generating": "Datei wird generiert...",
+      "complete": "Export abgeschlossen!"
+    }
+  }
+}
