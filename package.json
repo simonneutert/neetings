@@ -24,19 +24,19 @@
     "@dnd-kit/utilities": "^3.2.2",
     "docx": "^9.5.0",
     "preact": "^10.28.2",
-    "zod": "^4.3.5"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.2",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/preact": "^3.2.4",
     "@testing-library/user-event": "^14.6.1",
-    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/eslint-plugin": "^8.53.1",
     "@typescript-eslint/parser": "^8.36.0",
-    "@vitest/ui": "^4.0.17",
+    "@vitest/ui": "^4.0.18",
     "eslint": "^9.39.2",
     "eslint-config-preact": "^2.0.0",
-    "eslint-plugin-compat": "^6.0.2",
+    "eslint-plugin-compat": "^6.1.0",
     "jsdom": "^27.4.0",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
