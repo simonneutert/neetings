@@ -1,5 +1,4 @@
 import { useEffect, useState } from "preact/hooks";
-import { ProductionReadyHint } from "./ProductionReadyHint";
 
 interface LoadingScreenProps {
   onLoadingComplete?: () => void;
@@ -63,7 +62,6 @@ export function LoadingScreen({ onLoadingComplete }: LoadingScreenProps) {
           height: "auto",
         }}
       />
-      <ProductionReadyHint color="white" />
     </div>
   );
 }
