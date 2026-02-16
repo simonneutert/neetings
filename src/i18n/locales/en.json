@@ -424,9 +424,6 @@
     "termsOfService": "Terms of Service",
     "imprint": "Imprint"
   },
-  "featureFlag": {
-    "notProductionReady": "* Not production ready (yet) - please provide feedback via GitHub!"
-  },
   "terms": {
     "title": "Terms of Service",
     "dataProcessing": {

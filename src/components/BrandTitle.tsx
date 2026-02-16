@@ -1,5 +1,4 @@
 import { FunctionalComponent } from "preact";
-import { ProductionReadyHint } from "./ProductionReadyHint";
 
 export const BrandTitle: FunctionalComponent = () => {
   return (
@@ -74,9 +73,6 @@ export const BrandTitle: FunctionalComponent = () => {
           meetings
         </span>
       </h1>
-      <div>
-        <ProductionReadyHint />
-      </div>
     </div>
   );
 };

@@ -424,9 +424,6 @@
     "termsOfService": "Nutzungsbedingungen",
     "imprint": "Impressum"
   },
-  "featureFlag": {
-    "notProductionReady": "* Noch nicht (ganz) produktionsreif - Feedback via Github!"
-  },
   "terms": {
     "title": "Nutzungsbedingungen",
     "dataProcessing": {
