@@ -327,21 +327,47 @@ export function useImportExport(
       progressCallback("preparing", 30, "JSON");
 
       // Create export data using schema helper with series information
+      // Read latest attendees directly from localStorage to ensure we include
+      // any attendees added by other hook instances just before export.
+      let currentAttendees = attendees;
+      try {
+        const stored = localStorage.getItem(
+          APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
+        );
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            currentAttendees = parsed;
+          }
+        }
+      } catch (err) {
+        console.warn(
+          "useImportExport: failed to read attendees from localStorage during export",
+          err,
+        );
+      }
+
       const exportData = createExportV1(
         meetings,
-        attendees,
+        currentAttendees,
         seriesTitle || "Meeting Series",
         seriesAgenda || "",
       );
 
       progressCallback("generating", 70, "JSON");
 
-      // Note: localStorage persistence for meetings is now handled by the update queue
-      // We only need to ensure attendees are saved here since they use immediate saves
-      localStorage.setItem(
-        APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
-        JSON.stringify(attendees),
-      );
+      // Ensure storage reflects what we exported (use the snapshot we read)
+      try {
+        localStorage.setItem(
+          APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
+          JSON.stringify(currentAttendees),
+        );
+      } catch (err) {
+        console.warn(
+          "useImportExport: failed to persist attendees to localStorage during export",
+          err,
+        );
+      }
 
       // Create and download comprehensive backup file with sanitized filename
       const jsonString = JSON.stringify(exportData, null, 2);

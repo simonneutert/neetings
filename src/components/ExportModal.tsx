@@ -5,7 +5,9 @@ import { BaseExporter } from "../utils/export/BaseExporter";
 import { ExportOptions } from "../utils/export/types/ExportTypes";
 import { useTranslation } from "../i18n/index";
 import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
+import { APP_CONFIG } from "../constants/index";
 import { createErrorDetail, ErrorModal } from "./ErrorModal";
+import { Attendee } from "../types/Attendee";
 
 interface ExportProgress {
   stage: "starting" | "preparing" | "generating" | "complete";
@@ -102,7 +104,26 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
       updateProgress("preparing", 30, format.toUpperCase());
 
       // Get attendee data for the meeting
-      const attendees = getAttendeesByIds(meeting.attendeeIds);
+      // Read attendees from localStorage to ensure we include any recently-added
+      // attendees created by other components/hooks that may not have refreshed
+      // this hook's local state yet.
+      let attendees = [] as Attendee[];
+      try {
+        const stored = localStorage.getItem(APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES);
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            attendees = parsed.filter((a: Attendee) => meeting.attendeeIds.includes(a.id));
+          } else {
+            attendees = getAttendeesByIds(meeting.attendeeIds);
+          }
+        } else {
+          attendees = getAttendeesByIds(meeting.attendeeIds);
+        }
+      } catch (err) {
+        console.warn("ExportModal: failed to read attendees from storage during export:", err);
+        attendees = getAttendeesByIds(meeting.attendeeIds);
+      }
 
       const options: ExportOptions = {
         format,
