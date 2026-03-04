@@ -159,7 +159,10 @@ export const AttendeeAutocomplete: FunctionalComponent<
                   ? "bg-primary text-white"
                   : "hover-bg-light"
               }`}
-              onClick={() => handleSelection(index)}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                handleSelection(index);
+              }}
               style={{ cursor: "pointer" }}
             >
               {/* Avatar */}
@@ -208,7 +211,10 @@ export const AttendeeAutocomplete: FunctionalComponent<
                   ? "bg-success text-white"
                   : "hover-bg-light"
               }`}
-              onClick={() => handleSelection(suggestions.length)}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                handleSelection(suggestions.length);
+              }}
               style={{ cursor: "pointer" }}
             >
               <div
