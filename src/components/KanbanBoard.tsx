@@ -2,6 +2,8 @@ import { FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 import {
   closestCenter,
+  pointerWithin,
+  CollisionDetection,
   DndContext,
   DragOverlay,
   PointerSensor,
@@ -9,6 +11,20 @@ import {
   useSensor,
   useSensors,
 } from "@dnd-kit/core";
+
+/**
+ * Custom collision detection: prefer pointerWithin (exact cursor-in-rect) so
+ * that empty columns are correctly identified as drop targets when the pointer
+ * is inside them. Falls back to closestCenter for smoother reordering between
+ * blocks when the pointer is not inside any droppable container.
+ */
+const customCollisionDetection: CollisionDetection = (args) => {
+  const pointerCollisions = pointerWithin(args);
+  if (pointerCollisions.length > 0) {
+    return pointerCollisions;
+  }
+  return closestCenter(args);
+};
 import { Block } from "../types/Block";
 import { Meeting } from "../types/Meeting";
 import { TopicGroup } from "../types/TopicGroup";
@@ -209,7 +225,7 @@ export const KanbanBoard: FunctionalComponent<KanbanBoardProps> = ({
       {/* Kanban Board with Drag & Drop */}
       <DndContext
         sensors={sensors}
-        collisionDetection={closestCenter}
+        collisionDetection={customCollisionDetection}
         onDragStart={dragDropOperations.handleDragStart}
         onDragOver={dragDropOperations.handleDragOver}
         onDragEnd={dragDropOperations.handleDragEnd}

@@ -119,54 +119,52 @@ const EnhancedTopicColumnComponent: FunctionalComponent<
 
       {/* Enhanced Sortable Blocks */}
       <div style={{ marginBottom: "1rem" }}>
-        {sortedBlocks.length === 0
-          ? (
-            <div
-              style={{
-                padding: "2rem 1rem",
-                textAlign: "center",
-                color: "#6c757d",
-                fontStyle: "italic",
-                border: "2px dashed #dee2e6",
-                borderRadius: "5px",
-              }}
-            >
-              {isDefaultColumn
-                ? t("topics.emptyDefaultColumn")
-                : t("topics.emptyTopicColumn")}
-            </div>
-          )
-          : (
-            <SortableContext
-              items={sortedBlocks.map((block) =>
-                `block-${block.id}-${topicId}`
-              )}
-              strategy={verticalListSortingStrategy}
-            >
-              {sortedBlocks.map((block, index) => (
-                <EnhancedSortableBlock
-                  key={`block-${block.id}-${topicId}`}
-                  block={block}
-                  index={index}
-                  topicId={topicId}
-                  showDropIndicators={false}
-                  dragOverIndex={null}
-                  dragOverPosition={null}
-                  onChange={(updatedBlock) =>
-                    onBlockChange(index, updatedBlock)}
-                  onMoveUp={() => onMoveBlock(index, "up")}
-                  onMoveDown={() => onMoveBlock(index, "down")}
-                  onDelete={() => onDeleteBlock(index)}
-                  canMoveUp={index > 0}
-                  canMoveDown={index < sortedBlocks.length - 1}
-                  shouldFocus={block.id === newlyCreatedBlockId}
-                  onRequestTypeChange={onRequestTypeChange
-                    ? (b) => onRequestTypeChange(b, index, topicId)
-                    : undefined}
-                />
-              ))}
-            </SortableContext>
+        <SortableContext
+          items={sortedBlocks.map((block) =>
+            `block-${block.id}-${topicId}`
           )}
+          strategy={verticalListSortingStrategy}
+        >
+          {sortedBlocks.length === 0
+            ? (
+              <div
+                style={{
+                  padding: "2rem 1rem",
+                  textAlign: "center",
+                  color: "#6c757d",
+                  fontStyle: "italic",
+                  border: "2px dashed #dee2e6",
+                  borderRadius: "5px",
+                }}
+              >
+                {isDefaultColumn
+                  ? t("topics.emptyDefaultColumn")
+                  : t("topics.emptyTopicColumn")}
+              </div>
+            )
+            : sortedBlocks.map((block, index) => (
+              <EnhancedSortableBlock
+                key={`block-${block.id}-${topicId}`}
+                block={block}
+                index={index}
+                topicId={topicId}
+                showDropIndicators={false}
+                dragOverIndex={null}
+                dragOverPosition={null}
+                onChange={(updatedBlock) =>
+                  onBlockChange(index, updatedBlock)}
+                onMoveUp={() => onMoveBlock(index, "up")}
+                onMoveDown={() => onMoveBlock(index, "down")}
+                onDelete={() => onDeleteBlock(index)}
+                canMoveUp={index > 0}
+                canMoveDown={index < sortedBlocks.length - 1}
+                shouldFocus={block.id === newlyCreatedBlockId}
+                onRequestTypeChange={onRequestTypeChange
+                  ? (b) => onRequestTypeChange(b, index, topicId)
+                  : undefined}
+              />
+            ))}
+        </SortableContext>
       </div>
 
       {/* Drop zone for end-of-column drops */}
