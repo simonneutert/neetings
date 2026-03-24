@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "preact/hooks";
 import { generateUUID } from "../utils/uuid";
+import { generateBatchSortKeys } from "../utils/sortKeys";
 import {
   createEmptyMeeting,
   Meeting,
@@ -100,17 +101,24 @@ export function useMeetingState() {
             createdAt: tg.createdAt || new Date().toISOString(),
             updatedAt: tg.updatedAt || new Date().toISOString(),
           })),
-          blocks: (meeting.blocks || []).filter((block) => {
-            // For now, just validate that blocks have required fields
-            // In the future, all blocks will be created with proper structure
-            return block.id && block.type && block.created_at;
-          }).map((block) => ({
-            ...block,
-            // Ensure consistent topicGroupId normalization
-            topicGroupId: normalizeTopicGroupId(block.topicGroupId),
-            // Ensure sortKey exists (temporary fallback for existing data)
-            sortKey: block.sortKey || `fallback_${Date.now()}_${Math.random()}`,
-          })) as any, // Temporary cast for migration
+          blocks: (() => {
+            const filtered = (meeting.blocks || []).filter((block) => {
+              // For now, just validate that blocks have required fields
+              // In the future, all blocks will be created with proper structure
+              return block.id && block.type && block.created_at;
+            });
+            // Pre-compute valid fallback keys for any blocks missing sortKey
+            const needsKey = filtered.filter((b) => !b.sortKey).length;
+            const batchKeys = needsKey > 0 ? generateBatchSortKeys(needsKey) : [];
+            let keyIdx = 0;
+            return filtered.map((block) => ({
+              ...block,
+              // Ensure consistent topicGroupId normalization
+              topicGroupId: normalizeTopicGroupId(block.topicGroupId),
+              // Ensure sortKey exists - use deterministic, valid alpha-only keys
+              sortKey: block.sortKey || batchKeys[keyIdx++],
+            })) as any; // Temporary cast for migration
+          })(),
         }));
 
         // Restore last view

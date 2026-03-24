@@ -127,15 +127,9 @@ export function calculateInterColumnSortKey(
       : generateSortKey();
   }
 
-  // Special case: if dropping on the last block, treat it as appending to end
-  // This handles the common case where users drag to the "end" but hit the last block
-  if (targetIndex === targetTopicBlocks.length - 1) {
-    return targetTopicBlocks.length > 0
-      ? generateSortKey(targetTopicBlocks[targetTopicBlocks.length - 1].sortKey)
-      : generateSortKey();
-  }
-
-  // Insert at precise position - before the target block
+  // Insert before the target block, consistently across all positions (including last).
+  // Removing the previous last-block special case that appended instead of inserting,
+  // which made it impossible to place a block before the last element of a column.
   const beforeBlock = targetIndex > 0
     ? targetTopicBlocks[targetIndex - 1]
     : null;

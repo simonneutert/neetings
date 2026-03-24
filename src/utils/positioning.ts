@@ -1,5 +1,5 @@
 import { Block, createBlock, normalizeTopicGroupId } from "../types/Block";
-import { generateSortKey, sortBySortKey } from "./sortKeys";
+import { generateBatchSortKeys, generateSortKey, sortBySortKey } from "./sortKeys";
 
 /**
  * Gets blocks that belong to a specific topic group
@@ -113,9 +113,25 @@ export function groupAndSortBlocks(
     grouped.get(topicId)!.push(block);
   });
 
-  // Sort each group
+  // Sort each group and repair any duplicate sortKeys that could cause
+  // generateKeyBetween to throw when they are used as before/after anchors.
   grouped.forEach((topicBlocks, topicId) => {
-    grouped.set(topicId, sortBySortKey(topicBlocks));
+    const sorted = sortBySortKey(topicBlocks);
+    const hasDuplicates = sorted.some(
+      (b, i) => i > 0 && b.sortKey === sorted[i - 1].sortKey,
+    );
+    if (hasDuplicates) {
+      // Reassign evenly-spaced keys so the display and drag calculations are
+      // stable. The repaired keys live only in this Map; the authoritative
+      // meeting.blocks will be healed the next time each block is moved.
+      const freshKeys = generateBatchSortKeys(sorted.length);
+      grouped.set(
+        topicId,
+        sorted.map((b, i) => ({ ...b, sortKey: freshKeys[i] })),
+      );
+    } else {
+      grouped.set(topicId, sorted);
+    }
   });
 
   return grouped;
