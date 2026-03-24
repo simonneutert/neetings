@@ -101,17 +101,22 @@ export function useDragDrop({
         if (
           activeIndex !== -1 && overIndex !== -1 && activeIndex !== overIndex
         ) {
-          // Calculate new sort key for intra-column reordering
-          const newSortKey = calculateIntraColumnSortKey(
-            groupedBlocks,
-            normalizedFromTopicId,
-            activeIndex,
-            overIndex,
-            globalBlockId,
-          );
+          try {
+            // Calculate new sort key for intra-column reordering
+            const newSortKey = calculateIntraColumnSortKey(
+              groupedBlocks,
+              normalizedFromTopicId,
+              activeIndex,
+              overIndex,
+              globalBlockId,
+            );
 
-          // Update block directly by ID
-          updateBlockById(globalBlockId, { sortKey: newSortKey });
+            // Update block directly by ID
+            updateBlockById(globalBlockId, { sortKey: newSortKey });
+          } catch {
+            // Sort key calculation failed (e.g. due to corrupt/duplicate keys).
+            // Skip this move — the block stays where it is.
+          }
         }
         return;
       }
@@ -122,15 +127,27 @@ export function useDragDrop({
         b.id === overGlobalBlockId
       );
 
-      const newSortKey = calculateInterColumnSortKey(
-        targetTopicBlocks,
-        overIndex,
-      );
+      try {
+        const newSortKey = calculateInterColumnSortKey(
+          targetTopicBlocks,
+          overIndex,
+        );
 
-      updateBlockById(globalBlockId, {
-        topicGroupId: normalizedOverTopicId,
-        sortKey: newSortKey,
-      });
+        updateBlockById(globalBlockId, {
+          topicGroupId: normalizedOverTopicId,
+          sortKey: newSortKey,
+        });
+      } catch {
+        // Fall back to appending the block to the end of the target column.
+        const lastBlock = targetTopicBlocks[targetTopicBlocks.length - 1];
+        const fallbackKey = lastBlock
+          ? generateSortKey(lastBlock.sortKey, undefined)
+          : generateSortKey();
+        updateBlockById(globalBlockId, {
+          topicGroupId: normalizedOverTopicId,
+          sortKey: fallbackKey,
+        });
+      }
     } else {
       // Dropped over a column (not a specific block) - handle inter-column moves
       const overTopicId = over.id === "default" ? null : over.id as string;

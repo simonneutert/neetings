@@ -244,3 +244,114 @@ describe("useDragDrop – dropping into empty column", () => {
     expect(updates.sortKey > existingBlock.sortKey).toBe(true);
   });
 });
+
+describe("useDragDrop – inter-column drop on last block inserts before it", () => {
+  it("dropping on the last block of a target column inserts before it, not after", () => {
+    const movingBlockId = "block-mover";
+    const fromTopicId = "topic-source";
+    const targetTopicId = "topic-dest";
+
+    const firstBlock = makeBlock({
+      id: "block-first",
+      topicGroupId: targetTopicId,
+      sortKey: "e",
+    });
+    const lastBlock = makeBlock({
+      id: "block-last",
+      topicGroupId: targetTopicId,
+      sortKey: "p",
+    });
+    const movingBlock = makeBlock({
+      id: movingBlockId,
+      topicGroupId: fromTopicId,
+      sortKey: "m",
+    });
+
+    const groupedBlocks = new Map<string | null, Block[]>([
+      [fromTopicId, [movingBlock]],
+      [targetTopicId, [firstBlock, lastBlock]],
+    ]);
+
+    const updateBlockById = vi.fn();
+    const { result } = renderHook(() =>
+      useDragDrop({ groupedBlocks, updateBlockById })
+    );
+
+    // Drop directly onto the LAST block of the target column
+    const event = makeDragEndEvent(
+      `block-${movingBlockId}-${fromTopicId}`,
+      {
+        type: "block",
+        blockIndex: 0,
+        fromTopicId,
+        block: movingBlock,
+        globalBlockId: movingBlockId,
+      },
+      `block-${lastBlock.id}-${targetTopicId}`,
+      {
+        type: "block",
+        fromTopicId: targetTopicId,
+        globalBlockId: lastBlock.id,
+      },
+    );
+
+    act(() => {
+      result.current.handleDragEnd(event);
+    });
+
+    expect(updateBlockById).toHaveBeenCalledOnce();
+    const [, updates] = updateBlockById.mock.calls[0];
+    // Inserted before "p" (lastBlock.sortKey), so must be between "e" and "p"
+    expect(updates.sortKey > firstBlock.sortKey).toBe(true);
+    expect(updates.sortKey < lastBlock.sortKey).toBe(true);
+  });
+
+  it("dropping on a middle block of a target column inserts before it", () => {
+    const movingBlockId = "block-mover2";
+    const fromTopicId = "topic-source2";
+    const targetTopicId = "topic-dest2";
+
+    const blockA = makeBlock({ id: "ba", topicGroupId: targetTopicId, sortKey: "b" });
+    const blockB = makeBlock({ id: "bb", topicGroupId: targetTopicId, sortKey: "m" });
+    const blockC = makeBlock({ id: "bc", topicGroupId: targetTopicId, sortKey: "t" });
+    const movingBlock = makeBlock({ id: movingBlockId, topicGroupId: fromTopicId, sortKey: "z" });
+
+    const groupedBlocks = new Map<string | null, Block[]>([
+      [fromTopicId, [movingBlock]],
+      [targetTopicId, [blockA, blockB, blockC]],
+    ]);
+
+    const updateBlockById = vi.fn();
+    const { result } = renderHook(() =>
+      useDragDrop({ groupedBlocks, updateBlockById })
+    );
+
+    // Drop onto blockB (the middle block)
+    const event = makeDragEndEvent(
+      `block-${movingBlockId}-${fromTopicId}`,
+      {
+        type: "block",
+        blockIndex: 0,
+        fromTopicId,
+        block: movingBlock,
+        globalBlockId: movingBlockId,
+      },
+      `block-${blockB.id}-${targetTopicId}`,
+      {
+        type: "block",
+        fromTopicId: targetTopicId,
+        globalBlockId: blockB.id,
+      },
+    );
+
+    act(() => {
+      result.current.handleDragEnd(event);
+    });
+
+    expect(updateBlockById).toHaveBeenCalledOnce();
+    const [, updates] = updateBlockById.mock.calls[0];
+    // Must land between blockA ("b") and blockB ("m")
+    expect(updates.sortKey > blockA.sortKey).toBe(true);
+    expect(updates.sortKey < blockB.sortKey).toBe(true);
+  });
+});
