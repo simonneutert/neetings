@@ -7,18 +7,6 @@ import { formatImportSummary } from "../utils/export/errors/ErrorMessages";
 import { APP_CONFIG } from "../constants/index";
 import { createExportFilename, createExportV1 } from "../schemas/index";
 
-export interface ImportProgress {
-  stage: "starting" | "validating" | "processing" | "finalizing" | "complete";
-  percentage: number;
-  currentItem?: string;
-}
-
-export interface ExportProgress {
-  stage: "starting" | "preparing" | "generating" | "complete";
-  percentage: number;
-  currentFormat?: string;
-}
-
 export interface PartialImportResult {
   successful: number;
   failed: number;
@@ -26,17 +14,19 @@ export interface PartialImportResult {
   total: number;
   importedMeetings?: any[];
   summary?: string;
+  failedItemDetails?: {
+    meetings: Array<{ title?: string; date?: string; reason?: string }>;
+    attendees: Array<{ name?: string; reason?: string }>;
+  };
 }
 
 export interface ImportExportModalState {
   isImportModalOpen: boolean;
   isExportModalOpen: boolean;
-  modalTitle: string;
   modalError: any;
   modalErrors: any[];
   partialResult: PartialImportResult | null;
-  importProgress: ImportProgress | null;
-  exportProgress: ExportProgress | null;
+  isLoading: boolean;
   pendingImportData: any;
 }
 
@@ -51,7 +41,6 @@ export function useImportExport(
   const { t } = useTranslation();
   const { attendees, refreshAttendees } = useGlobalAttendees();
 
-  // Helper function to update attendees in localStorage
   const setAttendeesInStorage = (attendees: any[]) => {
     localStorage.setItem(
       APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
@@ -60,33 +49,28 @@ export function useImportExport(
     refreshAttendees();
   };
 
-  // Modal state
   const [state, setState] = useState<ImportExportModalState>({
     isImportModalOpen: false,
     isExportModalOpen: false,
-    modalTitle: "",
     modalError: null,
     modalErrors: [],
     partialResult: null,
-    importProgress: null,
-    exportProgress: null,
+    isLoading: false,
     pendingImportData: null,
   });
 
   const baseExporter = new BaseExporter();
 
-  // Helper to update state
   const updateState = (updates: Partial<ImportExportModalState>) => {
     setState((prev) => ({ ...prev, ...updates }));
   };
 
   // Import operations
   const startImport = () => {
-    // Check if meetings exist and show confirmation dialog
     if (meetings.length > 0) {
       const confirmed = confirm(t("importExport.importConfirm.message"));
       if (!confirmed) {
-        return; // User cancelled
+        return;
       }
     }
 
@@ -103,10 +87,8 @@ export function useImportExport(
   };
 
   const performImport = async (file: File) => {
-    // Reset modal state
     updateState({
-      importProgress: { stage: "starting", percentage: 0 },
-      modalTitle: t("importExport.import"),
+      isLoading: true,
       isImportModalOpen: true,
       modalError: null,
       modalErrors: [],
@@ -115,54 +97,18 @@ export function useImportExport(
     });
 
     try {
-      // Progress callback for detailed feedback
-      const progressCallback = (percentage: number, status: string) => {
-        // Map status to stage
-        let stage: ImportProgress["stage"] = "processing";
-        if (status.includes("Validating")) stage = "validating";
-        else if (status.includes("Reading")) stage = "starting";
-        else if (
-          status.includes("Processing") || status.includes("Finalizing")
-        ) stage = "finalizing";
-        else if (status.includes("completed")) stage = "complete";
-
-        updateState({
-          importProgress: { stage, percentage, currentItem: status },
-        });
-      };
-
-      // Use enhanced BaseExporter with recovery
-      const startTime = Date.now();
-      const result = await baseExporter.importWithRecovery(
-        file,
-        undefined,
-        progressCallback,
-        t,
-      );
-
-      // Ensure minimum 1-second delay for better UX
-      const elapsedTime = Date.now() - startTime;
-      const minimumDelay = 1000; // 1 second
-      if (elapsedTime < minimumDelay) {
-        await new Promise((resolve) =>
-          setTimeout(resolve, minimumDelay - elapsedTime)
-        );
-      }
+      const result = await baseExporter.importWithRecovery(file, t);
 
       if (result.success) {
-        // Handle successful import
         await handleSuccessfulImport(result);
       } else if (result.partialSuccess && result.recoveredData) {
-        // Handle partial success
         handlePartialImport(result);
       } else {
-        // Handle complete failure
         handleFailedImport(result);
       }
     } catch (err) {
       console.error("Import failed:", err);
 
-      // Create error detail for unexpected errors
       const errorDetail = createErrorDetail(
         "UNKNOWN_ERROR",
         err instanceof Error ? err.message : "Unknown error occurred",
@@ -170,7 +116,7 @@ export function useImportExport(
       );
       updateState({
         modalError: errorDetail,
-        importProgress: null,
+        isLoading: false,
       });
     }
   };
@@ -182,13 +128,9 @@ export function useImportExport(
     const importedSeriesTitle = importedData?.title;
     const importedSeriesAgenda = importedData?.agenda;
 
-    // Always import attendees (even if empty array to clear existing ones)
     setAttendeesInStorage(importedAttendees);
-
-    // Apply meetings to app state
     onImportMeetings(importedMeetings);
 
-    // Restore series data if available
     if (onUpdateSeries && (importedSeriesTitle || importedSeriesAgenda)) {
       const seriesUpdates: { title?: string; agenda?: string } = {};
       if (importedSeriesTitle) seriesUpdates.title = importedSeriesTitle;
@@ -196,19 +138,20 @@ export function useImportExport(
       onUpdateSeries(seriesUpdates);
     }
 
-    // Show success
     updateState({
-      importProgress: { stage: "complete", percentage: 100 },
+      isLoading: false,
     });
     setTimeout(() => {
       updateState({
         isImportModalOpen: false,
-        importProgress: null,
       });
     }, 1500);
   };
 
   const handlePartialImport = (result: any) => {
+    const invalidMeetings = result.recoveredData?.invalidMeetings || [];
+    const invalidAttendees = result.recoveredData?.invalidAttendees || [];
+
     updateState({
       partialResult: {
         successful: result.recoveredData.recoveredCount || 0,
@@ -216,6 +159,29 @@ export function useImportExport(
         warnings: result.warnings?.length || 0,
         total: result.totalItems || 0,
         importedMeetings: result.recoveredData.validMeetings || [],
+        failedItemDetails: {
+          meetings: invalidMeetings.map((m: any) => ({
+            title: m?.title || t("importExport.partialImport.unknownMeeting"),
+            date: m?.date,
+            reason: !m?.id
+              ? t("importExport.partialImport.missingId")
+              : !m?.title
+              ? t("importExport.partialImport.missingTitle")
+              : !m?.date
+              ? t("importExport.partialImport.missingDate")
+              : !Array.isArray(m?.blocks)
+              ? t("importExport.partialImport.missingBlocks")
+              : t("importExport.partialImport.invalidData"),
+          })),
+          attendees: invalidAttendees.map((a: any) => ({
+            name: a?.name || t("importExport.partialImport.unknownAttendee"),
+            reason: !a?.id
+              ? t("importExport.partialImport.missingId")
+              : !a?.name || !a.name.trim()
+              ? t("importExport.partialImport.missingName")
+              : t("importExport.partialImport.invalidData"),
+          })),
+        },
         summary: result.summary || formatImportSummary(
           result.totalItems || 0,
           result.recoveredData.recoveredCount || 0,
@@ -236,7 +202,7 @@ export function useImportExport(
           { field: error.field },
         )
       ),
-      importProgress: null,
+      isLoading: false,
     });
   };
 
@@ -247,7 +213,7 @@ export function useImportExport(
           field: error.field,
         })
       ),
-      importProgress: null,
+      isLoading: false,
     });
   };
 
@@ -255,29 +221,24 @@ export function useImportExport(
     if (state.pendingImportData) {
       const { meetings, attendees } = state.pendingImportData;
 
-      // Always import attendees (even if empty array to clear existing ones)
       if (attendees) {
         setAttendeesInStorage(attendees);
       }
 
-      // Apply meetings to app state
       onImportMeetings(meetings || []);
-
-      // Close modal and reset state
       closeImportModal();
     }
   };
 
   const retryImport = () => {
     closeImportModal();
-    // Trigger import again
     setTimeout(() => startImport(), 100);
   };
 
   const closeImportModal = () => {
     updateState({
       isImportModalOpen: false,
-      importProgress: null,
+      isLoading: false,
       modalError: null,
       modalErrors: [],
       partialResult: null,
@@ -298,37 +259,17 @@ export function useImportExport(
   };
 
   const performExport = async () => {
-    // Reset modal state
     updateState({
-      exportProgress: { stage: "starting", percentage: 0 },
-      modalTitle: t("importExport.export"),
+      isLoading: true,
       modalError: null,
     });
 
     try {
-      // Progress callback for detailed feedback
-      const progressCallback = (
-        stage: ExportProgress["stage"],
-        percentage: number,
-        currentFormat?: string,
-      ) => {
-        updateState({
-          exportProgress: { stage, percentage, currentFormat },
-        });
-      };
-
-      progressCallback("starting", 10);
-
-      // Flush any pending updates to ensure we export the latest data
       if (onFlushPendingUpdates) {
         await onFlushPendingUpdates();
       }
 
-      progressCallback("preparing", 30, "JSON");
-
-      // Create export data using schema helper with series information
-      // Read latest attendees directly from localStorage to ensure we include
-      // any attendees added by other hook instances just before export.
+      // Read latest attendees from localStorage
       let currentAttendees = attendees;
       try {
         const stored = localStorage.getItem(
@@ -354,9 +295,7 @@ export function useImportExport(
         seriesAgenda || "",
       );
 
-      progressCallback("generating", 70, "JSON");
-
-      // Ensure storage reflects what we exported (use the snapshot we read)
+      // Ensure storage reflects what we exported
       try {
         localStorage.setItem(
           APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
@@ -369,7 +308,6 @@ export function useImportExport(
         );
       }
 
-      // Create and download comprehensive backup file with sanitized filename
       const jsonString = JSON.stringify(exportData, null, 2);
       const blob = new Blob([jsonString], {
         type: "application/json",
@@ -381,15 +319,14 @@ export function useImportExport(
       document.body.appendChild(a);
       a.click();
 
-      progressCallback("complete", 100);
-
       // Cleanup
       setTimeout(() => {
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
       }, 0);
 
-      // Show success modal briefly
+      updateState({ isLoading: false });
+
       setTimeout(() => {
         closeExportModal();
       }, 1500);
@@ -403,7 +340,7 @@ export function useImportExport(
       );
       updateState({
         modalError: errorDetail,
-        exportProgress: null,
+        isLoading: false,
       });
     }
   };
@@ -411,22 +348,17 @@ export function useImportExport(
   const closeExportModal = () => {
     updateState({
       isExportModalOpen: false,
-      exportProgress: null,
+      isLoading: false,
       modalError: null,
     });
   };
 
   return {
-    // State
     state,
-
-    // Import operations
     startImport,
     acceptPartialImport,
     retryImport,
     closeImportModal,
-
-    // Export operations
     startExport,
     performExport,
     closeExportModal,

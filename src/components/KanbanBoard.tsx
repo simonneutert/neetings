@@ -2,11 +2,11 @@ import { FunctionalComponent } from "preact";
 import { useMemo } from "preact/hooks";
 import {
   closestCenter,
-  pointerWithin,
   CollisionDetection,
   DndContext,
   DragOverlay,
   PointerSensor,
+  pointerWithin,
   TouchSensor,
   useSensor,
   useSensors,

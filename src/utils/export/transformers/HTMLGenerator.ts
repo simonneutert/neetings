@@ -5,6 +5,9 @@ import {
   getLocalizedBlockLabel,
   getLocalizedFieldLabel,
 } from "../../translation";
+import { DateFormatter } from "../shared/DateFormatter";
+import { AttendeeUtils } from "../shared/AttendeeUtils";
+import { BlockFormatter } from "../shared/BlockFormatter";
 
 /**
  * Shared HTML generation utility for rich text exports (RTF, DOCX)
@@ -82,14 +85,14 @@ export class HTMLGenerator {
     padding: 2rem;
     color: #333;
   }
-  
+
   .meeting-title {
     color: #2c3e50;
     border-bottom: 3px solid #3498db;
     padding-bottom: 0.5rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .metadata {
     background-color: #f8f9fa;
     padding: 1rem;
@@ -98,7 +101,7 @@ export class HTMLGenerator {
     font-style: italic;
     color: #6c757d;
   }
-  
+
   .meeting-datetime {
     background-color: #e8f4fd;
     padding: 1rem;
@@ -106,56 +109,56 @@ export class HTMLGenerator {
     margin-bottom: 2rem;
     border-left: 4px solid #007bff;
   }
-  
+
   .datetime-item {
     margin-bottom: 0.5rem;
     color: #495057;
   }
-  
+
   .datetime-item:last-child {
     margin-bottom: 0;
   }
-  
+
   .toc {
     background-color: #f1f3f4;
     padding: 1.5rem;
     border-radius: 6px;
     margin-bottom: 2rem;
   }
-  
+
   .toc h2 {
     margin-top: 0;
     color: #495057;
   }
-  
+
   .toc ul {
     margin: 0;
     padding-left: 1.5rem;
   }
-  
+
   .toc a {
     color: #007bff;
     text-decoration: none;
   }
-  
+
   .topic-section {
     margin-bottom: 3rem;
   }
-  
+
   .topic-title {
     color: #495057;
     border-left: 4px solid #007bff;
     padding-left: 1rem;
     margin-bottom: 1.5rem;
   }
-  
+
   .block {
     margin-bottom: 2rem;
     padding: 1.5rem;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
   }
-  
+
   .block-header {
     font-weight: bold;
     margin-bottom: 0.75rem;
@@ -163,68 +166,68 @@ export class HTMLGenerator {
     border-radius: 4px;
     display: inline-block;
   }
-  
+
   .block-content {
     margin-top: 1rem;
   }
-  
+
   .block-meta {
     font-size: 0.875rem;
     color: #6c757d;
     margin-top: 1rem;
     font-style: italic;
   }
-  
+
   /* Block type specific colors */
   .block-note { background-color: #e3f2fd; }
   .block-note .block-header { background-color: #1976d2; color: white; }
-  
+
   .block-qanda { background-color: #f3e5f5; }
   .block-qanda .block-header { background-color: #7b1fa2; color: white; }
-  
+
   .block-research { background-color: #e8f5e8; }
   .block-research .block-header { background-color: #388e3c; color: white; }
-  
+
   .block-fact { background-color: #fff3e0; }
   .block-fact .block-header { background-color: #f57c00; color: white; }
-  
+
   .block-decision { background-color: #ffebee; }
   .block-decision .block-header { background-color: #d32f2f; color: white; }
-  
+
   .block-issue { background-color: #fce4ec; }
   .block-issue .block-header { background-color: #c2185b; color: white; }
-  
+
   .block-todo { background-color: #f1f8e9; }
   .block-todo .block-header { background-color: #689f38; color: white; }
-  
+
   .block-goal { background-color: #e0f2f1; }
   .block-goal .block-header { background-color: #00796b; color: white; }
-  
+
   .block-followup { background-color: #e1f5fe; }
   .block-followup .block-header { background-color: #0288d1; color: white; }
-  
+
   .block-idea { background-color: #f9fbe7; }
   .block-idea .block-header { background-color: #827717; color: white; }
-  
+
   .block-reference { background-color: #fafafa; }
   .block-reference .block-header { background-color: #424242; color: white; }
-  
+
   .todo-checkbox {
     margin-right: 0.5rem;
   }
-  
+
   .field-label {
     font-weight: 600;
     color: #495057;
   }
-  
+
   .no-blocks {
     color: #6c757d;
     font-style: italic;
     text-align: center;
     padding: 2rem;
   }
-  
+
   .attendees {
     background-color: #f8f9fa;
     padding: 1.5rem;
@@ -232,18 +235,18 @@ export class HTMLGenerator {
     margin-bottom: 2rem;
     border-left: 4px solid #007bff;
   }
-  
+
   .attendees h2 {
     margin-top: 0;
     margin-bottom: 1rem;
     color: #495057;
   }
-  
+
   .attendees ul {
     margin: 0;
     padding-left: 1.5rem;
   }
-  
+
   .attendees li {
     margin-bottom: 0.5rem;
     color: #495057;
@@ -259,11 +262,11 @@ export class HTMLGenerator {
     t?: (key: string) => string,
     language?: string,
   ): string {
-    const createdDate = this.formatLocalizedDateTime(
+    const createdDate = DateFormatter.formatLocalizedDateTime(
       meeting.created_at,
       language,
     );
-    const modifiedDate = this.formatLocalizedDateTime(
+    const modifiedDate = DateFormatter.formatLocalizedDateTime(
       meeting.updated_at,
       language,
     );
@@ -290,7 +293,10 @@ export class HTMLGenerator {
     t?: (key: string) => string,
     language?: string,
   ): string {
-    const meetingDate = this.formatLocalizedDate(meeting.date, language);
+    const meetingDate = DateFormatter.formatLocalizedDate(
+      meeting.date,
+      language,
+    );
     const startTime = meeting.startTime;
     const endTime = meeting.endTime;
 
@@ -313,23 +319,20 @@ export class HTMLGenerator {
     t?: (key: string) => string,
     _language?: string,
   ): string | null {
-    if (
-      !attendees || attendees.length === 0 || !meeting.attendeeIds ||
-      meeting.attendeeIds.length === 0
-    ) {
+    if (!attendees) {
       return null;
     }
 
-    // Filter attendees to only include those assigned to this meeting
-    const meetingAttendees = attendees.filter((a) =>
-      meeting.attendeeIds.includes(a.id)
+    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(
+      attendees,
+      meeting,
     );
 
     if (meetingAttendees.length === 0) {
       return null;
     }
 
-    const attendeesTitle = this.getAttendeesLabelWithCount(
+    const attendeesTitle = AttendeeUtils.getAttendeesLabelWithCount(
       meetingAttendees.length,
       t,
     );
@@ -368,7 +371,7 @@ export class HTMLGenerator {
     );
 
     const tocItems = sortedTopicGroups.map((group) => {
-      const anchor = this.generateAnchor(group.name);
+      const anchor = BlockFormatter.generateAnchor(group.name);
       return `<li><a href="#${anchor}">${this.escapeHtml(group.name)}</a></li>`;
     });
 
@@ -414,7 +417,7 @@ export class HTMLGenerator {
 
     // Generate sections for each topic group
     for (const topicGroup of sortedTopicGroups) {
-      const anchor = this.generateAnchor(topicGroup.name);
+      const anchor = BlockFormatter.generateAnchor(topicGroup.name);
       sections.push(`<div class="topic-section" id="${anchor}">`);
       sections.push(
         `<h2 class="topic-title">${this.escapeHtml(topicGroup.name)}</h2>`,
@@ -605,60 +608,5 @@ export class HTMLGenerator {
         .replace(/'/g, "&#39;")
         .replace(/\n/g, "<br>");
     }
-  }
-
-  /**
-   * Generates URL-safe anchor from text
-   */
-  private generateAnchor(text: string): string {
-    return text
-      .toLowerCase()
-      .replace(/[^a-z0-9\s-]/g, "")
-      .replace(/\s+/g, "-")
-      .replace(/-+/g, "-")
-      .replace(/^-|-$/g, "");
-  }
-
-  /**
-   * Formats date time with localization
-   */
-  private formatLocalizedDateTime(date: string, language?: string): string {
-    const d = new Date(date);
-    const locale = language === "de" ? "de-DE" : "en-US";
-    return d.toLocaleString(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-  }
-
-  /**
-   * Gets attendees label with proper count interpolation
-   */
-  private getAttendeesLabelWithCount(
-    count: number,
-    t?: (key: string) => string,
-  ): string {
-    if (t) {
-      const template = t("importExport.content.attendeesWithCount");
-      return template.replace("{{count}}", count.toString());
-    }
-    return `Attendees (${count})`;
-  }
-
-  /**
-   * Formats date with localization
-   */
-  private formatLocalizedDate(date: string, language?: string): string {
-    const d = new Date(date);
-    const locale = language === "de" ? "de-DE" : "en-US";
-    return d.toLocaleDateString(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
   }
 }
