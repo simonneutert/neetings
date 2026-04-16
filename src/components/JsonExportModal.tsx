@@ -65,7 +65,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
       <div
         className="modal-content"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--bs-body-bg)",
           borderRadius: "12px",
           padding: "1.5rem",
           maxWidth: "500px",
@@ -74,7 +74,8 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
           overflowY: "auto",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
           animation: "slideUp 0.3s ease-out",
-          border: "1px solid #e9ecef",
+          border: "1px solid var(--bs-border-color)",
+          color: "var(--bs-body-color)",
         }}
       >
         {/* Modal Header */}
@@ -84,7 +85,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "1.5rem",
-            borderBottom: "1px solid #dee2e6",
+            borderBottom: "1px solid var(--bs-border-color)",
             paddingBottom: "1rem",
           }}
         >
@@ -93,7 +94,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
             <small
               style={{
                 display: "block",
-                color: "#6c757d",
+                color: "var(--bs-secondary-color)",
                 fontSize: "0.8rem",
                 fontWeight: "normal",
               }}
@@ -109,7 +110,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
               fontSize: "1.5rem",
               cursor: "pointer",
               padding: "0.25rem",
-              color: "#6c757d",
+              color: "var(--bs-secondary-color)",
             }}
             title={t("common.close")}
           >
@@ -119,18 +120,20 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
 
         {/* Export Info */}
         <div style={{ marginBottom: "1.5rem" }}>
-          <p style={{ marginBottom: "1rem", color: "#495057" }}>
+          <p style={{ marginBottom: "1rem", color: "var(--bs-body-color)" }}>
             {t("importExport.exportConfirm.message", { format: "JSON" })}
           </p>
           <div
             style={{
-              backgroundColor: "#f8f9fa",
+              backgroundColor: "var(--bs-tertiary-bg)",
               padding: "1rem",
               borderRadius: "8px",
-              border: "1px solid #dee2e6",
+              border: "1px solid var(--bs-border-color)",
             }}
           >
-            <h6 style={{ marginBottom: "0.5rem", color: "#495057" }}>
+            <h6
+              style={{ marginBottom: "0.5rem", color: "var(--bs-body-color)" }}
+            >
               {t("importExport.exportConfirm.includes")}:
             </h6>
             <ul style={{ marginBottom: 0, paddingLeft: "1.2rem" }}>
@@ -148,7 +151,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
             justifyContent: "flex-end",
             gap: "0.5rem",
             paddingTop: "1rem",
-            borderTop: "1px solid #dee2e6",
+            borderTop: "1px solid var(--bs-border-color)",
           }}
         >
           <button
@@ -156,11 +159,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
             onClick={onClose}
             style={{
               padding: "0.5rem 1rem",
-              backgroundColor: "transparent",
-              borderColor: "#6c757d",
-              color: "#6c757d",
-              border: "1px solid #6c757d",
-              borderRadius: "4px",
+
               cursor: "pointer",
               fontSize: "0.875rem",
             }}
@@ -172,11 +171,6 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
             onClick={onConfirm}
             style={{
               padding: "0.5rem 1rem",
-              backgroundColor: "#007bff",
-              borderColor: "#007bff",
-              color: "white",
-              border: "1px solid transparent",
-              borderRadius: "4px",
               cursor: "pointer",
               fontSize: "0.875rem",
             }}

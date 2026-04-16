@@ -293,7 +293,10 @@ export class HTMLGenerator {
     t?: (key: string) => string,
     language?: string,
   ): string {
-    const meetingDate = DateFormatter.formatLocalizedDate(meeting.date, language);
+    const meetingDate = DateFormatter.formatLocalizedDate(
+      meeting.date,
+      language,
+    );
     const startTime = meeting.startTime;
     const endTime = meeting.endTime;
 
@@ -320,7 +323,10 @@ export class HTMLGenerator {
       return null;
     }
 
-    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(attendees, meeting);
+    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(
+      attendees,
+      meeting,
+    );
 
     if (meetingAttendees.length === 0) {
       return null;
@@ -603,5 +609,4 @@ export class HTMLGenerator {
         .replace(/\n/g, "<br>");
     }
   }
-
 }

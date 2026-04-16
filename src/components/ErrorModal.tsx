@@ -153,7 +153,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
       <div
         className="modal-content"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--bs-body-bg)",
           borderRadius: "12px",
           padding: "1.5rem",
           maxWidth: "700px",
@@ -162,7 +162,8 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
           overflowY: "auto",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
           animation: "slideUp 0.3s ease-out",
-          border: "1px solid #e9ecef",
+          border: "1px solid var(--bs-border-color)",
+          color: "var(--bs-body-color)",
         }}
       >
         {/* Modal Header */}
@@ -172,7 +173,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "1.5rem",
-            borderBottom: "1px solid #dee2e6",
+            borderBottom: "1px solid var(--bs-border-color)",
             paddingBottom: "1rem",
           }}
         >
@@ -187,7 +188,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
               fontSize: "1.5rem",
               cursor: "pointer",
               padding: "0.25rem",
-              color: "#6c757d",
+              color: "var(--bs-secondary-color)",
             }}
             title={t("common.close")}
           >
@@ -205,7 +206,9 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
             >
               <span className="visually-hidden">Loading...</span>
             </div>
-            <p style={{ marginTop: "1rem", color: "#6c757d" }}>
+            <p
+              style={{ marginTop: "1rem", color: "var(--bs-secondary-color)" }}
+            >
               {t("common.loading")}
             </p>
           </div>
@@ -262,12 +265,12 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                 onClick={() => setShowFailedDetails(!showFailedDetails)}
                 style={{
                   background: "none",
-                  border: "1px solid #dee2e6",
+                  border: "1px solid var(--bs-border-color)",
                   borderRadius: "6px",
                   padding: "0.5rem 0.75rem",
                   cursor: "pointer",
                   fontSize: "0.8rem",
-                  color: "#6c757d",
+                  color: "var(--bs-secondary-color)",
                   width: "100%",
                   textAlign: "left",
                   display: "flex",
@@ -295,8 +298,8 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                   style={{
                     marginTop: "0.5rem",
                     padding: "0.75rem",
-                    backgroundColor: "#f8f9fa",
-                    border: "1px solid #dee2e6",
+                    backgroundColor: "var(--bs-tertiary-bg)",
+                    border: "1px solid var(--bs-border-color)",
                     borderRadius: "6px",
                     fontSize: "0.8rem",
                   }}
@@ -316,7 +319,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                           fontSize: "0.8rem",
                           fontWeight: "600",
                           margin: "0 0 0.5rem 0",
-                          color: "#495057",
+                          color: "var(--bs-body-color)",
                         }}
                       >
                         {t("importExport.partialImport.failedMeetings", {
@@ -339,11 +342,14 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                             key={i}
                             style={{
                               marginBottom: "0.25rem",
-                              color: "#6c757d",
+                              color: "var(--bs-secondary-color)",
                             }}
                           >
                             <span
-                              style={{ fontWeight: "500", color: "#495057" }}
+                              style={{
+                                fontWeight: "500",
+                                color: "var(--bs-body-color)",
+                              }}
                             >
                               {m.title}
                               {m.date ? ` (${m.date})` : ""}
@@ -362,7 +368,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                           fontSize: "0.8rem",
                           fontWeight: "600",
                           margin: "0 0 0.5rem 0",
-                          color: "#495057",
+                          color: "var(--bs-body-color)",
                         }}
                       >
                         {t("importExport.partialImport.failedAttendees", {
@@ -385,11 +391,14 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                             key={i}
                             style={{
                               marginBottom: "0.25rem",
-                              color: "#6c757d",
+                              color: "var(--bs-secondary-color)",
                             }}
                           >
                             <span
-                              style={{ fontWeight: "500", color: "#495057" }}
+                              style={{
+                                fontWeight: "500",
+                                color: "var(--bs-body-color)",
+                              }}
                             >
                               {a.name}
                             </span>
@@ -460,7 +469,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
               justifyContent: "flex-end",
               gap: "0.5rem",
               paddingTop: "1rem",
-              borderTop: "1px solid #dee2e6",
+              borderTop: "1px solid var(--bs-border-color)",
               marginTop: "1.5rem",
             }}
           >
@@ -470,11 +479,6 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                 onClick={onPartialAccept}
                 style={{
                   padding: "0.5rem 1rem",
-                  backgroundColor: "#fd7e14",
-                  borderColor: "#fd7e14",
-                  color: "white",
-                  border: "1px solid transparent",
-                  borderRadius: "4px",
                   cursor: "pointer",
                   fontSize: "0.875rem",
                 }}
@@ -489,11 +493,6 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                 onClick={onRetry}
                 style={{
                   padding: "0.5rem 1rem",
-                  backgroundColor: "#007bff",
-                  borderColor: "#007bff",
-                  color: "white",
-                  border: "1px solid transparent",
-                  borderRadius: "4px",
                   cursor: "pointer",
                   fontSize: "0.875rem",
                 }}
@@ -507,11 +506,6 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
               onClick={onClose}
               style={{
                 padding: "0.5rem 1rem",
-                backgroundColor: "transparent",
-                borderColor: "#6c757d",
-                color: "#6c757d",
-                border: "1px solid #6c757d",
-                borderRadius: "4px",
                 cursor: "pointer",
                 fontSize: "0.875rem",
               }}

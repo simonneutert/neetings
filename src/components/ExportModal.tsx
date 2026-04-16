@@ -206,7 +206,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
       <div
         className="modal-content"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--bs-body-bg)",
           borderRadius: "12px",
           padding: "1.5rem",
           maxWidth: "500px",
@@ -215,7 +215,8 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
           overflowY: "auto",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
           animation: "slideUp 0.3s ease-out",
-          border: "1px solid #e9ecef",
+          border: "1px solid var(--bs-border-color)",
+          color: "var(--bs-body-color)",
         }}
       >
         {/* Modal Header */}
@@ -225,7 +226,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "1.5rem",
-            borderBottom: "1px solid #dee2e6",
+            borderBottom: "1px solid var(--bs-border-color)",
             paddingBottom: "1rem",
           }}
         >
@@ -234,7 +235,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             <small
               style={{
                 display: "block",
-                color: "#6c757d",
+                color: "var(--bs-secondary-color)",
                 fontSize: "0.8rem",
                 fontWeight: "normal",
               }}
@@ -274,6 +275,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               {t("importExport.modal.format")}
             </label>
             <select
+              className="form-select"
               value={format}
               onChange={(e) =>
                 setFormat(
@@ -286,12 +288,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
                 )}
               disabled={isExporting}
               style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: "1px solid #ced4da",
-                borderRadius: "4px",
                 fontSize: "0.9rem",
-                backgroundColor: isExporting ? "#f8f9fa" : "white",
               }}
             >
               <option value="markdown">
@@ -302,7 +299,12 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               <option value="html">{t("importExport.modal.formatHTML")}</option>
               <option value="json">{t("importExport.modal.formatJSON")}</option>
             </select>
-            <small style={{ color: "#6c757d", fontSize: "0.75rem" }}>
+            <small
+              style={{
+                color: "var(--bs-secondary-color)",
+                fontSize: "0.75rem",
+              }}
+            >
               {t("importExport.modal.formatDescription")}
             </small>
           </div>
@@ -320,18 +322,15 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               {t("importExport.modal.filename")}
             </label>
             <input
+              className="form-control"
               type="text"
               value={filename}
               onChange={handleFilenameChange}
               disabled={isExporting}
               placeholder={t("importExport.modal.filenamePlaceholder")}
               style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: exportError ? "1px solid #dc3545" : "1px solid #ced4da",
-                borderRadius: "4px",
                 fontSize: "0.9rem",
-                backgroundColor: isExporting ? "#f8f9fa" : "white",
+                borderColor: exportError ? "#dc3545" : undefined,
               }}
             />
             {exportError && (
@@ -349,7 +348,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             justifyContent: "flex-end",
             gap: "0.5rem",
             paddingTop: "1rem",
-            borderTop: "1px solid #dee2e6",
+            borderTop: "1px solid var(--bs-border-color)",
           }}
         >
           <button

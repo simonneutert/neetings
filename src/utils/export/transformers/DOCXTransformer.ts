@@ -218,7 +218,10 @@ export class DOCXTransformer extends FormatTransformer {
     t?: (key: string) => string,
     language?: string,
   ): Paragraph[] {
-    const meetingDate = DateFormatter.formatLocalizedDate(meeting.date, language);
+    const meetingDate = DateFormatter.formatLocalizedDate(
+      meeting.date,
+      language,
+    );
     const startTime = meeting.startTime;
     const endTime = meeting.endTime;
 
@@ -274,7 +277,10 @@ export class DOCXTransformer extends FormatTransformer {
       return [];
     }
 
-    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(attendees, meeting);
+    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(
+      attendees,
+      meeting,
+    );
 
     if (meetingAttendees.length === 0) {
       return [];
@@ -614,5 +620,4 @@ export class DOCXTransformer extends FormatTransformer {
     const nameWithoutExt = filename.replace(/\.[^/.]+$/, "");
     return `${nameWithoutExt}.docx`;
   }
-
 }
