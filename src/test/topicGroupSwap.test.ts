@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from "vitest";
-import { renderHook, act } from "@testing-library/preact";
+import { beforeEach, describe, expect, it } from "vitest";
+import { act, renderHook } from "@testing-library/preact";
 import { useMeetingState } from "../hooks/useMeetingState";
 import { Meeting } from "../types/Meeting";
 
@@ -33,7 +33,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the current meeting
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     expect(meetingBefore?.topicGroups).toHaveLength(3);
 
     // Sort by order to get current positions
@@ -52,7 +54,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the updated meeting
-    const meetingAfter = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingAfter = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedAfter = [...(meetingAfter?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -87,7 +91,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the current meeting
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedBefore = [...(meetingBefore?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -100,7 +106,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the updated meeting
-    const meetingAfter = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingAfter = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedAfter = [...(meetingAfter?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -131,7 +139,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the current meeting
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedBefore = [...(meetingBefore?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -144,7 +154,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the updated meeting
-    const meetingAfter = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingAfter = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedAfter = [...(meetingAfter?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -174,7 +186,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the current meeting
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedBefore = [...(meetingBefore?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -187,7 +201,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the updated meeting
-    const meetingAfter = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingAfter = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedAfter = [...(meetingAfter?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -214,7 +230,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Get the current meeting
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const groupId = meetingBefore?.topicGroups![0].id;
 
     // Try to swap in both directions (should do nothing)
@@ -254,7 +272,9 @@ describe("Topic Group Swap Functionality", () => {
       result.current.createTopicGroup(meetingId, "Group B", "#00ff00");
     });
 
-    const meetingBefore = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingBefore = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedBefore = [...(meetingBefore?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );
@@ -266,7 +286,9 @@ describe("Topic Group Swap Functionality", () => {
     });
 
     // Verify in-memory state is updated immediately
-    const meetingAfter = result.current.meetings.find((m) => m.id === meetingId);
+    const meetingAfter = result.current.meetings.find((m) =>
+      m.id === meetingId
+    );
     const sortedAfter = [...(meetingAfter?.topicGroups || [])].sort(
       (a, b) => a.order - b.order,
     );

@@ -11,8 +11,8 @@
  * logic, which was always correct; the tests serve as a regression net.
  */
 
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import { renderHook, act } from "@testing-library/preact";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { act, renderHook } from "@testing-library/preact";
 import { useDragDrop } from "../hooks/useDragDrop";
 import { Block } from "../types/Block";
 import { generateSortKey } from "../utils/sortKeys";
@@ -51,7 +51,14 @@ function makeDragEndEvent(
     over: {
       id: overId,
       data: { current: overData },
-      rect: { width: 300, height: 400, left: 0, top: 0, right: 300, bottom: 400 },
+      rect: {
+        width: 300,
+        height: 400,
+        left: 0,
+        top: 0,
+        right: 300,
+        bottom: 400,
+      },
       disabled: false,
     },
     activatorEvent: null,
@@ -311,10 +318,26 @@ describe("useDragDrop – inter-column drop on last block inserts before it", ()
     const fromTopicId = "topic-source2";
     const targetTopicId = "topic-dest2";
 
-    const blockA = makeBlock({ id: "ba", topicGroupId: targetTopicId, sortKey: "b" });
-    const blockB = makeBlock({ id: "bb", topicGroupId: targetTopicId, sortKey: "m" });
-    const blockC = makeBlock({ id: "bc", topicGroupId: targetTopicId, sortKey: "t" });
-    const movingBlock = makeBlock({ id: movingBlockId, topicGroupId: fromTopicId, sortKey: "z" });
+    const blockA = makeBlock({
+      id: "ba",
+      topicGroupId: targetTopicId,
+      sortKey: "b",
+    });
+    const blockB = makeBlock({
+      id: "bb",
+      topicGroupId: targetTopicId,
+      sortKey: "m",
+    });
+    const blockC = makeBlock({
+      id: "bc",
+      topicGroupId: targetTopicId,
+      sortKey: "t",
+    });
+    const movingBlock = makeBlock({
+      id: movingBlockId,
+      topicGroupId: fromTopicId,
+      sortKey: "z",
+    });
 
     const groupedBlocks = new Map<string | null, Block[]>([
       [fromTopicId, [movingBlock]],

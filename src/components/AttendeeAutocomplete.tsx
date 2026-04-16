@@ -148,7 +148,7 @@ export const AttendeeAutocomplete: FunctionalComponent<
       {showSuggestions && (
         <div
           ref={suggestionsRef}
-          className="position-absolute w-100 bg-white border border-top-0 rounded-bottom shadow-sm"
+          className="position-absolute w-100 bg-body border border-top-0 rounded-bottom shadow-sm"
           style={{ zIndex: 1000, maxHeight: "200px", overflowY: "auto" }}
         >
           {suggestions.map((attendee, index) => (

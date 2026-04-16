@@ -1,7 +1,7 @@
 import { FunctionalComponent } from "preact";
 import { useTranslation } from "../i18n/index";
 import { useImportExport } from "../hooks/useImportExport";
-import { ImportModal } from "./ImportModal";
+import { ErrorModal } from "./ErrorModal";
 import { JsonExportModal } from "./JsonExportModal";
 
 interface ImportExportButtonsProps {
@@ -109,13 +109,14 @@ export const ImportExportButtons: FunctionalComponent<
       </div>
 
       {/* Import Modal */}
-      <ImportModal
+      <ErrorModal
         isOpen={state.isImportModalOpen}
         onClose={closeImportModal}
-        importProgress={state.importProgress}
-        modalError={state.modalError}
-        modalErrors={state.modalErrors}
+        title={t("importExport.import")}
+        error={state.modalError}
+        errors={state.modalErrors}
         partialResult={state.partialResult}
+        isLoading={state.isLoading}
         onRetry={retryImport}
         onPartialAccept={acceptPartialImport}
       />
@@ -125,7 +126,7 @@ export const ImportExportButtons: FunctionalComponent<
         isOpen={state.isExportModalOpen}
         onClose={closeExportModal}
         onConfirm={performExport}
-        exportProgress={state.exportProgress}
+        isLoading={state.isLoading}
         modalError={state.modalError}
         seriesTitle={seriesTitle}
       />

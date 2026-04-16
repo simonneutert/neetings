@@ -82,7 +82,7 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
       <div
         className="modal-content"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--bs-body-bg)",
           borderRadius: "12px",
           padding: "1.5rem",
           maxWidth: "900px", // Increased width for three columns
@@ -91,7 +91,8 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
           overflowY: "auto",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
           animation: "slideUp 0.3s ease-out",
-          border: "1px solid #e9ecef",
+          border: "1px solid var(--bs-border-color)",
+          color: "var(--bs-body-color)",
         }}
       >
         {/* Modal Header */}
@@ -101,7 +102,7 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "1.5rem",
-            borderBottom: "1px solid #dee2e6",
+            borderBottom: "1px solid var(--bs-border-color)",
             paddingBottom: "1rem",
           }}
         >
@@ -162,7 +163,7 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
                   border: `2px solid ${backgroundColor}`,
                   borderRadius: "8px",
                   backgroundColor: `${backgroundColor}20`, // Light background
-                  color: "#333",
+                  color: "var(--bs-body-color)",
                   cursor: "pointer",
                   textAlign: "left",
                   transition: "all 0.2s ease",
@@ -191,15 +192,15 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
                 onMouseLeave={(e) => {
                   e.currentTarget.style.backgroundColor =
                     `${backgroundColor}20`;
-                  e.currentTarget.style.color = "#333";
+                  e.currentTarget.style.color = "";
                   const textElement = e.currentTarget.querySelector(
                     ".block-type-text",
                   ) as HTMLElement;
-                  if (textElement) textElement.style.color = "#333";
+                  if (textElement) textElement.style.color = "";
                   const descElement = e.currentTarget.querySelector(
                     ".block-type-description",
                   ) as HTMLElement;
-                  if (descElement) descElement.style.color = "#6c757d";
+                  if (descElement) descElement.style.color = "";
                 }}
               >
                 {/* Keyboard shortcut indicator */}
@@ -230,7 +231,11 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
                   </strong>
                   <p
                     className="block-type-description"
-                    style={{ fontSize: "0.75rem", margin: 0, color: "#6c757d" }}
+                    style={{
+                      fontSize: "0.75rem",
+                      margin: 0,
+                      color: "var(--bs-secondary-color)",
+                    }}
                   >
                     {t(`blocks.modal.descriptions.${type}`)}
                   </p>
@@ -245,13 +250,15 @@ export const BlockTypeModal: FunctionalComponent<BlockTypeModalProps> = ({
           style={{
             marginTop: "1.5rem",
             paddingTop: "1rem",
-            borderTop: "1px solid #dee2e6",
+            borderTop: "1px solid var(--bs-border-color)",
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
           }}
         >
-          <small style={{ color: "#6c757d", fontStyle: "italic" }}>
+          <small
+            style={{ color: "var(--bs-secondary-color)", fontStyle: "italic" }}
+          >
             {t("blocks.modal.tip")}
           </small>
           <button

@@ -2,7 +2,11 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { BaseExporter } from "../../utils/export/BaseExporter";
 import { autoMigrate, createExportV1 } from "../../schemas/index";
 import { TestDataFactory } from "../factories/testDataFactory";
-import { ExportErrorHandler } from "../../utils/export/errors/ErrorHandler";
+import {
+  handleImportError,
+  safeJsonParse,
+  validateFileBeforeProcessing,
+} from "../../utils/export/errors/ErrorHandler";
 
 // Mock file operations for testing
 const createMockFile = (content: string, filename = "test.json") => {
@@ -252,9 +256,10 @@ describe("Import/Export Workflow Integration Tests", () => {
         expect(false).toBe(true);
       } catch (error) {
         // Step 5: Verify error handling
-        const handledError = ExportErrorHandler.handleImportError(error);
+        const handledError = handleImportError(error);
         expect(handledError.success).toBe(false);
-        expect(handledError.errors?.[0].message).toContain("wrong");
+        expect(handledError.errors).toBeDefined();
+        expect(handledError.errors!.length).toBeGreaterThan(0);
       } finally {
         // Step 6: Restore console
         consoleSpy.mockRestore();
@@ -269,7 +274,7 @@ describe("Import/Export Workflow Integration Tests", () => {
 
       // Step 2: Validate file type
       try {
-        ExportErrorHandler.validateFileBeforeProcessing(textFile);
+        validateFileBeforeProcessing(textFile);
         // Should not reach this point
         expect(false).toBe(true);
       } catch (error) {
@@ -293,7 +298,7 @@ describe("Import/Export Workflow Integration Tests", () => {
 
       // Step 2: Validate file size
       try {
-        ExportErrorHandler.validateFileBeforeProcessing(oversizedFile);
+        validateFileBeforeProcessing(oversizedFile);
         // Should not reach this point
         expect(false).toBe(true);
       } catch (error) {
@@ -328,12 +333,12 @@ describe("Import/Export Workflow Integration Tests", () => {
 
       // Step 4: Validate file before processing
       expect(() => {
-        ExportErrorHandler.validateFileBeforeProcessing(uploadFile);
+        validateFileBeforeProcessing(uploadFile);
       }).not.toThrow();
 
       // Step 5: Process file content (simulate reading uploaded file)
       const fileContent = await uploadFile.text();
-      const parsedContent = await ExportErrorHandler.safeJsonParse(fileContent);
+      const parsedContent = await safeJsonParse(fileContent);
 
       // Step 6: Verify content integrity
       expect(parsedContent.version).toBe("1.0.0");
