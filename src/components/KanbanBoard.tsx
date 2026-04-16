@@ -28,7 +28,7 @@ const customCollisionDetection: CollisionDetection = (args) => {
 import { Block } from "../types/Block";
 import { Meeting } from "../types/Meeting";
 import { TopicGroup } from "../types/TopicGroup";
-import { EnhancedTopicColumn } from "./EnhancedTopicColumn";
+import { TopicColumn } from "./TopicColumn";
 import { TopicGroupManager } from "./TopicGroupManager";
 import { UniversalBlock } from "./UniversalBlock";
 import { BlockTypeModal } from "./BlockTypeModal";
@@ -248,7 +248,7 @@ export const KanbanBoard: FunctionalComponent<KanbanBoardProps> = ({
             const blocks = groupedBlocks.get(topicId) || [];
 
             return (
-              <EnhancedTopicColumn
+              <TopicColumn
                 key={topicId || "default"}
                 topicGroup={topicGroup}
                 blocks={blocks}

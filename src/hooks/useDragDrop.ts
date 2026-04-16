@@ -5,10 +5,6 @@
 import { useCallback, useState } from "preact/hooks";
 import { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
 import { Block, normalizeTopicGroupId } from "../types/Block";
-import {
-  calculateInterColumnSortKey,
-  calculateIntraColumnSortKey,
-} from "../utils/kanbanSortKeys";
 import { generateSortKey } from "../utils/sortKeys";
 
 /**
@@ -102,13 +98,24 @@ export function useDragDrop({
           activeIndex !== -1 && overIndex !== -1 && activeIndex !== overIndex
         ) {
           try {
-            // Calculate new sort key for intra-column reordering
-            const newSortKey = calculateIntraColumnSortKey(
-              groupedBlocks,
-              normalizedFromTopicId,
-              activeIndex,
-              overIndex,
-              globalBlockId,
+            // Intra-column reordering: calculate sort key between neighbors
+            const blocksWithoutMoving = topicBlocks.filter(
+              (b) => b.id !== globalBlockId,
+            );
+            let beforeBlock: Block | null = null;
+            let afterBlock: Block | null = null;
+            if (activeIndex < overIndex) {
+              beforeBlock = blocksWithoutMoving[overIndex - 1] || null;
+              afterBlock = blocksWithoutMoving[overIndex] || null;
+            } else {
+              beforeBlock = overIndex > 0
+                ? blocksWithoutMoving[overIndex - 1]
+                : null;
+              afterBlock = blocksWithoutMoving[overIndex] || null;
+            }
+            const newSortKey = generateSortKey(
+              beforeBlock?.sortKey,
+              afterBlock?.sortKey,
             );
 
             // Update block directly by ID
@@ -128,10 +135,24 @@ export function useDragDrop({
       );
 
       try {
-        const newSortKey = calculateInterColumnSortKey(
-          targetTopicBlocks,
-          overIndex,
-        );
+        // Inter-column move: calculate sort key at target position
+        let newSortKey: string;
+        if (overIndex === -1 || overIndex >= targetTopicBlocks.length) {
+          newSortKey = targetTopicBlocks.length > 0
+            ? generateSortKey(
+              targetTopicBlocks[targetTopicBlocks.length - 1].sortKey,
+            )
+            : generateSortKey();
+        } else {
+          const beforeBlock = overIndex > 0
+            ? targetTopicBlocks[overIndex - 1]
+            : null;
+          const afterBlock = targetTopicBlocks[overIndex];
+          newSortKey = generateSortKey(
+            beforeBlock?.sortKey,
+            afterBlock?.sortKey,
+          );
+        }
 
         updateBlockById(globalBlockId, {
           topicGroupId: normalizedOverTopicId,

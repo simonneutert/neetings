@@ -5,10 +5,7 @@
 import { useCallback } from "preact/hooks";
 import { Block, createBlock, normalizeTopicGroupId } from "../types/Block";
 import { Meeting } from "../types/Meeting";
-import {
-  calculateSortKeyForPosition,
-  generateSortKeyForNewBlock,
-} from "../utils/kanbanSortKeys";
+import { generateSortKey, sortBySortKey } from "../utils/sortKeys";
 import { changeBlockTypeClearData } from "../utils/blockTypeChange";
 
 interface UseBlockOperationsProps {
@@ -81,10 +78,16 @@ export function useBlockOperations({
     topicGroupId?: string,
   ): Block => {
     const normalizedTopicId = normalizeTopicGroupId(topicGroupId);
-    const sortKey = generateSortKeyForNewBlock(
-      meeting.blocks,
-      normalizedTopicId,
+    const topicBlocks = meeting.blocks.filter(
+      (b) => normalizeTopicGroupId(b.topicGroupId) === normalizedTopicId,
     );
+    let sortKey: string;
+    if (topicBlocks.length > 0) {
+      const sorted = sortBySortKey(topicBlocks);
+      sortKey = generateSortKey(sorted[sorted.length - 1].sortKey);
+    } else {
+      sortKey = generateSortKey();
+    }
     return createBlock(blockType, normalizedTopicId, sortKey);
   }, [meeting.blocks]);
 
@@ -115,15 +118,23 @@ export function useBlockOperations({
     }
 
     // Calculate new sort key for the target position
-    const newSortKey = calculateSortKeyForPosition(
-      meeting.blocks,
-      normalizedTopicId,
-      newIndex,
-      blockId,
-    );
+    const blocksWithoutMoving = topicBlocks.filter((b) => b.id !== blockId);
+    let newSortKey: string;
+    if (newIndex <= 0) {
+      newSortKey = generateSortKey(undefined, blocksWithoutMoving[0]?.sortKey);
+    } else if (newIndex >= blocksWithoutMoving.length) {
+      newSortKey = generateSortKey(
+        blocksWithoutMoving[blocksWithoutMoving.length - 1]?.sortKey,
+      );
+    } else {
+      newSortKey = generateSortKey(
+        blocksWithoutMoving[newIndex - 1]?.sortKey,
+        blocksWithoutMoving[newIndex]?.sortKey,
+      );
+    }
 
     updateBlockById(blockId, { sortKey: newSortKey });
-  }, [findBlockById, meeting.blocks, updateBlockById]);
+  }, [findBlockById, updateBlockById]);
 
   /**
    * Changes the type of an existing block
