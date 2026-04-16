@@ -8,6 +8,7 @@ import { MarkdownTransformer } from "./transformers/MarkdownTransformer";
 import { RTFTransformer } from "./transformers/RTFTransformer";
 import { DOCXTransformer } from "./transformers/DOCXTransformer";
 import { HTMLTransformer } from "./transformers/HTMLTransformer";
+import { JSONTransformer } from "./transformers/JSONTransformer";
 import {
   attemptPartialImport,
   handleImportError,
@@ -33,6 +34,7 @@ export class BaseExporter {
     this.registerTransformer("rtf", new RTFTransformer());
     this.registerTransformer("docx", new DOCXTransformer());
     this.registerTransformer("html", new HTMLTransformer());
+    this.registerTransformer("json", new JSONTransformer());
   }
 
   private registerTransformer(

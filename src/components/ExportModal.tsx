@@ -24,7 +24,9 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 }) => {
   const { t, language } = useTranslation();
   const { getAttendeesByIds } = useGlobalAttendees();
-  const [format, setFormat] = useState<"markdown" | "rtf" | "docx" | "html">(
+  const [format, setFormat] = useState<
+    "markdown" | "rtf" | "docx" | "html" | "json"
+  >(
     "markdown",
   );
   const [filename, setFilename] = useState("");
@@ -279,7 +281,8 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
                     | "markdown"
                     | "rtf"
                     | "docx"
-                    | "html",
+                    | "html"
+                    | "json",
                 )}
               disabled={isExporting}
               style={{
@@ -297,6 +300,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               <option value="rtf">{t("importExport.modal.formatRTF")}</option>
               <option value="docx">{t("importExport.modal.formatDOCX")}</option>
               <option value="html">{t("importExport.modal.formatHTML")}</option>
+              <option value="json">{t("importExport.modal.formatJSON")}</option>
             </select>
             <small style={{ color: "#6c757d", fontSize: "0.75rem" }}>
               {t("importExport.modal.formatDescription")}

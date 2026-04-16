@@ -1,4 +1,5 @@
 import { FunctionalComponent } from "preact";
+import { useState } from "preact/hooks";
 import { useTranslation } from "../i18n/index";
 import {
   getErrorSeverity,
@@ -24,6 +25,10 @@ interface PartialImportResult {
   total: number;
   importedMeetings?: any[];
   summary?: string;
+  failedItemDetails?: {
+    meetings: Array<{ title?: string; date?: string; reason?: string }>;
+    attendees: Array<{ name?: string; reason?: string }>;
+  };
 }
 
 interface ErrorModalProps {
@@ -57,6 +62,7 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
   } = props;
 
   const { t } = useTranslation();
+  const [showFailedDetails, setShowFailedDetails] = useState(false);
 
   if (!isOpen) return null;
 
@@ -245,6 +251,158 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
             </div>
           </div>
         )}
+
+        {/* Failed Items Details (collapsible) */}
+        {hasPartialSuccess && partialResult?.failedItemDetails &&
+          (partialResult.failedItemDetails.meetings.length > 0 ||
+            partialResult.failedItemDetails.attendees.length > 0) &&
+          (
+            <div style={{ marginBottom: "1.5rem" }}>
+              <button
+                onClick={() => setShowFailedDetails(!showFailedDetails)}
+                style={{
+                  background: "none",
+                  border: "1px solid #dee2e6",
+                  borderRadius: "6px",
+                  padding: "0.5rem 0.75rem",
+                  cursor: "pointer",
+                  fontSize: "0.8rem",
+                  color: "#6c757d",
+                  width: "100%",
+                  textAlign: "left",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: "0.5rem",
+                }}
+                data-testid="toggle-failed-details"
+              >
+                <span
+                  style={{
+                    display: "inline-block",
+                    transition: "transform 0.2s",
+                    transform: showFailedDetails
+                      ? "rotate(90deg)"
+                      : "rotate(0deg)",
+                  }}
+                >
+                  ▶
+                </span>
+                {t("importExport.partialImport.showDetails")}
+              </button>
+
+              {showFailedDetails && (
+                <div
+                  style={{
+                    marginTop: "0.5rem",
+                    padding: "0.75rem",
+                    backgroundColor: "#f8f9fa",
+                    border: "1px solid #dee2e6",
+                    borderRadius: "6px",
+                    fontSize: "0.8rem",
+                  }}
+                  data-testid="failed-details-section"
+                >
+                  {partialResult.failedItemDetails.meetings.length > 0 && (
+                    <div
+                      style={{
+                        marginBottom:
+                          partialResult.failedItemDetails.attendees.length > 0
+                            ? "0.75rem"
+                            : 0,
+                      }}
+                    >
+                      <h6
+                        style={{
+                          fontSize: "0.8rem",
+                          fontWeight: "600",
+                          margin: "0 0 0.5rem 0",
+                          color: "#495057",
+                        }}
+                      >
+                        {t("importExport.partialImport.failedMeetings", {
+                          count:
+                            partialResult.failedItemDetails.meetings.length,
+                        })}
+                      </h6>
+                      <ul
+                        style={{
+                          margin: 0,
+                          paddingLeft: "1.25rem",
+                          listStyle: "disc",
+                        }}
+                      >
+                        {partialResult.failedItemDetails.meetings.map((
+                          m,
+                          i,
+                        ) => (
+                          <li
+                            key={i}
+                            style={{
+                              marginBottom: "0.25rem",
+                              color: "#6c757d",
+                            }}
+                          >
+                            <span
+                              style={{ fontWeight: "500", color: "#495057" }}
+                            >
+                              {m.title}
+                              {m.date ? ` (${m.date})` : ""}
+                            </span>
+                            {m.reason && <span>— {m.reason}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  {partialResult.failedItemDetails.attendees.length > 0 && (
+                    <div>
+                      <h6
+                        style={{
+                          fontSize: "0.8rem",
+                          fontWeight: "600",
+                          margin: "0 0 0.5rem 0",
+                          color: "#495057",
+                        }}
+                      >
+                        {t("importExport.partialImport.failedAttendees", {
+                          count:
+                            partialResult.failedItemDetails.attendees.length,
+                        })}
+                      </h6>
+                      <ul
+                        style={{
+                          margin: 0,
+                          paddingLeft: "1.25rem",
+                          listStyle: "disc",
+                        }}
+                      >
+                        {partialResult.failedItemDetails.attendees.map((
+                          a,
+                          i,
+                        ) => (
+                          <li
+                            key={i}
+                            style={{
+                              marginBottom: "0.25rem",
+                              color: "#6c757d",
+                            }}
+                          >
+                            <span
+                              style={{ fontWeight: "500", color: "#495057" }}
+                            >
+                              {a.name}
+                            </span>
+                            {a.reason && <span>— {a.reason}</span>}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          )}
 
         {/* Error List */}
         {allErrors.length > 0 && (

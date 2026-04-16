@@ -1,7 +1,7 @@
 import { Attendee } from "../../../types/Attendee";
 
 export interface ExportOptions {
-  format: "markdown" | "rtf" | "docx" | "html";
+  format: "markdown" | "rtf" | "docx" | "html" | "json";
   filename: string;
   t?: (key: string) => string; // Translation function for localized content
   language?: string; // Current language for explicit localization

@@ -14,6 +14,10 @@ export interface PartialImportResult {
   total: number;
   importedMeetings?: any[];
   summary?: string;
+  failedItemDetails?: {
+    meetings: Array<{ title?: string; date?: string; reason?: string }>;
+    attendees: Array<{ name?: string; reason?: string }>;
+  };
 }
 
 export interface ImportExportModalState {
@@ -145,6 +149,9 @@ export function useImportExport(
   };
 
   const handlePartialImport = (result: any) => {
+    const invalidMeetings = result.recoveredData?.invalidMeetings || [];
+    const invalidAttendees = result.recoveredData?.invalidAttendees || [];
+
     updateState({
       partialResult: {
         successful: result.recoveredData.recoveredCount || 0,
@@ -152,6 +159,29 @@ export function useImportExport(
         warnings: result.warnings?.length || 0,
         total: result.totalItems || 0,
         importedMeetings: result.recoveredData.validMeetings || [],
+        failedItemDetails: {
+          meetings: invalidMeetings.map((m: any) => ({
+            title: m?.title || t("importExport.partialImport.unknownMeeting"),
+            date: m?.date,
+            reason: !m?.id
+              ? t("importExport.partialImport.missingId")
+              : !m?.title
+              ? t("importExport.partialImport.missingTitle")
+              : !m?.date
+              ? t("importExport.partialImport.missingDate")
+              : !Array.isArray(m?.blocks)
+              ? t("importExport.partialImport.missingBlocks")
+              : t("importExport.partialImport.invalidData"),
+          })),
+          attendees: invalidAttendees.map((a: any) => ({
+            name: a?.name || t("importExport.partialImport.unknownAttendee"),
+            reason: !a?.id
+              ? t("importExport.partialImport.missingId")
+              : !a?.name || !a.name.trim()
+              ? t("importExport.partialImport.missingName")
+              : t("importExport.partialImport.invalidData"),
+          })),
+        },
         summary: result.summary || formatImportSummary(
           result.totalItems || 0,
           result.recoveredData.recoveredCount || 0,
