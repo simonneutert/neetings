@@ -1,8 +1,10 @@
 import { FunctionalComponent } from "preact";
+import { memo } from "preact/compat";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { Block } from "../types/Block";
 import { UniversalBlock } from "./UniversalBlock";
+import { DropIndicator } from "./DropIndicator";
 
 interface SortableBlockProps {
   block: Block;
@@ -15,9 +17,15 @@ interface SortableBlockProps {
   canMoveUp: boolean;
   canMoveDown: boolean;
   shouldFocus?: boolean;
+  showDropIndicators?: boolean;
+  dragOverIndex?: number | null;
+  dragOverPosition?: "top" | "bottom" | null;
+  onRequestTypeChange?: (block: Block) => void;
 }
 
-export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
+const SortableBlockComponent: FunctionalComponent<
+  SortableBlockProps
+> = ({
   block,
   index,
   topicId,
@@ -28,6 +36,10 @@ export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
   canMoveUp,
   canMoveDown,
   shouldFocus = false,
+  showDropIndicators = false,
+  dragOverIndex = null,
+  dragOverPosition = null,
+  onRequestTypeChange,
 }) => {
   const {
     attributes,
@@ -36,6 +48,7 @@ export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
     transform,
     transition,
     isDragging,
+    isOver,
   } = useSortable({
     id: `block-${block.id}-${topicId}`,
     data: {
@@ -55,13 +68,30 @@ export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
   };
 
   return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      className={`sortable-block ${isDragging ? "dragging" : ""}`}
-    >
-      <div style={{ position: "relative" }}>
-        {/* Drag handle - enhanced for mobile */}
+    <div ref={setNodeRef} style={{ position: "relative", ...style }}>
+      {/* Top drop indicator */}
+      <DropIndicator
+        isVisible={showDropIndicators && dragOverIndex === index &&
+          dragOverPosition === "top"}
+        position="top"
+        index={index}
+      />
+
+      {/* Block content */}
+      <div
+        className={`enhanced-sortable-block ${isDragging ? "dragging" : ""} ${
+          isOver ? "drag-over" : ""
+        }`}
+        style={{
+          position: "relative",
+          backgroundColor: isDragging
+            ? "var(--bs-primary-bg-subtle)"
+            : "var(--bs-body-bg)",
+          borderRadius: "8px",
+          transition: "all 0.2s ease",
+        }}
+      >
+        {/* Drag handle */}
         <div
           {...listeners}
           tabIndex={attributes.tabIndex}
@@ -94,7 +124,7 @@ export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
           ⋮⋮
         </div>
 
-        {/* Block content with left padding for drag handle */}
+        {/* Block content with padding for drag handle */}
         <div style={{ paddingLeft: "3rem" }}>
           <UniversalBlock
             block={block}
@@ -106,9 +136,20 @@ export const SortableBlock: FunctionalComponent<SortableBlockProps> = ({
             canMoveUp={canMoveUp}
             canMoveDown={canMoveDown}
             shouldFocus={shouldFocus}
+            onRequestTypeChange={onRequestTypeChange}
           />
         </div>
       </div>
+
+      {/* Bottom drop indicator */}
+      <DropIndicator
+        isVisible={showDropIndicators && dragOverIndex === index &&
+          dragOverPosition === "bottom"}
+        position="bottom"
+        index={index}
+      />
     </div>
   );
 };
+
+export const SortableBlock = memo(SortableBlockComponent);

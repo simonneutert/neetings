@@ -1,4 +1,6 @@
-import { FunctionalComponent, JSX } from "preact"; // Added JSX, removed ComponentChildren
+import { FunctionalComponent, JSX } from "preact";
+import { memo } from "preact/compat";
+import { useMemo } from "preact/hooks";
 import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
@@ -6,37 +8,48 @@ import {
 } from "@dnd-kit/sortable";
 import { Block } from "../types/Block";
 import { TopicGroup } from "../types/TopicGroup";
-import { DraggableBlock } from "./DraggableBlock";
+import { SortableBlock } from "./SortableBlock";
 import { getTopicGroupLightBackground } from "../utils/colors";
 import { useTranslation } from "../i18n";
+import { sortBySortKey } from "../utils/sortKeys";
 
-interface TopicColumnProps extends JSX.HTMLAttributes<HTMLDivElement> { // Extend with HTMLAttributes
-  topicGroup: TopicGroup | null; // null represents "ungrouped" column
+interface TopicColumnProps extends JSX.HTMLAttributes<HTMLDivElement> {
+  topicGroup: TopicGroup | null;
   blocks: Block[];
+  topicId: string;
   onBlockChange: (index: number, updatedBlock: Block) => void;
   onMoveBlock: (index: number, direction: "up" | "down") => void;
   onDeleteBlock: (index: number) => void;
   onAddBlock: (topicGroupId?: string) => void;
   newlyCreatedBlockId: string | null;
-  topicId: string; // Add this for drag & drop identification
-  // children is already part of HTMLAttributes, but can be kept for clarity if preferred
+  children?: JSX.Element;
+  onRequestTypeChange?: (block: Block, index: number, topicId: string) => void;
 }
 
-export const TopicColumn: FunctionalComponent<TopicColumnProps> = ({
+const TopicColumnComponent: FunctionalComponent<
+  TopicColumnProps
+> = ({
   topicGroup,
   blocks,
+  topicId,
   onBlockChange,
   onMoveBlock,
   onDeleteBlock,
   onAddBlock,
   newlyCreatedBlockId,
-  topicId,
   children,
-  ...rest // Collect rest of the props
+  onRequestTypeChange,
+  ...rest
 }) => {
   const { t } = useTranslation();
+
+  // Droppable for accepting blocks from other columns
   const { setNodeRef, isOver } = useDroppable({
     id: topicId,
+    data: {
+      type: "column",
+      topicId,
+    },
   });
 
   const isDefaultColumn = !topicGroup;
@@ -45,29 +58,30 @@ export const TopicColumn: FunctionalComponent<TopicColumnProps> = ({
   const lightBackground = columnColor
     ? getTopicGroupLightBackground(columnColor)
     : "#f8f9fa";
-  const hoverBackground = columnColor
-    ? getTopicGroupLightBackground(columnColor)
-    : "#e3f2fd";
+
+  // Sort blocks by sort key - blocks are already clean from KanbanBoard
+  const sortedBlocks = useMemo(() => {
+    return sortBySortKey(blocks);
+  }, [blocks]);
 
   return (
     <div
       ref={setNodeRef}
       {...rest}
-      // Spread the rest of the props here
-      className={`kanban-column ${isOver ? "drop-zone-active" : ""} ${
+      className={`enhanced-topic-column ${isOver ? "drop-zone-active" : ""} ${
         rest.className || ""
-      }`.trim()} // Combine classNames
+      }`}
       style={{
         flex: "1",
-        minWidth: "65vb", // Changed from 400px
-        maxWidth: "80vb", // Changed from 500px
-        backgroundColor: isOver ? hoverBackground : lightBackground,
-        borderRadius: "8px",
-        padding: "1rem",
-        margin: "0 0.5rem",
+        minWidth: "300px",
+        maxWidth: "400px",
+        backgroundColor: lightBackground,
         border: isOver
           ? `2px dashed ${columnColor}`
           : `1px solid ${columnColor}`,
+        borderRadius: "8px",
+        padding: "1rem",
+        margin: "0.5rem",
         transition: "all 0.2s ease",
         boxShadow: isOver
           ? `0 4px 12px ${columnColor}20`
@@ -93,65 +107,72 @@ export const TopicColumn: FunctionalComponent<TopicColumnProps> = ({
           {columnTitle}
         </h5>
         <small style={{ color: "#6c757d" }}>
-          {t("topics.blockCount", { count: blocks.length })}
+          {t("topics.blockCount", { count: sortedBlocks.length })}
         </small>
       </div>
 
-      {/* Additional Controls */}
       {children && (
         <div style={{ marginBottom: "1rem" }}>
           {children}
         </div>
       )}
 
-      {/* Blocks */}
+      {/* Enhanced Sortable Blocks */}
       <div style={{ marginBottom: "1rem" }}>
-        {blocks.length === 0
-          ? (
-            <div
-              style={{
-                padding: "2rem 1rem",
-                textAlign: "center",
-                color: "#6c757d",
-                fontStyle: "italic",
-                border: "2px dashed #dee2e6",
-                borderRadius: "5px",
-              }}
-            >
-              {isDefaultColumn
-                ? t("topics.emptyDefaultColumn")
-                : t("topics.emptyTopicColumn")}
-            </div>
-          )
-          : (
-            <SortableContext
-              items={blocks.map((block) => `block-${block.id}-${topicId}`)}
-              strategy={verticalListSortingStrategy}
-            >
-              {blocks.map((block, index) => (
-                <DraggableBlock
-                  key={block.id || index}
-                  block={block}
-                  index={index} // Keep using local index for column operations
-                  topicId={topicId}
-                  onChange={(updatedBlock) =>
-                    onBlockChange(index, updatedBlock)}
-                  onMoveUp={() => onMoveBlock(index, "up")}
-                  onMoveDown={() => onMoveBlock(index, "down")}
-                  onDelete={() => onDeleteBlock(index)}
-                  canMoveUp={index > 0}
-                  canMoveDown={index < blocks.length - 1}
-                  shouldFocus={block.id ===
-                    newlyCreatedBlockId}
-                />
-              ))}
-            </SortableContext>
+        <SortableContext
+          items={sortedBlocks.map((block) =>
+            `block-${block.id}-${topicId}`
           )}
+          strategy={verticalListSortingStrategy}
+        >
+          {sortedBlocks.length === 0
+            ? (
+              <div
+                style={{
+                  padding: "2rem 1rem",
+                  textAlign: "center",
+                  color: "#6c757d",
+                  fontStyle: "italic",
+                  border: "2px dashed #dee2e6",
+                  borderRadius: "5px",
+                }}
+              >
+                {isDefaultColumn
+                  ? t("topics.emptyDefaultColumn")
+                  : t("topics.emptyTopicColumn")}
+              </div>
+            )
+            : sortedBlocks.map((block, index) => (
+              <SortableBlock
+                key={`block-${block.id}-${topicId}`}
+                block={block}
+                index={index}
+                topicId={topicId}
+                showDropIndicators={false}
+                dragOverIndex={null}
+                dragOverPosition={null}
+                onChange={(updatedBlock) =>
+                  onBlockChange(index, updatedBlock)}
+                onMoveUp={() => onMoveBlock(index, "up")}
+                onMoveDown={() => onMoveBlock(index, "down")}
+                onDelete={() => onDeleteBlock(index)}
+                canMoveUp={index > 0}
+                canMoveDown={index < sortedBlocks.length - 1}
+                shouldFocus={block.id === newlyCreatedBlockId}
+                onRequestTypeChange={onRequestTypeChange
+                  ? (b) => onRequestTypeChange(b, index, topicId)
+                  : undefined}
+              />
+            ))}
+        </SortableContext>
       </div>
+
+      {/* Drop zone for end-of-column drops */}
+      <div style={{ minHeight: "2rem" }} />
 
       {/* Quick Add Block Button */}
       <button
-        class="btn btn-outline-primary w-100"
+        className="btn btn-outline-primary w-100"
         onClick={() => onAddBlock(topicGroup?.id)}
         style={{
           fontSize: "0.9rem",
@@ -161,13 +182,7 @@ export const TopicColumn: FunctionalComponent<TopicColumnProps> = ({
       >
         {t("topics.addBlockButton")}
         {topicGroup && (
-          <small
-            style={{
-              display: "block",
-              fontSize: "0.7rem",
-              opacity: 0.8,
-            }}
-          >
+          <small style={{ display: "block", fontSize: "0.7rem", opacity: 0.8 }}>
             {t("topics.addBlockTo", { topicName: topicGroup.name })}
           </small>
         )}
@@ -175,3 +190,5 @@ export const TopicColumn: FunctionalComponent<TopicColumnProps> = ({
     </div>
   );
 };
+
+export const TopicColumn = memo(TopicColumnComponent);
