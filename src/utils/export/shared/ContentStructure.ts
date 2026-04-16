@@ -1,6 +1,7 @@
 import { Meeting } from "../../../types/Meeting";
 import { Block } from "../../../types/Block";
 import { TopicGroup } from "../../../types/TopicGroup";
+import { sortBySortKey } from "../../sortKeys";
 
 /**
  * Shared content structure utilities for export transformers
@@ -18,18 +19,18 @@ export class ContentStructure {
    * Get blocks for a specific topic group, sorted by sortKey
    */
   static getTopicGroupBlocks(meeting: Meeting, topicGroupId: string): Block[] {
-    return meeting.blocks
-      .filter((block) => block.topicGroupId === topicGroupId)
-      .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+    return sortBySortKey(
+      meeting.blocks.filter((block) => block.topicGroupId === topicGroupId),
+    );
   }
 
   /**
    * Get blocks for the default "Main Agenda" group (topicGroupId: null), sorted by sortKey
    */
   static getMainAgendaBlocks(meeting: Meeting): Block[] {
-    return meeting.blocks
-      .filter((block) => block.topicGroupId === null)
-      .sort((a, b) => a.sortKey.localeCompare(b.sortKey));
+    return sortBySortKey(
+      meeting.blocks.filter((block) => block.topicGroupId === null),
+    );
   }
 
   /**
@@ -83,9 +84,7 @@ export class ContentStructure {
       // No topic groups - return all blocks in one section
       return [{
         topicGroup: null,
-        blocks: meeting.blocks.sort((a, b) =>
-          a.sortKey.localeCompare(b.sortKey)
-        ),
+        blocks: sortBySortKey(meeting.blocks),
         isEmpty: meeting.blocks.length === 0,
       }];
     }

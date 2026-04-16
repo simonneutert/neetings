@@ -129,3 +129,9 @@
     }
   }
 }
+
+/* Theme-aware hover for autocomplete items */
+.hover-bg-light:hover {
+  background-color: var(--bs-body-tertiary);
+  transition: background-color 0.12s ease;
+}

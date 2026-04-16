@@ -9,12 +9,6 @@ import { APP_CONFIG } from "../constants/index";
 import { createErrorDetail, ErrorModal } from "./ErrorModal";
 import { Attendee } from "../types/Attendee";
 
-interface ExportProgress {
-  stage: "starting" | "preparing" | "generating" | "complete";
-  percentage: number;
-  currentFormat?: string;
-}
-
 interface ExportModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -30,7 +24,9 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 }) => {
   const { t, language } = useTranslation();
   const { getAttendeesByIds } = useGlobalAttendees();
-  const [format, setFormat] = useState<"markdown" | "rtf" | "docx" | "html">(
+  const [format, setFormat] = useState<
+    "markdown" | "rtf" | "docx" | "html" | "json"
+  >(
     "markdown",
   );
   const [filename, setFilename] = useState("");
@@ -39,9 +35,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 
   // Progress modal state
   const [isProgressModalOpen, setIsProgressModalOpen] = useState(false);
-  const [exportProgress, setExportProgress] = useState<ExportProgress | null>(
-    null,
-  );
   const [progressModalError, setProgressModalError] = useState<any>(null);
 
   const exporter = useMemo(() => new BaseExporter(), []);
@@ -85,23 +78,10 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
     setProgressModalError(null);
 
     try {
-      // Progress callback
-      const updateProgress = (
-        stage: ExportProgress["stage"],
-        percentage: number,
-        currentFormat?: string,
-      ) => {
-        setExportProgress({ stage, percentage, currentFormat });
-      };
-
-      updateProgress("starting", 10);
-
       // Flush any pending updates to ensure we export the latest data
       if (onFlushPendingUpdates) {
         await onFlushPendingUpdates();
       }
-
-      updateProgress("preparing", 30, format.toUpperCase());
 
       // Get attendee data for the meeting
       // Read attendees from localStorage to ensure we include any recently-added
@@ -109,11 +89,15 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
       // this hook's local state yet.
       let attendees = [] as Attendee[];
       try {
-        const stored = localStorage.getItem(APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES);
+        const stored = localStorage.getItem(
+          APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
+        );
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
-            attendees = parsed.filter((a: Attendee) => meeting.attendeeIds.includes(a.id));
+            attendees = parsed.filter((a: Attendee) =>
+              meeting.attendeeIds.includes(a.id)
+            );
           } else {
             attendees = getAttendeesByIds(meeting.attendeeIds);
           }
@@ -121,32 +105,28 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
           attendees = getAttendeesByIds(meeting.attendeeIds);
         }
       } catch (err) {
-        console.warn("ExportModal: failed to read attendees from storage during export:", err);
+        console.warn(
+          "ExportModal: failed to read attendees from storage during export:",
+          err,
+        );
         attendees = getAttendeesByIds(meeting.attendeeIds);
       }
 
       const options: ExportOptions = {
         format,
         filename: filename.trim(),
-        t, // Pass translation function for localized content
-        language, // Pass current language explicitly
-        attendees, // Pass attendee data for resolving attendeeIds
+        t,
+        language,
+        attendees,
       };
-
-      updateProgress("generating", 60, format.toUpperCase());
 
       const result = await exporter.export(meeting, options);
 
-      updateProgress("generating", 90, format.toUpperCase());
-
       await exporter.downloadFile(result);
-
-      updateProgress("complete", 100);
 
       // Show success briefly then close
       setTimeout(() => {
         setIsProgressModalOpen(false);
-        setExportProgress(null);
         onClose();
       }, 1500);
     } catch (error) {
@@ -158,7 +138,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
         { format, filename: filename.trim() },
       );
       setProgressModalError(errorDetail);
-      setExportProgress(null);
 
       // Also set local error for the main modal
       setExportError(
@@ -183,7 +162,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 
   const closeProgressModal = () => {
     setIsProgressModalOpen(false);
-    setExportProgress(null);
     setProgressModalError(null);
   };
 
@@ -228,7 +206,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
       <div
         className="modal-content"
         style={{
-          backgroundColor: "white",
+          backgroundColor: "var(--bs-body-bg)",
           borderRadius: "12px",
           padding: "1.5rem",
           maxWidth: "500px",
@@ -237,7 +215,8 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
           overflowY: "auto",
           boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
           animation: "slideUp 0.3s ease-out",
-          border: "1px solid #e9ecef",
+          border: "1px solid var(--bs-border-color)",
+          color: "var(--bs-body-color)",
         }}
       >
         {/* Modal Header */}
@@ -247,7 +226,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             justifyContent: "space-between",
             alignItems: "center",
             marginBottom: "1.5rem",
-            borderBottom: "1px solid #dee2e6",
+            borderBottom: "1px solid var(--bs-border-color)",
             paddingBottom: "1rem",
           }}
         >
@@ -256,7 +235,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             <small
               style={{
                 display: "block",
-                color: "#6c757d",
+                color: "var(--bs-secondary-color)",
                 fontSize: "0.8rem",
                 fontWeight: "normal",
               }}
@@ -296,6 +275,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               {t("importExport.modal.format")}
             </label>
             <select
+              className="form-select"
               value={format}
               onChange={(e) =>
                 setFormat(
@@ -303,16 +283,12 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
                     | "markdown"
                     | "rtf"
                     | "docx"
-                    | "html",
+                    | "html"
+                    | "json",
                 )}
               disabled={isExporting}
               style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: "1px solid #ced4da",
-                borderRadius: "4px",
                 fontSize: "0.9rem",
-                backgroundColor: isExporting ? "#f8f9fa" : "white",
               }}
             >
               <option value="markdown">
@@ -321,8 +297,14 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               <option value="rtf">{t("importExport.modal.formatRTF")}</option>
               <option value="docx">{t("importExport.modal.formatDOCX")}</option>
               <option value="html">{t("importExport.modal.formatHTML")}</option>
+              <option value="json">{t("importExport.modal.formatJSON")}</option>
             </select>
-            <small style={{ color: "#6c757d", fontSize: "0.75rem" }}>
+            <small
+              style={{
+                color: "var(--bs-secondary-color)",
+                fontSize: "0.75rem",
+              }}
+            >
               {t("importExport.modal.formatDescription")}
             </small>
           </div>
@@ -340,18 +322,15 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
               {t("importExport.modal.filename")}
             </label>
             <input
+              className="form-control"
               type="text"
               value={filename}
               onChange={handleFilenameChange}
               disabled={isExporting}
               placeholder={t("importExport.modal.filenamePlaceholder")}
               style={{
-                width: "100%",
-                padding: "0.5rem",
-                border: exportError ? "1px solid #dc3545" : "1px solid #ced4da",
-                borderRadius: "4px",
                 fontSize: "0.9rem",
-                backgroundColor: isExporting ? "#f8f9fa" : "white",
+                borderColor: exportError ? "#dc3545" : undefined,
               }}
             />
             {exportError && (
@@ -369,7 +348,7 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
             justifyContent: "flex-end",
             gap: "0.5rem",
             paddingTop: "1rem",
-            borderTop: "1px solid #dee2e6",
+            borderTop: "1px solid var(--bs-border-color)",
           }}
         >
           <button
@@ -409,9 +388,8 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
         onClose={closeProgressModal}
         title={t("importExport.modal.title")}
         error={progressModalError}
-        exportProgress={exportProgress}
+        isLoading={isExporting && !progressModalError}
         onRetry={progressModalError ? retryExport : undefined}
-        showTechnicalDetails={false}
       />
     </div>
   );

@@ -231,6 +231,7 @@
       "formatRTF": "Rich Text (.rtf)",
       "formatDOCX": "Word Document (.docx)",
       "formatHTML": "HTML Document (.html)",
+      "formatJSON": "JSON Data (.json)",
       "formatDescription": "Choose the format that best suits your needs",
       "filename": "Filename",
       "filenamePlaceholder": "Enter filename...",
@@ -238,6 +239,19 @@
       "exportFailed": "Export failed",
       "exporting": "Exporting...",
       "exportButton": "Export"
+    },
+    "partialImport": {
+      "showDetails": "Show details of failed items",
+      "failedMeetings": "Failed meetings ({{count}})",
+      "failedAttendees": "Failed attendees ({{count}})",
+      "unknownMeeting": "Unknown meeting",
+      "unknownAttendee": "Unknown attendee",
+      "missingId": "Missing ID",
+      "missingTitle": "Missing title",
+      "missingDate": "Missing date",
+      "missingBlocks": "Missing blocks",
+      "missingName": "Missing name",
+      "invalidData": "Invalid data"
     },
     "actions": {
       "exportMeeting": "Export meeting to markdown",

@@ -109,7 +109,9 @@ export function useMeetingState() {
             });
             // Pre-compute valid fallback keys for any blocks missing sortKey
             const needsKey = filtered.filter((b) => !b.sortKey).length;
-            const batchKeys = needsKey > 0 ? generateBatchSortKeys(needsKey) : [];
+            const batchKeys = needsKey > 0
+              ? generateBatchSortKeys(needsKey)
+              : [];
             let keyIdx = 0;
             return filtered.map((block) => ({
               ...block,
@@ -393,7 +395,7 @@ export function useMeetingState() {
   ) => {
     const now = new Date().toISOString();
     const meeting = meetings.find((m) => m.id === meetingId);
-    
+
     // Calculate next order value - use max existing order + 1, or Date.now() if no groups exist
     let nextOrder = Date.now();
     if (meeting && meeting.topicGroups && meeting.topicGroups.length > 0) {
@@ -472,17 +474,23 @@ export function useMeetingState() {
     if (!meeting || !meeting.topicGroups) return;
 
     // Sort by order to get current positions
-    const sortedGroups = [...meeting.topicGroups].sort((a, b) => a.order - b.order);
+    const sortedGroups = [...meeting.topicGroups].sort((a, b) =>
+      a.order - b.order
+    );
 
     const currentIndex = sortedGroups.findIndex((tg) => tg.id === topicGroupId);
     if (currentIndex === -1) return;
 
     // Check bounds
     if (direction === "left" && currentIndex === 0) return;
-    if (direction === "right" && currentIndex === sortedGroups.length - 1) return;
+    if (direction === "right" && currentIndex === sortedGroups.length - 1) {
+      return;
+    }
 
     // Calculate swap target
-    const swapIndex = direction === "left" ? currentIndex - 1 : currentIndex + 1;
+    const swapIndex = direction === "left"
+      ? currentIndex - 1
+      : currentIndex + 1;
 
     // Create updated groups with swapped order values
     const updatedGroups = meeting.topicGroups.map((tg) => {

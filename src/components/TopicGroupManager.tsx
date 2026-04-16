@@ -73,7 +73,9 @@ const TopicGroupManagerComponent: FunctionalComponent<TopicGroupManagerProps> =
     const [editingColor, setEditingColor] = useState<string>("");
 
     // Sort topic groups by order for display
-    const sortedTopicGroups = [...topicGroups].sort((a, b) => a.order - b.order);
+    const sortedTopicGroups = [...topicGroups].sort((a, b) =>
+      a.order - b.order
+    );
 
     const handleCreateTopic = () => {
       if (newTopicName.trim()) {
@@ -258,34 +260,37 @@ const TopicGroupManagerComponent: FunctionalComponent<TopicGroupManagerProps> =
                           </button>
                         )}
                         {/* Move Right Button */}
-                        {onSwapTopic && index < sortedTopicGroups.length - 1 && (
-                          <button
-                            type="button"
-                            onClick={() => onSwapTopic(topic.id, "right")}
-                            style={{
-                              border: "none",
-                              background: "transparent",
-                              cursor: "pointer",
-                              padding: "0 2px",
-                              fontSize: "0.7rem",
-                              opacity: 0.7,
-                            }}
-                            title={t("topics.tooltips.moveRight")}
-                            aria-label={t("topics.tooltips.moveRight")}
-                          >
-                            ▶
-                          </button>
-                        )}
+                        {onSwapTopic && index < sortedTopicGroups.length - 1 &&
+                          (
+                            <button
+                              type="button"
+                              onClick={() => onSwapTopic(topic.id, "right")}
+                              style={{
+                                border: "none",
+                                background: "transparent",
+                                cursor: "pointer",
+                                padding: "0 2px",
+                                fontSize: "0.7rem",
+                                opacity: 0.7,
+                              }}
+                              title={t("topics.tooltips.moveRight")}
+                              aria-label={t("topics.tooltips.moveRight")}
+                            >
+                              ▶
+                            </button>
+                          )}
                         <span
                           role="button"
                           tabIndex={0}
-                          onClick={() => onTopicGroupSelect && onTopicGroupSelect(topic.id)}
+                          onClick={() =>
+                            onTopicGroupSelect && onTopicGroupSelect(topic.id)}
                           onKeyDown={(e) => {
                             if (e.key === "Enter" || e.key === " ") {
                               if (e.key === " ") {
                                 e.preventDefault();
                               }
-                              onTopicGroupSelect && onTopicGroupSelect(topic.id);
+                              onTopicGroupSelect &&
+                                onTopicGroupSelect(topic.id);
                             }
                           }}
                           style={{
@@ -308,7 +313,9 @@ const TopicGroupManagerComponent: FunctionalComponent<TopicGroupManagerProps> =
                             opacity: 0.7,
                           }}
                           title={t("topics.topicGroupManager.editGroupButton")}
-                          aria-label={t("topics.topicGroupManager.editGroupButton")}
+                          aria-label={t(
+                            "topics.topicGroupManager.editGroupButton",
+                          )}
                         >
                           ✏️
                         </button>

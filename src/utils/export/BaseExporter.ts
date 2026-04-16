@@ -8,19 +8,19 @@ import { MarkdownTransformer } from "./transformers/MarkdownTransformer";
 import { RTFTransformer } from "./transformers/RTFTransformer";
 import { DOCXTransformer } from "./transformers/DOCXTransformer";
 import { HTMLTransformer } from "./transformers/HTMLTransformer";
-import { ExportErrorHandler } from "./errors/ErrorHandler";
+import { JSONTransformer } from "./transformers/JSONTransformer";
 import {
-  createImportOptions,
-  createImportResult,
-  ImportOptions,
-  ImportResult,
-} from "./errors/ExportErrors";
+  attemptPartialImport,
+  handleImportError,
+  safeJsonParse,
+  validateFileBeforeProcessing,
+} from "./errors/ErrorHandler";
+import { createImportResult, ImportResult } from "./errors/ExportErrors";
 import {
   formatFailedImportSummary,
   formatRecoverySummary,
 } from "./errors/ErrorMessages";
 import {
-  detectExportVersionSafe,
   normalizeExportToV1,
   parseExportWithDetails,
   validateExportData,
@@ -34,6 +34,7 @@ export class BaseExporter {
     this.registerTransformer("rtf", new RTFTransformer());
     this.registerTransformer("docx", new DOCXTransformer());
     this.registerTransformer("html", new HTMLTransformer());
+    this.registerTransformer("json", new JSONTransformer());
   }
 
   private registerTransformer(
@@ -126,75 +127,24 @@ export class BaseExporter {
     return `${sanitizedTitle}_${date}.${extension}`;
   }
 
-  // Progressive import strategy - attempts to recover valid data from failed imports
   async importWithRecovery(
     file: File,
-    _options: ImportOptions = createImportOptions(),
-    onProgress?: (progress: number, status: string) => void,
     t?: (key: string, options?: Record<string, string | number>) => string,
   ): Promise<ImportResult> {
-    const progressCallback = ExportErrorHandler.createProgressCallback(
-      onProgress,
-    );
-
     try {
-      progressCallback(
-        10,
-        t ? t("import.progress.validating") : "Validating file...",
-      );
+      validateFileBeforeProcessing(file);
 
-      // Validate file before processing
-      ExportErrorHandler.validateFileBeforeProcessing(file);
-
-      progressCallback(
-        20,
-        t ? t("import.progress.reading_file") : "Reading file content...",
-      );
-
-      // Parse file content
       const data = await this.parseFile(file);
 
-      progressCallback(
-        40,
-        t
-          ? t("import.progress.validating_data")
-          : "Validating data structure...",
-      );
-
-      // Validate the export data
       const validationResult = validateExportData(data);
 
       if (!validationResult.valid) {
-        progressCallback(
-          60,
-          t
-            ? t("import.progress.attempting_recovery")
-            : "Attempting partial recovery...",
-        );
-
-        // Attempt partial import
-        const partialResult = await ExportErrorHandler.attemptPartialImport(
+        const partialResult = await attemptPartialImport(
           data,
           validationResult.errors || [],
         );
 
-        progressCallback(
-          80,
-          t
-            ? t("import.progress.finalizing_recovery")
-            : "Finalizing recovery...",
-        );
-
         const hasRecoveredData = partialResult.recoveredCount > 0;
-
-        progressCallback(
-          100,
-          hasRecoveredData
-            ? (t
-              ? t("import.progress.partial_completed")
-              : "Partial import completed")
-            : (t ? t("import.progress.failed") : "Import failed"),
-        );
 
         return createImportResult(false, {
           partialSuccess: hasRecoveredData,
@@ -216,20 +166,9 @@ export class BaseExporter {
         });
       }
 
-      progressCallback(
-        60,
-        t ? t("import.progress.processing_import") : "Processing import...",
-      );
-
-      // Successful validation - proceed with full import
       const normalizedData = normalizeExportToV1(validationResult.data);
 
-      progressCallback(
-        80,
-        t ? t("import.progress.finalizing") : "Finalizing import...",
-      );
-
-      const result = createImportResult(true, {
+      return createImportResult(true, {
         imported: normalizedData,
         summary:
           `Successfully imported ${normalizedData.meetings.length} meetings and ${normalizedData.attendees.length} attendees`,
@@ -237,19 +176,8 @@ export class BaseExporter {
           normalizedData.attendees.length,
         failedItems: 0,
       });
-
-      progressCallback(
-        100,
-        t
-          ? t("import.progress.completed_successfully")
-          : "Import completed successfully",
-      );
-
-      return result;
     } catch (error) {
-      progressCallback(100, t ? t("import.progress.failed") : "Import failed");
-
-      return ExportErrorHandler.handleImportError(error, {
+      return handleImportError(error, {
         fileName: file.name,
         fileSize: file.size,
         fileType: file.type,
@@ -260,7 +188,7 @@ export class BaseExporter {
   // Parse file content safely
   private async parseFile(file: File): Promise<any> {
     const content = await this.readFileContent(file);
-    return ExportErrorHandler.safeJsonParse(content);
+    return safeJsonParse(content);
   }
 
   // Read file content as text
@@ -284,10 +212,8 @@ export class BaseExporter {
     });
   }
 
-  // Enhanced import method with detailed error reporting
   async importWithDetails(
     file: File,
-    _options: ImportOptions = createImportOptions(),
     t?: (key: string, options?: Record<string, string | number>) => string,
   ): Promise<ImportResult> {
     try {
@@ -308,7 +234,6 @@ export class BaseExporter {
         });
       }
 
-      // Handle partial recovery from the failure case
       const failureResult = parseResult as {
         success: false;
         errors: any[];
@@ -316,7 +241,7 @@ export class BaseExporter {
         recoverable: boolean;
       };
       const partialResult = failureResult.partialData
-        ? await ExportErrorHandler.attemptPartialImport(
+        ? await attemptPartialImport(
           failureResult.partialData,
           failureResult.errors,
         )
@@ -344,31 +269,11 @@ export class BaseExporter {
         totalItems: partialResult ? partialResult.totalCount : 0,
       });
     } catch (error) {
-      return ExportErrorHandler.handleImportError(error, {
+      return handleImportError(error, {
         fileName: file.name,
         fileSize: file.size,
         fileType: file.type,
       });
-    }
-  }
-
-  // Version detection utility
-  async detectFileVersion(file: File): Promise<{
-    version: string | null;
-    canMigrate: boolean;
-    supportedVersions: string[];
-    errors: any[];
-  }> {
-    try {
-      const data = await this.parseFile(file);
-      return detectExportVersionSafe(data);
-    } catch (error) {
-      return {
-        version: null,
-        canMigrate: false,
-        supportedVersions: ["1.0.0", "legacy"],
-        errors: [error instanceof Error ? error.message : "Unknown error"],
-      };
     }
   }
 }
