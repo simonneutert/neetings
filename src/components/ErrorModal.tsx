@@ -7,18 +7,6 @@ import {
   isRecoverable,
 } from "../utils/export/errors/ErrorMessages";
 
-interface ImportProgress {
-  stage: "starting" | "validating" | "processing" | "finalizing" | "complete";
-  percentage: number;
-  currentItem?: string;
-}
-
-interface ExportProgress {
-  stage: "starting" | "preparing" | "generating" | "complete";
-  percentage: number;
-  currentFormat?: string;
-}
-
 interface ErrorDetail {
   code: string;
   message: string;
@@ -45,11 +33,12 @@ interface ErrorModalProps {
   error?: ErrorDetail | null;
   errors?: ErrorDetail[];
   partialResult?: PartialImportResult | null;
-  importProgress?: ImportProgress | null;
-  exportProgress?: ExportProgress | null;
+  isLoading?: boolean;
   onRetry?: () => void;
   onPartialAccept?: () => void;
-  showTechnicalDetails?: boolean;
+  // Legacy props — accepted but mapped to isLoading internally
+  importProgress?: any;
+  exportProgress?: any;
 }
 
 export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
@@ -60,36 +49,23 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
     error,
     errors = [],
     partialResult,
+    isLoading: isLoadingProp,
     importProgress,
     exportProgress,
     onRetry,
     onPartialAccept,
-    showTechnicalDetails = false,
   } = props;
 
   const { t } = useTranslation();
 
   if (!isOpen) return null;
 
+  // Support legacy progress props as isLoading
+  const isLoading = isLoadingProp || !!importProgress || !!exportProgress;
+
   const allErrors = error ? [error] : errors;
   const hasRecoverableErrors = allErrors.some((err) => err.recoverable);
   const hasPartialSuccess = partialResult && partialResult.successful > 0;
-
-  const getProgressText = () => {
-    if (importProgress) {
-      const stageKey = `import.progress.${importProgress.stage}`;
-      return t(stageKey);
-    }
-    if (exportProgress) {
-      const stageKey = `export.progress.${exportProgress.stage}`;
-      return t(stageKey);
-    }
-    return "";
-  };
-
-  const getProgressPercentage = () => {
-    return importProgress?.percentage || exportProgress?.percentage || 0;
-  };
 
   const getSeverityIcon = (severity: string) => {
     switch (severity) {
@@ -213,78 +189,19 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
           </button>
         </div>
 
-        {/* Progress Bar */}
-        {(importProgress || exportProgress) && (
-          <div style={{ marginBottom: "1.5rem" }}>
+        {/* Loading Spinner */}
+        {isLoading && allErrors.length === 0 && !hasPartialSuccess && (
+          <div style={{ textAlign: "center", padding: "2rem 0" }}>
             <div
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginBottom: "0.5rem",
-              }}
+              className="spinner-border text-primary"
+              role="status"
+              style={{ width: "3rem", height: "3rem" }}
             >
-              <span
-                style={{
-                  fontSize: "0.875rem",
-                  fontWeight: "500",
-                  color: "#495057",
-                }}
-              >
-                {getProgressText()}
-              </span>
-              <span
-                style={{
-                  fontSize: "0.875rem",
-                  color: "#6c757d",
-                }}
-              >
-                {getProgressPercentage()}%
-              </span>
+              <span className="visually-hidden">Loading...</span>
             </div>
-            <div
-              style={{
-                width: "100%",
-                backgroundColor: "#e9ecef",
-                borderRadius: "4px",
-                height: "8px",
-                overflow: "hidden",
-              }}
-            >
-              <div
-                style={{
-                  backgroundColor: "#007bff",
-                  height: "100%",
-                  borderRadius: "4px",
-                  transition: "width 0.3s ease",
-                  width: `${getProgressPercentage()}%`,
-                }}
-              />
-            </div>
-            {importProgress?.currentItem && (
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  color: "#6c757d",
-                  marginTop: "0.25rem",
-                  marginBottom: 0,
-                }}
-              >
-                {importProgress.currentItem}
-              </p>
-            )}
-            {exportProgress?.currentFormat && (
-              <p
-                style={{
-                  fontSize: "0.75rem",
-                  color: "#6c757d",
-                  marginTop: "0.25rem",
-                  marginBottom: 0,
-                }}
-              >
-                {exportProgress.currentFormat}
-              </p>
-            )}
+            <p style={{ marginTop: "1rem", color: "#6c757d" }}>
+              {t("common.loading")}
+            </p>
           </div>
         )}
 
@@ -370,33 +287,6 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
                     >
                       {err.action}
                     </p>
-                    {showTechnicalDetails && err.technical && (
-                      <details style={{ marginTop: "0.5rem" }}>
-                        <summary
-                          style={{
-                            fontSize: "0.75rem",
-                            color: "#6c757d",
-                            cursor: "pointer",
-                          }}
-                        >
-                          Technical Details
-                        </summary>
-                        <pre
-                          style={{
-                            marginTop: "0.25rem",
-                            fontSize: "0.75rem",
-                            color: "#495057",
-                            backgroundColor: "#f8f9fa",
-                            padding: "0.5rem",
-                            borderRadius: "4px",
-                            overflowX: "auto",
-                            border: "1px solid #dee2e6",
-                          }}
-                        >
-                          {err.technical}
-                        </pre>
-                      </details>
-                    )}
                   </div>
                 </div>
               </div>
@@ -404,127 +294,74 @@ export const ErrorModal: FunctionalComponent<ErrorModalProps> = (props) => {
           </div>
         )}
 
-        {/* Context Information */}
-        {error?.context && Object.keys(error.context).length > 0 && (
+        {/* Modal Footer */}
+        {(!isLoading || allErrors.length > 0 || hasPartialSuccess) && (
           <div
             style={{
-              marginTop: "1rem",
-              padding: "0.75rem",
-              backgroundColor: "#f8f9fa",
-              borderRadius: "8px",
-              border: "1px solid #dee2e6",
+              display: "flex",
+              justifyContent: "flex-end",
+              gap: "0.5rem",
+              paddingTop: "1rem",
+              borderTop: "1px solid #dee2e6",
+              marginTop: "1.5rem",
             }}
           >
-            <h6
+            {hasPartialSuccess && onPartialAccept && (
+              <button
+                className="btn btn-warning"
+                onClick={onPartialAccept}
+                style={{
+                  padding: "0.5rem 1rem",
+                  backgroundColor: "#fd7e14",
+                  borderColor: "#fd7e14",
+                  color: "white",
+                  border: "1px solid transparent",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontSize: "0.875rem",
+                }}
+              >
+                Accept Partial Import
+              </button>
+            )}
+
+            {hasRecoverableErrors && onRetry && (
+              <button
+                className="btn btn-primary"
+                onClick={onRetry}
+                style={{
+                  padding: "0.5rem 1rem",
+                  backgroundColor: "#007bff",
+                  borderColor: "#007bff",
+                  color: "white",
+                  border: "1px solid transparent",
+                  borderRadius: "4px",
+                  cursor: "pointer",
+                  fontSize: "0.875rem",
+                }}
+              >
+                {t("common.retry")}
+              </button>
+            )}
+
+            <button
+              className="btn btn-outline-secondary"
+              onClick={onClose}
               style={{
+                padding: "0.5rem 1rem",
+                backgroundColor: "transparent",
+                borderColor: "#6c757d",
+                color: "#6c757d",
+                border: "1px solid #6c757d",
+                borderRadius: "4px",
+                cursor: "pointer",
                 fontSize: "0.875rem",
-                fontWeight: "500",
-                color: "#495057",
-                marginBottom: "0.5rem",
               }}
             >
-              Additional Information
-            </h6>
-            <dl style={{ margin: 0 }}>
-              {Object.entries(error.context).map(([key, value]) => (
-                <div
-                  key={key}
-                  style={{
-                    display: "flex",
-                    fontSize: "0.75rem",
-                    marginBottom: "0.25rem",
-                  }}
-                >
-                  <dt
-                    style={{
-                      color: "#6c757d",
-                      width: "33%",
-                      textTransform: "capitalize",
-                    }}
-                  >
-                    {key}:
-                  </dt>
-                  <dd
-                    style={{
-                      color: "#495057",
-                      width: "67%",
-                      margin: 0,
-                    }}
-                  >
-                    {String(value)}
-                  </dd>
-                </div>
-              ))}
-            </dl>
+              {t("common.close")}
+            </button>
           </div>
         )}
-
-        {/* Modal Footer */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-end",
-            gap: "0.5rem",
-            paddingTop: "1rem",
-            borderTop: "1px solid #dee2e6",
-            marginTop: "1.5rem",
-          }}
-        >
-          {hasPartialSuccess && onPartialAccept && (
-            <button
-              className="btn btn-warning"
-              onClick={onPartialAccept}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "#fd7e14",
-                borderColor: "#fd7e14",
-                color: "white",
-                border: "1px solid transparent",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontSize: "0.875rem",
-              }}
-            >
-              Accept Partial Import
-            </button>
-          )}
-
-          {hasRecoverableErrors && onRetry && (
-            <button
-              className="btn btn-primary"
-              onClick={onRetry}
-              style={{
-                padding: "0.5rem 1rem",
-                backgroundColor: "#007bff",
-                borderColor: "#007bff",
-                color: "white",
-                border: "1px solid transparent",
-                borderRadius: "4px",
-                cursor: "pointer",
-                fontSize: "0.875rem",
-              }}
-            >
-              {t("common.retry")}
-            </button>
-          )}
-
-          <button
-            className="btn btn-outline-secondary"
-            onClick={onClose}
-            style={{
-              padding: "0.5rem 1rem",
-              backgroundColor: "transparent",
-              borderColor: "#6c757d",
-              color: "#6c757d",
-              border: "1px solid #6c757d",
-              borderRadius: "4px",
-              cursor: "pointer",
-              fontSize: "0.875rem",
-            }}
-          >
-            {t("common.close")}
-          </button>
-        </div>
       </div>
     </div>
   );

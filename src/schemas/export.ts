@@ -2,8 +2,6 @@ import { z } from "zod";
 import { MeetingArraySchema } from "./meeting";
 import { AttendeeArraySchema } from "./attendee";
 import {
-  _DataCorruptionError,
-  _VersionMismatchError,
   createValidationError,
   ValidationErrorDetail,
   ValidationResult,

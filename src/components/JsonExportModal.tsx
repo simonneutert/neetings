@@ -1,13 +1,12 @@
 import { FunctionalComponent } from "preact";
 import { useTranslation } from "../i18n/index";
 import { ErrorModal } from "./ErrorModal";
-import type { ExportProgress } from "../hooks/useImportExport";
 
 interface JsonExportModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  exportProgress: ExportProgress | null;
+  isLoading?: boolean;
   modalError: any;
   seriesTitle?: string;
 }
@@ -16,30 +15,29 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
   isOpen,
   onClose,
   onConfirm,
-  exportProgress,
+  isLoading,
   modalError,
   seriesTitle = "Meeting Series",
 }) => {
   const { t } = useTranslation();
 
   const handleBackdropClick = (e: Event) => {
-    if (e.target === e.currentTarget && !exportProgress) {
+    if (e.target === e.currentTarget && !isLoading) {
       onClose();
     }
   };
 
   if (!isOpen) return null;
 
-  // If there's progress or error, show the ErrorModal
-  if (exportProgress || modalError) {
+  // If loading or error, show the ErrorModal
+  if (isLoading || modalError) {
     return (
       <ErrorModal
         isOpen={true}
         onClose={onClose}
         title={t("importExport.export")}
         error={modalError}
-        exportProgress={exportProgress}
-        showTechnicalDetails={false}
+        isLoading={isLoading}
       />
     );
   }

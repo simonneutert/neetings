@@ -10,6 +10,8 @@ import {
   getLocalizedBlockLabel,
   getLocalizedFieldLabel,
 } from "../../translation";
+import { DateFormatter } from "../shared/DateFormatter";
+import { AttendeeUtils } from "../shared/AttendeeUtils";
 import {
   AlignmentType,
   Document,
@@ -174,11 +176,11 @@ export class DOCXTransformer extends FormatTransformer {
     t?: (key: string) => string,
     language?: string,
   ): Paragraph[] {
-    const createdDate = this.formatLocalizedDateTime(
+    const createdDate = DateFormatter.formatLocalizedDateTime(
       meeting.created_at,
       language,
     );
-    const modifiedDate = this.formatLocalizedDateTime(
+    const modifiedDate = DateFormatter.formatLocalizedDateTime(
       meeting.updated_at,
       language,
     );
@@ -216,7 +218,7 @@ export class DOCXTransformer extends FormatTransformer {
     t?: (key: string) => string,
     language?: string,
   ): Paragraph[] {
-    const meetingDate = this.formatLocalizedDate(meeting.date, language);
+    const meetingDate = DateFormatter.formatLocalizedDate(meeting.date, language);
     const startTime = meeting.startTime;
     const endTime = meeting.endTime;
 
@@ -268,23 +270,17 @@ export class DOCXTransformer extends FormatTransformer {
     t?: (key: string) => string,
     _language?: string,
   ): Paragraph[] {
-    if (
-      !attendees || attendees.length === 0 || !meeting.attendeeIds ||
-      meeting.attendeeIds.length === 0
-    ) {
+    if (!attendees) {
       return [];
     }
 
-    // Filter attendees to only include those assigned to this meeting
-    const meetingAttendees = attendees.filter((a) =>
-      meeting.attendeeIds.includes(a.id)
-    );
+    const meetingAttendees = AttendeeUtils.filterMeetingAttendees(attendees, meeting);
 
     if (meetingAttendees.length === 0) {
       return [];
     }
 
-    const attendeesTitle = this.getAttendeesLabelWithCount(
+    const attendeesTitle = AttendeeUtils.getAttendeesLabelWithCount(
       meetingAttendees.length,
       t,
     );
@@ -603,7 +599,7 @@ export class DOCXTransformer extends FormatTransformer {
       : "Exported";
     const fromLabel = t ? t("importExport.content.from") || "from" : "from";
     const appName = "Neetings";
-    const exportDate = this.formatLocalizedDateTime(
+    const exportDate = DateFormatter.formatLocalizedDateTime(
       new Date().toISOString(),
       language,
     );
@@ -619,30 +615,4 @@ export class DOCXTransformer extends FormatTransformer {
     return `${nameWithoutExt}.docx`;
   }
 
-  /**
-   * Gets attendees label with proper count interpolation
-   */
-  private getAttendeesLabelWithCount(
-    count: number,
-    t?: (key: string) => string,
-  ): string {
-    if (t) {
-      const template = t("importExport.content.attendeesWithCount");
-      return template.replace("{{count}}", count.toString());
-    }
-    return `Attendees (${count})`;
-  }
-
-  /**
-   * Formats date with localization
-   */
-  private formatLocalizedDate(date: string, language?: string): string {
-    const d = new Date(date);
-    const locale = language === "de" ? "de-DE" : "en-US";
-    return d.toLocaleDateString(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  }
 }

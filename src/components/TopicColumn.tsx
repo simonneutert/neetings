@@ -120,9 +120,7 @@ const TopicColumnComponent: FunctionalComponent<
       {/* Enhanced Sortable Blocks */}
       <div style={{ marginBottom: "1rem" }}>
         <SortableContext
-          items={sortedBlocks.map((block) =>
-            `block-${block.id}-${topicId}`
-          )}
+          items={sortedBlocks.map((block) => `block-${block.id}-${topicId}`)}
           strategy={verticalListSortingStrategy}
         >
           {sortedBlocks.length === 0
@@ -151,8 +149,7 @@ const TopicColumnComponent: FunctionalComponent<
                 showDropIndicators={false}
                 dragOverIndex={null}
                 dragOverPosition={null}
-                onChange={(updatedBlock) =>
-                  onBlockChange(index, updatedBlock)}
+                onChange={(updatedBlock) => onBlockChange(index, updatedBlock)}
                 onMoveUp={() => onMoveBlock(index, "up")}
                 onMoveDown={() => onMoveBlock(index, "down")}
                 onDelete={() => onDeleteBlock(index)}

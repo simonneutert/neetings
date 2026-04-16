@@ -9,12 +9,6 @@ import { APP_CONFIG } from "../constants/index";
 import { createErrorDetail, ErrorModal } from "./ErrorModal";
 import { Attendee } from "../types/Attendee";
 
-interface ExportProgress {
-  stage: "starting" | "preparing" | "generating" | "complete";
-  percentage: number;
-  currentFormat?: string;
-}
-
 interface ExportModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -39,9 +33,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 
   // Progress modal state
   const [isProgressModalOpen, setIsProgressModalOpen] = useState(false);
-  const [exportProgress, setExportProgress] = useState<ExportProgress | null>(
-    null,
-  );
   const [progressModalError, setProgressModalError] = useState<any>(null);
 
   const exporter = useMemo(() => new BaseExporter(), []);
@@ -85,23 +76,10 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
     setProgressModalError(null);
 
     try {
-      // Progress callback
-      const updateProgress = (
-        stage: ExportProgress["stage"],
-        percentage: number,
-        currentFormat?: string,
-      ) => {
-        setExportProgress({ stage, percentage, currentFormat });
-      };
-
-      updateProgress("starting", 10);
-
       // Flush any pending updates to ensure we export the latest data
       if (onFlushPendingUpdates) {
         await onFlushPendingUpdates();
       }
-
-      updateProgress("preparing", 30, format.toUpperCase());
 
       // Get attendee data for the meeting
       // Read attendees from localStorage to ensure we include any recently-added
@@ -109,11 +87,15 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
       // this hook's local state yet.
       let attendees = [] as Attendee[];
       try {
-        const stored = localStorage.getItem(APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES);
+        const stored = localStorage.getItem(
+          APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES,
+        );
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed)) {
-            attendees = parsed.filter((a: Attendee) => meeting.attendeeIds.includes(a.id));
+            attendees = parsed.filter((a: Attendee) =>
+              meeting.attendeeIds.includes(a.id)
+            );
           } else {
             attendees = getAttendeesByIds(meeting.attendeeIds);
           }
@@ -121,32 +103,28 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
           attendees = getAttendeesByIds(meeting.attendeeIds);
         }
       } catch (err) {
-        console.warn("ExportModal: failed to read attendees from storage during export:", err);
+        console.warn(
+          "ExportModal: failed to read attendees from storage during export:",
+          err,
+        );
         attendees = getAttendeesByIds(meeting.attendeeIds);
       }
 
       const options: ExportOptions = {
         format,
         filename: filename.trim(),
-        t, // Pass translation function for localized content
-        language, // Pass current language explicitly
-        attendees, // Pass attendee data for resolving attendeeIds
+        t,
+        language,
+        attendees,
       };
-
-      updateProgress("generating", 60, format.toUpperCase());
 
       const result = await exporter.export(meeting, options);
 
-      updateProgress("generating", 90, format.toUpperCase());
-
       await exporter.downloadFile(result);
-
-      updateProgress("complete", 100);
 
       // Show success briefly then close
       setTimeout(() => {
         setIsProgressModalOpen(false);
-        setExportProgress(null);
         onClose();
       }, 1500);
     } catch (error) {
@@ -158,7 +136,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
         { format, filename: filename.trim() },
       );
       setProgressModalError(errorDetail);
-      setExportProgress(null);
 
       // Also set local error for the main modal
       setExportError(
@@ -183,7 +160,6 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
 
   const closeProgressModal = () => {
     setIsProgressModalOpen(false);
-    setExportProgress(null);
     setProgressModalError(null);
   };
 
@@ -409,9 +385,8 @@ export const ExportModal: FunctionalComponent<ExportModalProps> = ({
         onClose={closeProgressModal}
         title={t("importExport.modal.title")}
         error={progressModalError}
-        exportProgress={exportProgress}
+        isLoading={isExporting && !progressModalError}
         onRetry={progressModalError ? retryExport : undefined}
-        showTechnicalDetails={false}
       />
     </div>
   );

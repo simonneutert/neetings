@@ -31,19 +31,4 @@ export abstract class FormatTransformer {
       .replace(/\s+/g, "-")
       .toLowerCase();
   }
-
-  protected formatLocalizedDateTime(date: string, language?: string): string {
-    const d = new Date(date);
-
-    // Use native toLocaleString with locale parameter (matches existing codebase pattern)
-    const locale = language === "de" ? "de-DE" : "en-US";
-    return d.toLocaleString(locale, {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-    });
-  }
 }
