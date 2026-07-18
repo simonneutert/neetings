@@ -27,11 +27,11 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.10.5",
+    "@preact/preset-vite": "^2.10.6",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/preact": "^3.2.4",
     "@testing-library/user-event": "^14.6.1",
-    "@typescript-eslint/eslint-plugin": "^8.63.0",
+    "@typescript-eslint/eslint-plugin": "^8.64.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@vitest/ui": "^4.1.10",
     "baseline-browser-mapping": "^2.10.43",
@@ -40,7 +40,7 @@
     "eslint-plugin-compat": "^7.0.2",
     "jsdom": "^29.1.1",
     "typescript": "^6.0.3",
-    "vite": "^8.1.4",
+    "vite": "^8.1.5",
     "vitest": "^4.0.5"
   }
 }
