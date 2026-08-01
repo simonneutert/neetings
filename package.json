@@ -34,7 +34,7 @@
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@vitest/ui": "^4.1.10",
-    "baseline-browser-mapping": "^2.11.3",
+    "baseline-browser-mapping": "^2.11.7",
     "eslint": "^9.39.2",
     "eslint-config-preact": "^2.0.0",
     "eslint-plugin-compat": "^7.0.2",
