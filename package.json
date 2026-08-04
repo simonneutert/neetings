@@ -23,7 +23,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "docx": "^9.7.1",
-    "preact": "^10.29.7",
+    "preact": "^10.29.8",
     "zod": "^4.4.3"
   },
   "devDependencies": {
@@ -34,13 +34,13 @@
     "@typescript-eslint/eslint-plugin": "^8.65.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@vitest/ui": "^4.1.10",
-    "baseline-browser-mapping": "^2.11.3",
+    "baseline-browser-mapping": "^2.11.10",
     "eslint": "^9.39.2",
     "eslint-config-preact": "^2.0.0",
     "eslint-plugin-compat": "^7.0.2",
     "jsdom": "^30.0.1",
     "typescript": "^6.0.3",
-    "vite": "^8.1.5",
+    "vite": "^8.2.0",
     "vitest": "^4.0.5"
   }
 }
