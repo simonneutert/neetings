@@ -30,17 +30,17 @@
     "@preact/preset-vite": "^2.10.6",
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/preact": "^3.2.4",
-    "@testing-library/user-event": "^14.6.1",
-    "@typescript-eslint/eslint-plugin": "^8.65.0",
+    "@testing-library/user-event": "^14.6.3",
+    "@typescript-eslint/eslint-plugin": "^8.66.0",
     "@typescript-eslint/parser": "^8.36.0",
     "@vitest/ui": "^4.1.10",
-    "baseline-browser-mapping": "^2.11.10",
+    "baseline-browser-mapping": "^2.11.13",
     "eslint": "^9.39.2",
     "eslint-config-preact": "^2.0.0",
     "eslint-plugin-compat": "^7.0.2",
     "jsdom": "^30.0.1",
     "typescript": "^6.0.3",
-    "vite": "^8.2.0",
+    "vite": "^8.2.1",
     "vitest": "^4.0.5"
   }
 }
