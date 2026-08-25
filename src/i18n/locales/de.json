@@ -442,43 +442,43 @@
     "title": "Nutzungsbedingungen",
     "dataProcessing": {
       "title": "Datenverarbeitung",
-      "content": "Diese Anwendung verarbeitet sämtliche Daten ausschließlich lokal in Ihrem Browser. Personenbezogene Daten, Besprechungsnotizen oder sonstige Informationen werden nicht an externe Server oder Drittanbieter übermittelt."
+      "content": "Die vom Nutzer in Neetings eingegebenen Besprechungsinhalte werden nach dem derzeitigen technischen Konzept ausschließlich lokal im verwendeten Browser verarbeitet und nicht an den Anbieter oder an Dritte übermittelt, es sei denn, der Nutzer exportiert oder teilt sie eigenständig außerhalb von Neetings. Beim Aufruf der Website fallen technisch notwendige Verbindungs- und Zugriffsdaten an, beispielsweise die IP-Adresse sowie Zeitpunkt und Gegenstand des jeweiligen Abrufs. Einzelheiten hierzu enthält die Datenschutzerklärung."
     },
     "localStorage": {
       "title": "Lokale Datenspeicherung",
-      "content": "Alle Besprechungsdaten werden ausschließlich im lokalen Speicher Ihres Browsers abgelegt. Diese Daten verbleiben auf Ihrem Endgerät und sind für Dritte nicht zugänglich, es sei denn, Sie exportieren und teilen diese explizit."
+      "content": "Besprechungsinhalte werden ausschließlich im lokalen Speicher des verwendeten Browsers gespeichert. Neetings bietet keine serverseitige Synchronisierung oder Sicherung dieser Inhalte. Lokal gespeicherte Inhalte können insbesondere durch das Löschen von Browserdaten, die Verwendung eines privaten Browsermodus, einen Browser- oder Gerätewechsel, technische Defekte oder den Verlust des Endgeräts verloren gehen. Nutzer sollten ihre Inhalte deshalb regelmäßig über die bereitgestellten Exportfunktionen sichern. Der Anbieter hat grundsätzlich keinen Zugriff auf lokal gespeicherte Besprechungsinhalte und kann verlorene Inhalte nicht wiederherstellen."
     },
     "noCookies": {
-      "title": "Cookie-freier Betrieb",
-      "content": "Diese Anwendung verwendet keine Cookies, Tracking-Pixel, Analysedienste oder sonstige Verfolgungstechnologien. Ihr Datenschutz ist vollumfänglich gewährleistet."
+      "title": "Cookies und lokaler Browserspeicher",
+      "content": "Neetings verwendet nach dem derzeitigen technischen Konzept keine Cookies, Tracking-Pixel oder Webanalysedienste. Für die vom Nutzer ausdrücklich gewünschte lokale Speicherung und Bereitstellung der Besprechungsinhalte verwendet Neetings den lokalen Speicher des Browsers."
     },
     "privacy": {
-      "title": "Datenschutzgarantie",
-      "content": "Wir garantieren vollständigen Datenschutz: keine Datenerhebung, kein Nutzer-Tracking, keine Webanalyse, keine externen API-Aufrufe für Kernfunktionen. Ihre Besprechungsnotizen und personenbezogenen Daten bleiben privat und sicher."
+      "title": "Datenschutz",
+      "content": "Informationen über die Verarbeitung technisch notwendiger Verbindungs- und Zugriffsdaten, das Hosting, mögliche Empfänger, Speicherdauern und die Rechte betroffener Personen finden sich in der gesonderten Datenschutzerklärung. Diese Nutzungsbedingungen ersetzen die Datenschutzerklärung nicht."
     },
     "serviceAvailability": {
-      "title": "Verfügbarkeit des Dienstes",
-      "content": "Dieser Dienst wird unentgeltlich ohne jegliche Gewährleistung hinsichtlich Verfügbarkeit, Betriebszeit oder Kontinuität bereitgestellt. Wir behalten uns das Recht vor, den Dienst jederzeit ohne Vorankündigung einzustellen, zu modifizieren oder zu unterbrechen. Nutzer haben keinen Anspruch auf Fortbestand des Dienstes oder auf Aktualisierungen."
+      "title": "Geltungsbereich, Vertragsschluss und Verfügbarkeit",
+      "content": "Diese Nutzungsbedingungen gelten für die unentgeltliche Nutzung der Webanwendung Neetings. Angaben zum Anbieter finden sich im Impressum. Der Nutzungsvertrag kommt zustande, wenn der Nutzer nach dem Hinweis auf diese Nutzungsbedingungen auf die Schaltfläche „Meetingserie starten“ klickt. Ein Anspruch auf Abschluss eines Nutzungsvertrags oder auf eine bestimmte Verfügbarkeit, Betriebszeit oder dauerhafte Bereitstellung besteht nicht. Der Anbieter darf den Dienst insbesondere wegen Wartungsarbeiten, Sicherheitsproblemen, technischen Störungen oder Umständen außerhalb seines Einflussbereichs vorübergehend einschränken oder unterbrechen. Funktionen dürfen weiterentwickelt, geändert oder eingestellt werden, sofern Nutzer dadurch nicht unangemessen benachteiligt werden. Eine vollständige Einstellung des Dienstes wird, soweit möglich und zumutbar, vorher auf der Website angekündigt. Nutzer können die Nutzung jederzeit beenden."
     },
     "noSupport": {
       "title": "Keine Support-Verpflichtung",
-      "content": "Wir erbringen diesen Dienst ohne jegliche Verpflichtung zur technischen Unterstützung, Fehlerbehebung, Aktualisierung oder Verbesserung. Etwaige Updates oder Verbesserungen erfolgen ausschließlich nach unserem Ermessen. Nutzer haben keinen Anspruch auf derartige Leistungen."
+      "content": "Ein Anspruch auf individuelle technische Unterstützung, Fehlerbehebung, Aktualisierungen oder die Entwicklung bestimmter Funktionen besteht nicht. Soweit der Anbieter freiwillig Unterstützung, Aktualisierungen oder Verbesserungen bereitstellt, entsteht daraus kein Anspruch auf entsprechende zukünftige Leistungen."
     },
     "asIs": {
-      "title": "Bereitstellung \"wie verfügbar\"",
-      "content": "Diese Anwendung wird \"wie gesehen\" und \"wie verfügbar\" ohne jegliche Gewährleistung bereitgestellt. Wir übernehmen keine Garantie dafür, dass der Dienst unterbrechungsfrei oder fehlerfrei funktioniert oder Ihren spezifischen Anforderungen entspricht."
+      "title": "Leistungsumfang",
+      "content": "Neetings ermöglicht es Nutzern, Besprechungsnotizen im Browser zu erstellen, zu strukturieren, lokal zu speichern und über die bereitgestellten Funktionen zu exportieren. Der Anbieter schuldet ausschließlich die auf der Website beschriebenen Funktionen. Ein bestimmter wirtschaftlicher, organisatorischer oder sonstiger Erfolg ist nicht geschuldet. Es wird nicht zugesichert, dass Neetings mit jedem Endgerät, Betriebssystem oder Browser uneingeschränkt kompatibel ist. Zwingende gesetzliche Rechte der Nutzer bleiben unberührt."
     },
     "liability": {
-      "title": "Haftungsausschluss",
-      "content": "Wir haften nicht für unmittelbare, mittelbare, zufällige, besondere oder Folgeschäden, die aus der Nutzung dieses Dienstes entstehen. Die Nutzer tragen sämtliche Risiken im Zusammenhang mit der Verwendung dieser Anwendung und sind allein für die Datensicherung verantwortlich."
+      "title": "Haftung",
+      "content": "Der Anbieter haftet unbeschränkt für Schäden, die vorsätzlich oder grob fahrlässig verursacht wurden, sowie für Schäden aus der Verletzung des Lebens, des Körpers oder der Gesundheit. Bei leicht fahrlässiger Verletzung einer wesentlichen Vertragspflicht ist die Haftung auf den vertragstypischen, vorhersehbaren Schaden begrenzt. Wesentliche Vertragspflichten sind solche Pflichten, deren Erfüllung die ordnungsgemäße Durchführung des Vertrags überhaupt erst ermöglicht und auf deren Einhaltung Nutzer regelmäßig vertrauen dürfen. Im Übrigen ist die Haftung, soweit gesetzlich zulässig, ausgeschlossen. Zwingende gesetzliche Haftungsvorschriften, insbesondere nach dem Produkthaftungsgesetz, bleiben unberührt. Diese Haftungsbeschränkungen gelten entsprechend zugunsten der gesetzlichen Vertreter und Erfüllungsgehilfen des Anbieters."
     },
     "userResponsibility": {
-      "title": "Nutzerverantwortung",
-      "content": "Die Nutzer tragen die alleinige Verantwortung für ihre Daten und sind verpflichtet, ihre Besprechungsnotizen regelmäßig zu exportieren und zu sichern. Wir übernehmen keine Haftung für Datenverluste, unabhängig von deren Ursache."
+      "title": "Nutzerverantwortung und Rechte an Inhalten",
+      "content": "Neetings darf nur im Rahmen der geltenden Gesetze genutzt werden. Nutzer dürfen den Dienst insbesondere nicht zur Störung, Beschädigung oder missbräuchlichen Belastung der Website oder ihrer technischen Infrastruktur verwenden. Nutzer behalten sämtliche ihnen zustehenden Rechte an ihren Besprechungsinhalten. Da diese Inhalte ausschließlich lokal verarbeitet werden, räumen Nutzer dem Anbieter daran keine Nutzungsrechte ein. Nutzer sind für die regelmäßige Sicherung ihrer lokal gespeicherten Inhalte verantwortlich. Gesetzliche Haftungsansprüche bleiben unberührt."
     },
     "changes": {
-      "title": "Änderung der Bedingungen",
-      "content": "Wir behalten uns das Recht vor, diese Nutzungsbedingungen jederzeit zu ändern. Änderungen werden mit ihrer Veröffentlichung wirksam. Die weitere Nutzung des Dienstes gilt als Zustimmung zu den geänderten Bedingungen."
+      "title": "Änderungen und anwendbares Recht",
+      "content": "Der Anbieter kann diese Nutzungsbedingungen mit Wirkung für die Zukunft ändern, wenn dies aufgrund gesetzlicher, technischer oder funktionaler Entwicklungen erforderlich ist und Nutzer dadurch nicht unangemessen benachteiligt werden. Auf wesentliche Änderungen wird vor der nächsten Nutzung deutlich hingewiesen. Soweit eine Änderung eine bestehende Vertragsbeziehung wesentlich betrifft, wird sie nur wirksam, wenn der Nutzer ihr durch eine ausdrückliche Handlung zustimmt. Die bloße weitere Nutzung oder das Schweigen des Nutzers gelten nicht als Zustimmung. Es gilt das Recht der Bundesrepublik Deutschland unter Ausschluss des UN-Kaufrechts. Gegenüber Verbrauchern gilt diese Rechtswahl nur insoweit, als ihnen dadurch nicht der Schutz zwingender Bestimmungen des Staates ihres gewöhnlichen Aufenthalts entzogen wird."
     }
   },
   "errors": {
