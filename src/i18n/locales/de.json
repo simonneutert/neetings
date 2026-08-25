@@ -372,14 +372,14 @@
         "private": "🔐 100% privat",
         "setup": "⚡ Null Setup"
       },
-      "startButton": "🚀 Meeting starten",
+      "startButton": "🚀 Meetingserie starten",
       "termsAgreement": "Durch die Nutzung dieses Dienstes akzeptierst du unsere",
       "termsLink": "Nutzungsbedingungen"
     },
     "questions": {
       "confluence": {
         "question": "🔗 Funktioniert Neetings mit Confluence™?",
-        "answer": "Absolut! 📋 Lade dein Meeting im Markdown-Format herunter, kopiere den Inhalt in die Zwischenablage und füge ihn direkt in Confluence™ ein. ✨ Deine strukturierten Blöcke, Formatierungen und Organisation werden nahtlos übertragen! 🚀"
+        "answer": "Absolut! 📋 Lade dein Meetingserie im Markdown-Format herunter, kopiere den Inhalt in die Zwischenablage und füge ihn direkt in Confluence™ ein. ✨ Deine strukturierten Blöcke, Formatierungen und Organisation werden nahtlos übertragen! 🚀"
       },
       "whyChoose": {
         "question": "Warum Neetings statt herkömmlicher Notiz-Apps wählen?",

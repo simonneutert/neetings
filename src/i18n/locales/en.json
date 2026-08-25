@@ -372,14 +372,14 @@
         "private": "🔐 100% Private",
         "setup": "⚡ Zero Setup"
       },
-      "startButton": "🚀 Start Taking Notes",
+      "startButton": "🚀 Start Meeting Series",
       "termsAgreement": "By using this service, you agree to our",
       "termsLink": "Terms of Service"
     },
     "questions": {
       "confluence": {
         "question": "🔗 Does Neetings work with Confluence™?",
-        "answer": "Absolutely! 📋 Download your meeting as Markdown, copy the content to your clipboard, and paste it directly into Confluence™. ✨ Your structured blocks, formatting, and organization transfer seamlessly! 🚀"
+        "answer": "Absolutely! 📋 Download your meeting series as Markdown, copy the content to your clipboard, and paste it directly into Confluence™. ✨ Your structured blocks, formatting, and organization transfer seamlessly! 🚀"
       },
       "whyChoose": {
         "question": "Why choose Neetings over traditional note-taking apps?",
