@@ -1,4 +1,3 @@
-import { h } from "preact";
 import { useTheme } from "../hooks/useTheme";
 import { useTranslation } from "../i18n/index";
 

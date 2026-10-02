@@ -468,7 +468,7 @@ export class HTMLGenerator {
     const label = getLocalizedBlockLabel(block.type, t, language);
     const blockClass = `block-${block.type.replace("block", "")}`;
 
-    let contentHTML = "";
+    let contentHTML: string;
 
     switch (block.type) {
       case "textblock":
