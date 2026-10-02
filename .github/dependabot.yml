@@ -8,6 +8,11 @@ updates:
   - package-ecosystem: "npm" # See documentation for possible values
     directory: "/" # Location of package manifests
     groups:
+      # vitest and its sibling packages pin each other exactly; bump them together
+      vitest:
+        patterns: ["vitest", "@vitest/*"]
+      typescript-eslint:
+        patterns: ["@typescript-eslint/*", "typescript-eslint"]
       patch-and-minor-dependencies:
         update-types: ["patch", "minor"]
     schedule:
