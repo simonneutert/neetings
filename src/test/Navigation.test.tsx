@@ -1,6 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { screen } from "@testing-library/preact";
-import { h } from "preact";
 import { Navigation } from "../components/Navigation";
 import { renderWithI18n } from "./testUtils";
 

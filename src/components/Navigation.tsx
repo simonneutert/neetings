@@ -1,4 +1,3 @@
-import { h } from "preact";
 import { useTranslation } from "../i18n/index";
 import { LanguageSwitcher } from "./LanguageSwitcher";
 import { ThemeToggle } from "./ThemeToggle";
