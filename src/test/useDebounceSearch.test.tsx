@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { render } from "@testing-library/preact";
-import { useDebounceSearch } from "../hooks/useDebounceSearch";
+import { useDebounceSearch } from "../hooks/useDebounceSearch.ts";
 
 // Simple test component that uses the hook
 function TestComponent() {

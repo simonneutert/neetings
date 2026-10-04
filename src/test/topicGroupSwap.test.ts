@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/preact";
-import { useMeetingState } from "../hooks/useMeetingState";
-import { Meeting } from "../types/Meeting";
+import { useMeetingState } from "../hooks/useMeetingState.ts";
+import { Meeting } from "../types/Meeting.ts";
 
 describe("Topic Group Swap Functionality", () => {
   beforeEach(() => {

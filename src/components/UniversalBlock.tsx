@@ -7,15 +7,15 @@ import {
   getBlockFieldValue,
   setBlockFieldValue,
   toggleBlockCompletion,
-} from "../types/Block";
+} from "../types/Block.ts";
 import {
   APP_CONFIG,
   CONFIRM_MESSAGES,
   TEXTAREA_FIELDS,
-} from "../constants/index";
-import { createTodoStyle } from "../utils/styles";
-import { BlockVisual } from "./BlockVisual";
-import { useTranslation } from "../i18n/index";
+} from "../constants/index.ts";
+import { createTodoStyle } from "../utils/styles.ts";
+import { BlockVisual } from "./BlockVisual.tsx";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface UniversalBlockProps {
   block: Block;
@@ -71,7 +71,7 @@ const UniversalBlockComponent: FunctionalComponent<UniversalBlockProps> = ({
   };
 
   const handleDelete = () => {
-    if (window.confirm(CONFIRM_MESSAGES.DELETE_BLOCK)) {
+    if (globalThis.confirm(CONFIRM_MESSAGES.DELETE_BLOCK)) {
       onDelete();
     }
   };
@@ -124,7 +124,7 @@ const UniversalBlockComponent: FunctionalComponent<UniversalBlockProps> = ({
   return (
     <BlockVisual
       block={block}
-      showTodoToggle={true}
+      showTodoToggle
       onTodoToggle={handleCompletionToggle}
       actions={
         <>

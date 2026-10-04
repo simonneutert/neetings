@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { BaseExporter } from "../../utils/export/BaseExporter";
-import { autoMigrate, createExportV1 } from "../../schemas/index";
-import { TestDataFactory } from "../factories/testDataFactory";
+import { BaseExporter } from "../../utils/export/BaseExporter.ts";
+import { autoMigrate, createExportV1 } from "../../schemas/index.ts";
+import { TestDataFactory } from "../factories/testDataFactory.ts";
 
 // Mock URL and Blob for performance testing
 Object.defineProperty(window, "URL", {

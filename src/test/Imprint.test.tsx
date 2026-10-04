@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { describe, expect, it, vi } from "vitest";
-import { Imprint } from "../components/Imprint";
-import { I18nProvider } from "../i18n";
+import { Imprint } from "../components/Imprint.tsx";
+import { I18nProvider } from "../i18n/index.tsx";
 
 describe("Imprint Component", () => {
   it("renders Imprint title and content sections", () => {
@@ -11,7 +11,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -52,7 +52,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -129,7 +129,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -149,7 +149,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -171,7 +171,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -195,7 +195,7 @@ describe("Imprint Component", () => {
       <I18nProvider>
         <Imprint
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );

@@ -1,8 +1,8 @@
-import { Block, getBlockFieldValue } from "../../../types/Block";
+import { Block, getBlockFieldValue } from "../../../types/Block.ts";
 import {
   getLocalizedBlockLabel,
   getLocalizedFieldLabel,
-} from "../../translation";
+} from "../../translation.ts";
 
 /**
  * Shared block formatting utilities for export transformers

@@ -1,11 +1,11 @@
 import { FunctionalComponent } from "preact";
 import { useMemo, useState } from "preact/hooks";
-import { Attendee } from "../types/Attendee";
-import { useTranslation } from "../i18n";
-import { useDebounceSearch } from "../hooks/useDebounceSearch";
-import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
-import { useMeetingState } from "../hooks/useMeetingState";
-import { ATTENDEE_SEARCH_CONFIG } from "../constants";
+import { Attendee } from "../types/Attendee.ts";
+import { useTranslation } from "../i18n/index.tsx";
+import { useDebounceSearch } from "../hooks/useDebounceSearch.ts";
+import { useGlobalAttendees } from "../hooks/useGlobalAttendees.ts";
+import { useMeetingState } from "../hooks/useMeetingState.ts";
+import { ATTENDEE_SEARCH_CONFIG } from "../constants/index.ts";
 
 interface AttendeeManagerProps {
   onGoBack: () => void;
@@ -152,7 +152,7 @@ export const AttendeeManager: FunctionalComponent<AttendeeManagerProps> = ({
       meetingCount,
     });
 
-    if (window.confirm(confirmationMessage)) {
+    if (globalThis.confirm(confirmationMessage)) {
       // Remove from meetings first
       removeAttendeeFromAllMeetings(attendeeId);
 

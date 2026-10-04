@@ -1,21 +1,21 @@
 import { useEffect, useRef, useState } from "preact/hooks";
-import { generateUUID } from "../utils/uuid";
-import { generateBatchSortKeys } from "../utils/sortKeys";
+import { generateUUID } from "../utils/uuid.ts";
+import { generateBatchSortKeys } from "../utils/sortKeys.ts";
 import {
   createEmptyMeeting,
   Meeting,
   MeetingUpdateData,
   updateMeetingTimestamp,
-} from "../types/Meeting";
-import { TopicGroup } from "../types/TopicGroup";
-import { normalizeTopicGroupId } from "../types/Block";
-import { APP_CONFIG } from "../constants/index";
-import { MeetingUpdateQueue } from "../utils/MeetingUpdateQueue";
-import { checkMemoryUsage } from "../utils/securityValidation";
+} from "../types/Meeting.ts";
+import { TopicGroup } from "../types/TopicGroup.ts";
+import { normalizeTopicGroupId } from "../types/Block.ts";
+import { APP_CONFIG } from "../constants/index.ts";
+import { MeetingUpdateQueue } from "../utils/MeetingUpdateQueue.ts";
+import { checkMemoryUsage } from "../utils/securityValidation.ts";
 import {
   MeetingSeriesType,
   migrateLegacyMeetingsToSeries,
-} from "../schemas/meetingSeries";
+} from "../schemas/meetingSeries.ts";
 
 export function useMeetingState() {
   const [meetings, setMeetings] = useState<Meeting[]>([]);

@@ -1,7 +1,7 @@
 import { createContext } from "preact";
 import { useContext, useState } from "preact/hooks";
-import type { Language, Translations } from "./types";
-import { APP_CONFIG } from "../constants/index";
+import type { Language, Translations } from "./types.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 // Import translation files
 import enTranslations from "./locales/en.json";

@@ -6,7 +6,7 @@ import {
   ImportResult,
   PartialImportData,
   ValidationErrorDetail,
-} from "./ExportErrors";
+} from "./ExportErrors.ts";
 
 const MAX_FILE_SIZE = 50 * 1024 * 1024; // 50MB
 const SUPPORTED_MIME_TYPES = ["application/json", "text/json"];

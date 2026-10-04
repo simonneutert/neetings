@@ -1,5 +1,5 @@
 // Common style utilities for consistent UI patterns
-import { CSSProperties } from "preact/compat";
+import type { CSSProperties } from "preact";
 
 // Utility functions for dynamic styles
 export function createTodoStyle(completed: boolean): CSSProperties {

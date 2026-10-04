@@ -3,8 +3,8 @@ import { cleanup, screen } from "@testing-library/preact";
 import userEvent from "@testing-library/user-event";
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import { UnifiedFilter } from "../components/UnifiedFilter";
-import { renderWithI18n } from "./testUtils";
+import { UnifiedFilter } from "../components/UnifiedFilter.tsx";
+import { renderWithI18n } from "./testUtils.ts";
 
 // Helper to render UnifiedFilter component with i18n context in overview mode
 // Test wrapper component that manages filter state

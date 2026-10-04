@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface CTASectionProps {
   onButtonClick: () => void;

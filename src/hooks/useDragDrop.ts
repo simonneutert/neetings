@@ -4,8 +4,8 @@
 
 import { useCallback, useState } from "preact/hooks";
 import { DragEndEvent, DragOverEvent, DragStartEvent } from "@dnd-kit/core";
-import { Block, normalizeTopicGroupId } from "../types/Block";
-import { generateSortKey } from "../utils/sortKeys";
+import { Block, normalizeTopicGroupId } from "../types/Block.ts";
+import { generateSortKey } from "../utils/sortKeys.ts";
 
 /**
  * Active block state during drag operations

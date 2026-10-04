@@ -1,5 +1,5 @@
-import { SemanticColor } from "../utils/colors";
-import { generateSortKey, isValidSortKey } from "../utils/sortKeys";
+import { SemanticColor } from "../utils/colors.ts";
+import { generateSortKey, isValidSortKey } from "../utils/sortKeys.ts";
 
 // Clean Block interface - sortKey required, no legacy position field
 export interface Block {

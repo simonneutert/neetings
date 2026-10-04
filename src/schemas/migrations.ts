@@ -4,8 +4,8 @@ import {
   ExportV1Schema,
   ExportV1Type,
   LegacyExportType,
-} from "./export";
-import { migrateLegacyMeeting } from "./meeting";
+} from "./export.ts";
+import { migrateLegacyMeeting } from "./meeting.ts";
 
 // Migration plan interface
 interface MigrationPlan {

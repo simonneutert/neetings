@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { ImportExportButtons } from "./ImportExportButtons";
+import { ImportExportButtons } from "./ImportExportButtons.tsx";
 
 interface MeetingsImportExportProps {
   meetings: any[];

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { createAttendee, validateAttendee } from "../types/Attendee";
-import { AttendeeSchema } from "../schemas/attendee";
+import { createAttendee, validateAttendee } from "../types/Attendee.ts";
+import { AttendeeSchema } from "../schemas/attendee.ts";
 
 // Mock localStorage
 const mockLocalStorage = (() => {

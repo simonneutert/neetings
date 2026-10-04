@@ -1,8 +1,8 @@
 import { FunctionalComponent } from "preact";
-import { Block, BLOCK_TYPES, createBlock } from "../types/Block";
-import { APP_CONFIG } from "../constants/index";
-import { getSemanticColorHex } from "../utils/colors";
-import { useTranslation } from "../i18n/index";
+import { Block, BLOCK_TYPES, createBlock } from "../types/Block.ts";
+import { APP_CONFIG } from "../constants/index.ts";
+import { getSemanticColorHex } from "../utils/colors.ts";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface BlockCreatorProps {
   onAddBlock: (block: Block) => void;
@@ -20,7 +20,7 @@ export const BlockCreator: FunctionalComponent<BlockCreatorProps> = (
     // Scroll to bottom after adding
     setTimeout(() => {
       if (typeof window !== "undefined") {
-        window.scrollTo({
+        globalThis.scrollTo({
           top: document.body.scrollHeight,
           behavior: "smooth",
         });

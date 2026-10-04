@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { BlockTypeModal } from "../components/BlockTypeModal";
-import { I18nProvider } from "../i18n"; // Import I18nProvider
+import { BlockTypeModal } from "../components/BlockTypeModal.tsx";
+import { I18nProvider } from "../i18n/index.tsx"; // Import I18nProvider
 
 describe("BlockTypeModal", () => {
   const mockOnClose = vi.fn();
@@ -15,7 +15,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"
@@ -46,7 +46,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"
@@ -67,7 +67,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"
@@ -85,7 +85,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"
@@ -103,7 +103,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"
@@ -121,7 +121,7 @@ describe("BlockTypeModal", () => {
     render(
       <I18nProvider>
         <BlockTypeModal
-          isOpen={true}
+          isOpen
           onClose={mockOnClose}
           onSelectType={mockOnSelectType}
           topicGroupName="Test Topic"

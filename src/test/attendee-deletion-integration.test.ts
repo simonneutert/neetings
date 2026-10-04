@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/preact";
-import { useMeetingState } from "../hooks/useMeetingState";
-import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
-import { createEmptyMeeting } from "../types/Meeting";
-import { createAttendee } from "../types/Attendee";
-import { APP_CONFIG } from "../constants";
+import { useMeetingState } from "../hooks/useMeetingState.ts";
+import { useGlobalAttendees } from "../hooks/useGlobalAttendees.ts";
+import { createEmptyMeeting } from "../types/Meeting.ts";
+import { createAttendee } from "../types/Attendee.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 // Mock localStorage
 const localStorageMock = (() => {

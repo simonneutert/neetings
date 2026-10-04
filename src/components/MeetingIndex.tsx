@@ -1,5 +1,5 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface MeetingIndexProps {
   meetings: any[];
@@ -27,7 +27,7 @@ export const MeetingIndex: FunctionalComponent<MeetingIndexProps> = (
         : (
           <ul
             className="list-group"
-            style={{ maxWidth: 500, margin: "0 auto" }}
+            style={{ maxWidth: "500px", margin: "0 auto" }}
           >
             {meetings.map((meeting) => {
               const isEmpty = meeting.blocks.length === 0;
@@ -87,7 +87,7 @@ export const MeetingIndex: FunctionalComponent<MeetingIndexProps> = (
                       onClick={(e) => {
                         e.stopPropagation();
                         if (
-                          window.confirm(
+                          globalThis.confirm(
                             t("confirmations.deleteMeeting"),
                           )
                         ) {

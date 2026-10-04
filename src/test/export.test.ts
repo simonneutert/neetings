@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { BaseExporter } from "../utils/export/BaseExporter";
-import { MarkdownTransformer } from "../utils/export/transformers/MarkdownTransformer";
-import { HTMLTransformer } from "../utils/export/transformers/HTMLTransformer";
-import { DOCXTransformer } from "../utils/export/transformers/DOCXTransformer";
-import { TestDataFactory } from "./factories/testDataFactory";
+import { BaseExporter } from "../utils/export/BaseExporter.ts";
+import { MarkdownTransformer } from "../utils/export/transformers/MarkdownTransformer.ts";
+import { HTMLTransformer } from "../utils/export/transformers/HTMLTransformer.ts";
+import { DOCXTransformer } from "../utils/export/transformers/DOCXTransformer.ts";
+import { TestDataFactory } from "./factories/testDataFactory.ts";
 
 // Mock URL for testing file downloads
 Object.defineProperty(window, "URL", {

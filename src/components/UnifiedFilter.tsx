@@ -1,17 +1,17 @@
 import { FunctionalComponent } from "preact";
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { Block, BLOCK_TYPES, getBlockFieldValue } from "../types/Block";
-import { Meeting } from "../types/Meeting";
-import { BlockVisual } from "./BlockVisual";
-import { useDebounceSearch } from "../hooks/useDebounceSearch";
+import { Block, BLOCK_TYPES, getBlockFieldValue } from "../types/Block.ts";
+import { Meeting } from "../types/Meeting.ts";
+import { BlockVisual } from "./BlockVisual.tsx";
+import { useDebounceSearch } from "../hooks/useDebounceSearch.ts";
 import {
   FilterType,
   useFilterPreferences,
-} from "../hooks/useFilterPreferences";
-import { blockMatchesSearch, meetingMatchesSearch } from "../utils/search";
-import { useTranslation } from "../i18n";
-import { EnhancedFilterButton } from "./EnhancedFilterButton";
-import { TEXTAREA_FIELDS } from "../constants/index";
+} from "../hooks/useFilterPreferences.ts";
+import { blockMatchesSearch, meetingMatchesSearch } from "../utils/search.ts";
+import { useTranslation } from "../i18n/index.tsx";
+import { EnhancedFilterButton } from "./EnhancedFilterButton.tsx";
+import { TEXTAREA_FIELDS } from "../constants/index.ts";
 
 interface UnifiedFilterProps {
   meetings: Meeting[];

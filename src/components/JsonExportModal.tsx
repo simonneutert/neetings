@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
-import { ErrorModal } from "./ErrorModal";
+import { useTranslation } from "../i18n/index.tsx";
+import { ErrorModal } from "./ErrorModal.tsx";
 
 interface JsonExportModalProps {
   isOpen: boolean;
@@ -33,7 +33,7 @@ export const JsonExportModal: FunctionalComponent<JsonExportModalProps> = ({
   if (isLoading || modalError) {
     return (
       <ErrorModal
-        isOpen={true}
+        isOpen
         onClose={onClose}
         title={t("importExport.export")}
         error={modalError}

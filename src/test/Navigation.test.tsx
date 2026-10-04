@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { screen } from "@testing-library/preact";
-import { Navigation } from "../components/Navigation";
-import { renderWithI18n } from "./testUtils";
+import { Navigation } from "../components/Navigation.tsx";
+import { renderWithI18n } from "./testUtils.ts";
 
 describe("Navigation Component", () => {
   beforeEach(() => {
@@ -23,7 +23,7 @@ describe("Navigation Component", () => {
   });
 
   it("should show Clear Meeting button when a meeting is selected", () => {
-    renderWithI18n(<Navigation hasMeetingSelected={true} />);
+    renderWithI18n(<Navigation hasMeetingSelected />);
 
     // The Clear Meeting button should be visible
     expect(screen.getByText("Clear Meeting")).toBeInTheDocument();
@@ -37,7 +37,7 @@ describe("Navigation Component", () => {
     expect(screen.getByText("Clear All Data")).toBeInTheDocument();
 
     // Test with meeting selected
-    rerender(<Navigation hasMeetingSelected={true} />);
+    rerender(<Navigation hasMeetingSelected />);
     expect(screen.getByText("Clear All Data")).toBeInTheDocument();
   });
 
@@ -49,7 +49,7 @@ describe("Navigation Component", () => {
     expect(screen.getByText("Meetings")).toBeInTheDocument();
 
     // Test with meeting selected
-    rerender(<Navigation hasMeetingSelected={true} />);
+    rerender(<Navigation hasMeetingSelected />);
     expect(screen.getByText("Meetings")).toBeInTheDocument();
   });
 });

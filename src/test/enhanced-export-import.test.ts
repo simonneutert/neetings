@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/preact";
-import { useMeetingState } from "../hooks/useMeetingState";
-import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
+import { useMeetingState } from "../hooks/useMeetingState.ts";
+import { useGlobalAttendees } from "../hooks/useGlobalAttendees.ts";
 import {
   createExportFilename,
   detectExportVersion,
   ExportV1Schema,
-} from "../schemas/export";
-import { APP_CONFIG } from "../constants";
-import { TestDataFactory } from "./factories/testDataFactory";
+} from "../schemas/export.ts";
+import { APP_CONFIG } from "../constants/index.ts";
+import { TestDataFactory } from "./factories/testDataFactory.ts";
 
 // Mock localStorage
 const localStorageMock = (() => {

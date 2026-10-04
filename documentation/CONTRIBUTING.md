@@ -1,6 +1,7 @@
 # 🤝 Contributing to Neetings
 
-We love contributions! This guide will help you get started with contributing to the Neetings project.
+We love contributions! This guide will help you get started with contributing to
+the Neetings project.
 
 ## 🚀 Quick Contribution Process
 
@@ -46,22 +47,31 @@ We love contributions! This guide will help you get started with contributing to
 ## 📚 Developer Documentation
 
 ### Developer Resources
-- **[Getting Started Guide](./GETTING_STARTED.md)** - Quick setup for new developers
+
+- **[Getting Started Guide](./GETTING_STARTED.md)** - Quick setup for new
+  developers
 - **[Architecture Guide](./ARCHITECTURE.md)** - Core systems and design patterns
-- **[Development Guide](./DEVELOPMENT.md)** - Development practices and workflows
-- **[API Reference](./API_REFERENCE.md)** - Technical specifications and data structures
-- **[Schema Migration Guide](./MIGRATION.md)** - Data format evolution and versioning patterns
-- **[Docker Setup Guide](./README.DOCKER.md)** - Containerization and deployment instructions
-- **[Project Roadmap](./ROADMAP.md)** - Planned features and development priorities
+- **[Development Guide](./DEVELOPMENT.md)** - Development practices and
+  workflows
+- **[API Reference](./API_REFERENCE.md)** - Technical specifications and data
+  structures
+- **[Schema Migration Guide](./MIGRATION.md)** - Data format evolution and
+  versioning patterns
+- **[Docker Setup Guide](./README.DOCKER.md)** - Containerization and deployment
+  instructions
+- **[Project Roadmap](./ROADMAP.md)** - Planned features and development
+  priorities
 
 ### Development Standards
 
 **Before contributing, please review:**
+
 1. **[Getting Started Guide](./GETTING_STARTED.md)** - Set up your environment
 2. **[Development Guide](./DEVELOPMENT.md)** - Follow our development practices
 3. **[Architecture Guide](./ARCHITECTURE.md)** - Understand the system design
 
 **Key Requirements:**
+
 - All new features must include tests (maintain 196+ passing tests)
 - Follow TypeScript strict mode guidelines
 - Use conventional commits for clear history
@@ -70,6 +80,7 @@ We love contributions! This guide will help you get started with contributing to
 ## 🎯 Areas We Need Help
 
 ### High Priority
+
 - **🌍 Translations** for additional languages
 - **🎨 UI/UX improvements** and accessibility
 - **📱 Mobile experience** enhancements
@@ -77,12 +88,14 @@ We love contributions! This guide will help you get started with contributing to
 - **📚 Documentation** and tutorial content
 
 ### Feature Development
+
 - Export format enhancements (see [Roadmap](./ROADMAP.md))
 - Performance optimizations
 - Advanced filtering capabilities
 - Integration improvements
 
 ### Infrastructure
+
 - CI/CD pipeline enhancements
 - Docker optimization
 - Test coverage expansion
@@ -91,10 +104,14 @@ We love contributions! This guide will help you get started with contributing to
 ## 🐛 Reporting Issues
 
 ### Bug Reports
-- **[GitHub Issues](https://github.com/simonneutert/neetings/issues)** - Bug reports and feature requests
-- **[GitHub Discussions](https://github.com/simonneutert/neetings/discussions)** - General questions and ideas
+
+- **[GitHub Issues](https://github.com/simonneutert/neetings/issues)** - Bug
+  reports and feature requests
+- **[GitHub Discussions](https://github.com/simonneutert/neetings/discussions)** -
+  General questions and ideas
 
 ### Issue Guidelines
+
 1. **Search existing issues** before creating new ones
 2. **Use issue templates** when available
 3. **Provide clear reproduction steps** for bugs
@@ -104,6 +121,7 @@ We love contributions! This guide will help you get started with contributing to
 ## 🔄 Pull Request Process
 
 ### Before Submitting
+
 1. **Ensure all tests pass**: `npm test`
 2. **Run linting**: `npm run lint`
 3. **Test build process**: `npm run build`
@@ -111,6 +129,7 @@ We love contributions! This guide will help you get started with contributing to
 5. **Add tests** for new functionality
 
 ### PR Guidelines
+
 - **Clear title** describing the change
 - **Detailed description** of what was changed and why
 - **Link related issues** using keywords (fixes #123)
@@ -118,6 +137,7 @@ We love contributions! This guide will help you get started with contributing to
 - **Breaking changes** clearly documented
 
 ### Review Process
+
 1. **Automated checks** must pass (tests, linting, build)
 2. **Code review** by maintainers
 3. **Testing** on different browsers/devices when applicable
@@ -126,24 +146,29 @@ We love contributions! This guide will help you get started with contributing to
 ## 💬 Community Guidelines
 
 ### Communication
+
 - **Be respectful** and inclusive in all interactions
 - **Provide constructive feedback** during code reviews
 - **Help others** learn and contribute
 - **Share knowledge** through documentation and discussions
 
 ### Getting Help
-- **[GitHub Discussions](https://github.com/simonneutert/neetings/discussions)** for general questions
+
+- **[GitHub Discussions](https://github.com/simonneutert/neetings/discussions)**
+  for general questions
 - **[Discord/Slack]** for real-time chat (if available)
 - **Code review comments** for specific technical questions
 
 ## 🏆 Recognition
 
 ### Contributors
+
 - All contributors will be recognized in our documentation
 - Significant contributions may be highlighted in release notes
 - Active contributors may be invited to join the core team
 
 ### Types of Contributions
+
 - **Code** - Features, bug fixes, performance improvements
 - **Documentation** - Guides, tutorials, API documentation
 - **Testing** - Test cases, manual testing, bug reports
@@ -153,8 +178,10 @@ We love contributions! This guide will help you get started with contributing to
 
 ## 📄 License
 
-By contributing to Neetings, you agree that your contributions will be licensed under the MIT License.
+By contributing to Neetings, you agree that your contributions will be licensed
+under the MIT License.
 
 ---
 
-Thank you for contributing to Neetings! Your help makes this project better for everyone. 🙏
+Thank you for contributing to Neetings! Your help makes this project better for
+everyone. 🙏

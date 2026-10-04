@@ -1,4 +1,4 @@
-import { Attendee } from "../../../types/Attendee";
+import { Attendee } from "../../../types/Attendee.ts";
 
 export interface ExportOptions {
   format: "markdown" | "rtf" | "docx" | "html" | "json";

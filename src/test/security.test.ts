@@ -6,7 +6,7 @@ import {
   validateExportData,
   validateFileUpload,
   validateJSONDepth,
-} from "../utils/securityValidation";
+} from "../utils/securityValidation.ts";
 
 describe("Security Features", () => {
   describe("File Upload Security", () => {

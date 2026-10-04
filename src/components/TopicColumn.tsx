@@ -1,4 +1,4 @@
-import { FunctionalComponent, JSX } from "preact";
+import { FunctionalComponent, HTMLAttributes, JSX } from "preact";
 import { memo } from "preact/compat";
 import { useMemo } from "preact/hooks";
 import { useDroppable } from "@dnd-kit/core";
@@ -6,14 +6,14 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { Block } from "../types/Block";
-import { TopicGroup } from "../types/TopicGroup";
-import { SortableBlock } from "./SortableBlock";
-import { getTopicGroupLightBackground } from "../utils/colors";
-import { useTranslation } from "../i18n";
-import { sortBySortKey } from "../utils/sortKeys";
+import { Block } from "../types/Block.ts";
+import { TopicGroup } from "../types/TopicGroup.ts";
+import { SortableBlock } from "./SortableBlock.tsx";
+import { getTopicGroupLightBackground } from "../utils/colors.ts";
+import { useTranslation } from "../i18n/index.tsx";
+import { sortBySortKey } from "../utils/sortKeys.ts";
 
-interface TopicColumnProps extends JSX.HTMLAttributes<HTMLDivElement> {
+interface TopicColumnProps extends HTMLAttributes<HTMLDivElement> {
   topicGroup: TopicGroup | null;
   blocks: Block[];
   topicId: string;

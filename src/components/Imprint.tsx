@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
-import { CTASection } from "./CTASection";
+import { useTranslation } from "../i18n/index.tsx";
+import { CTASection } from "./CTASection.tsx";
 
 interface ImprintProps {
   onBackToMeetings: () => void;

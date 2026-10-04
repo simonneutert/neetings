@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { changeBlockTypeClearData } from "../utils/blockTypeChange";
-import { Block, createBlock } from "../types/Block";
+import { changeBlockTypeClearData } from "../utils/blockTypeChange.ts";
+import { Block, createBlock } from "../types/Block.ts";
 
 describe("Smart Block Type Change Transfer", () => {
   describe("Single Field → Multi Field", () => {

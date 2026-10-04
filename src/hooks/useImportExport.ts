@@ -1,11 +1,11 @@
 import { useState } from "preact/hooks";
-import { useTranslation } from "../i18n/index";
-import { useGlobalAttendees } from "./useGlobalAttendees";
-import { BaseExporter } from "../utils/export/BaseExporter";
-import { createErrorDetail } from "../components/ErrorModal";
-import { formatImportSummary } from "../utils/export/errors/ErrorMessages";
-import { APP_CONFIG } from "../constants/index";
-import { createExportFilename, createExportV1 } from "../schemas/index";
+import { useTranslation } from "../i18n/index.tsx";
+import { useGlobalAttendees } from "./useGlobalAttendees.ts";
+import { BaseExporter } from "../utils/export/BaseExporter.ts";
+import { createErrorDetail } from "../components/ErrorModal.tsx";
+import { formatImportSummary } from "../utils/export/errors/ErrorMessages.ts";
+import { APP_CONFIG } from "../constants/index.ts";
+import { createExportFilename, createExportV1 } from "../schemas/index.ts";
 
 export interface PartialImportResult {
   successful: number;

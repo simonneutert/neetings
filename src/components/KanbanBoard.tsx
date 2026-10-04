@@ -25,18 +25,18 @@ const customCollisionDetection: CollisionDetection = (args) => {
   }
   return closestCenter(args);
 };
-import { Block } from "../types/Block";
-import { Meeting } from "../types/Meeting";
-import { TopicGroup } from "../types/TopicGroup";
-import { TopicColumn } from "./TopicColumn";
-import { TopicGroupManager } from "./TopicGroupManager";
-import { UniversalBlock } from "./UniversalBlock";
-import { BlockTypeModal } from "./BlockTypeModal";
-import { groupAndSortBlocks } from "../utils/positioning";
-import { useBlockOperations } from "../hooks/useBlockOperations";
-import { useDragDrop } from "../hooks/useDragDrop";
-import { useKanbanScroll } from "../hooks/useKanbanScroll";
-import { useBlockTypeModal } from "../hooks/useBlockTypeModal";
+import { Block } from "../types/Block.ts";
+import { Meeting } from "../types/Meeting.ts";
+import { TopicGroup } from "../types/TopicGroup.ts";
+import { TopicColumn } from "./TopicColumn.tsx";
+import { TopicGroupManager } from "./TopicGroupManager.tsx";
+import { UniversalBlock } from "./UniversalBlock.tsx";
+import { BlockTypeModal } from "./BlockTypeModal.tsx";
+import { groupAndSortBlocks } from "../utils/positioning.ts";
+import { useBlockOperations } from "../hooks/useBlockOperations.ts";
+import { useDragDrop } from "../hooks/useDragDrop.ts";
+import { useKanbanScroll } from "../hooks/useKanbanScroll.ts";
+import { useBlockTypeModal } from "../hooks/useBlockTypeModal.ts";
 
 /**
  * Block operations interface - handles all block CRUD operations

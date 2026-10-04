@@ -1,8 +1,8 @@
 import { FunctionalComponent } from "preact";
 import { useCallback, useEffect } from "preact/hooks";
-import { Block, BLOCK_TYPES } from "../types/Block";
-import { getSemanticColorHex } from "../utils/colors";
-import { useTranslation } from "../i18n/index";
+import { Block, BLOCK_TYPES } from "../types/Block.ts";
+import { getSemanticColorHex } from "../utils/colors.ts";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface BlockTypeModalProps {
   isOpen: boolean;

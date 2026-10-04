@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
-import { useTranslation } from "../i18n/index";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface EnhancedDownloadButtonProps {
   onClick: () => void;

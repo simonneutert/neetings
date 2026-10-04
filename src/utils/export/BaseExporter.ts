@@ -1,30 +1,30 @@
-import { Meeting } from "../../types/Meeting";
+import { Meeting } from "../../types/Meeting.ts";
 import {
   ExportOptions,
   ExportResult,
   FormatTransformer,
-} from "./types/ExportTypes";
-import { MarkdownTransformer } from "./transformers/MarkdownTransformer";
-import { RTFTransformer } from "./transformers/RTFTransformer";
-import { DOCXTransformer } from "./transformers/DOCXTransformer";
-import { HTMLTransformer } from "./transformers/HTMLTransformer";
-import { JSONTransformer } from "./transformers/JSONTransformer";
+} from "./types/ExportTypes.ts";
+import { MarkdownTransformer } from "./transformers/MarkdownTransformer.ts";
+import { RTFTransformer } from "./transformers/RTFTransformer.ts";
+import { DOCXTransformer } from "./transformers/DOCXTransformer.ts";
+import { HTMLTransformer } from "./transformers/HTMLTransformer.ts";
+import { JSONTransformer } from "./transformers/JSONTransformer.ts";
 import {
   attemptPartialImport,
   handleImportError,
   safeJsonParse,
   validateFileBeforeProcessing,
-} from "./errors/ErrorHandler";
-import { createImportResult, ImportResult } from "./errors/ExportErrors";
+} from "./errors/ErrorHandler.ts";
+import { createImportResult, ImportResult } from "./errors/ExportErrors.ts";
 import {
   formatFailedImportSummary,
   formatRecoverySummary,
-} from "./errors/ErrorMessages";
+} from "./errors/ErrorMessages.ts";
 import {
   normalizeExportToV1,
   parseExportWithDetails,
   validateExportData,
-} from "../../schemas/export";
+} from "../../schemas/export.ts";
 
 export class BaseExporter {
   private transformers: Map<string, FormatTransformer> = new Map();

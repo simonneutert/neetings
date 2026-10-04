@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { describe, expect, it, vi } from "vitest";
-import { CTASection } from "../components/CTASection";
-import { I18nProvider } from "../i18n";
+import { CTASection } from "../components/CTASection.tsx";
+import { I18nProvider } from "../i18n/index.tsx";
 
 describe("CTASection Component", () => {
   it("renders CTA content when show is true", () => {
@@ -9,7 +9,7 @@ describe("CTASection Component", () => {
 
     render(
       <I18nProvider>
-        <CTASection onButtonClick={mockOnButtonClick} show={true} />
+        <CTASection onButtonClick={mockOnButtonClick} show />
       </I18nProvider>,
     );
 
@@ -52,7 +52,7 @@ describe("CTASection Component", () => {
 
     render(
       <I18nProvider>
-        <CTASection onButtonClick={mockOnButtonClick} show={true} />
+        <CTASection onButtonClick={mockOnButtonClick} show />
       </I18nProvider>,
     );
 
@@ -82,7 +82,7 @@ describe("CTASection Component", () => {
 
     render(
       <I18nProvider>
-        <CTASection onButtonClick={mockOnButtonClick} show={true} />
+        <CTASection onButtonClick={mockOnButtonClick} show />
       </I18nProvider>,
     );
 
@@ -99,7 +99,7 @@ describe("CTASection Component", () => {
 
     render(
       <I18nProvider>
-        <CTASection onButtonClick={mockOnButtonClick} show={true} />
+        <CTASection onButtonClick={mockOnButtonClick} show />
       </I18nProvider>,
     );
 

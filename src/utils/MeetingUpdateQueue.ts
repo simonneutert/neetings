@@ -1,5 +1,5 @@
-import { Meeting } from "../types/Meeting";
-import { APP_CONFIG } from "../constants";
+import { Meeting } from "../types/Meeting.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 /**
  * Meeting-specific update queue that handles localStorage persistence

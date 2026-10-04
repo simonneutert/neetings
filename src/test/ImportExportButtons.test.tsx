@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { describe, expect, it, vi } from "vitest";
-import { ImportExportButtons } from "../components/ImportExportButtons";
-import { I18nProvider } from "../i18n";
+import { ImportExportButtons } from "../components/ImportExportButtons.tsx";
+import { I18nProvider } from "../i18n/index.tsx";
 
 describe("ImportExportButtons Component", () => {
   it("renders import and export buttons", () => {

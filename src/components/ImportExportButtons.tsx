@@ -1,8 +1,8 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
-import { useImportExport } from "../hooks/useImportExport";
-import { ErrorModal } from "./ErrorModal";
-import { JsonExportModal } from "./JsonExportModal";
+import { useTranslation } from "../i18n/index.tsx";
+import { useImportExport } from "../hooks/useImportExport.ts";
+import { ErrorModal } from "./ErrorModal.tsx";
+import { JsonExportModal } from "./JsonExportModal.tsx";
 
 interface ImportExportButtonsProps {
   meetings: any[];

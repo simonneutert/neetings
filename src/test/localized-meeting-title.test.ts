@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { createEmptyMeeting } from "../types/Meeting";
-import { generateUUID } from "../utils/uuid";
+import { createEmptyMeeting } from "../types/Meeting.ts";
+import { generateUUID } from "../utils/uuid.ts";
 
 describe("Localized Meeting and Series Titles", () => {
   describe("Meeting Titles", () => {

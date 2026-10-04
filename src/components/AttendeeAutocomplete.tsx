@@ -1,7 +1,7 @@
 import { FunctionalComponent } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { Attendee } from "../types/Attendee";
-import { useTranslation } from "../i18n";
+import { Attendee } from "../types/Attendee.ts";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface AttendeeAutocompleteProps {
   availableAttendees: Attendee[];

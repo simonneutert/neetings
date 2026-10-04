@@ -1,5 +1,5 @@
 import { useState } from "preact/hooks";
-import { APP_CONFIG } from "../constants/index";
+import { APP_CONFIG } from "../constants/index.ts";
 
 export type FilterType =
   | "todos_completed"

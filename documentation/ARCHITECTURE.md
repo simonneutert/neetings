@@ -1,30 +1,40 @@
 # Architecture Overview
 
-This guide helps new developers understand the core concepts and systems that power the Neetings JSX application. Read this first to get productive quickly.
+This guide helps new developers understand the core concepts and systems that
+power the Neetings JSX application. Read this first to get productive quickly.
 
 ## Core Concepts (3-minute read)
 
 ### 1. Blocks & Meetings
+
 - **Meeting**: The main container that holds all data
 - **Block**: Individual content items (11 types: Note, Q&A, Research, etc.)
 - **Topic Groups**: Kanban columns that organize blocks
 - **Attendees**: Global registry of people who attend meetings
-- **Theme System**: Application-wide dark/light mode with system preference detection
+- **Theme System**: Application-wide dark/light mode with system preference
+  detection
 
 ### 2. SortKey-Based Ordering
+
 Instead of array indices, we use lexicographic "sortKeys" to order blocks:
+
 ```
 "a" < "ab" < "b" < "c"
 ```
-This allows precise positioning between any two blocks without costly array operations.
+
+This allows precise positioning between any two blocks without costly array
+operations.
 
 **Example**: To insert between blocks with sortKeys "a" and "c":
+
 ```typescript
 const newSortKey = generateSortKey("a", "c"); // Returns "b"
 ```
 
 ### 3. Dual Context Drag & Drop
+
 Two separate drag contexts handle different operations:
+
 - **Inter-column**: Moving blocks between topic groups
 - **Intra-column**: Reordering blocks within the same topic group
 
@@ -50,16 +60,19 @@ App
 ## Data Flow
 
 ### Downward (Props)
+
 ```
 Meeting Data → KanbanBoard → TopicColumn → SortableBlock → UniversalBlock
 ```
 
 ### Upward (State Updates)
+
 ```
 Block Changes → onChange callbacks → useMeetingState → Auto-save queue → localStorage
 ```
 
 ### Drag Operations
+
 ```
 Drag Start → DndContext → Calculate new position → Update sortKey → Re-render
 ```
@@ -67,6 +80,7 @@ Drag Start → DndContext → Calculate new position → Update sortKey → Re-r
 ## Key Systems Deep Dive
 
 ### SortKey System
+
 **Location**: `src/utils/sortKeys.ts`
 
 The sortKey system solves block ordering without array indices:
@@ -80,11 +94,13 @@ const sortedBlocks = blocks.sort(sortBySortKey);
 ```
 
 **When to use**:
+
 - Creating new blocks: Use `generateSortKey()`
 - Drag operations: Use `calculateInsertSortKeyBetween()`
 - Displaying blocks: Always call `sortBySortKey()`
 
 ### Drag & Drop System
+
 **Location**: `src/components/KanbanBoard.tsx`
 
 Two nested DndContext components handle different drag types:
@@ -92,28 +108,29 @@ Two nested DndContext components handle different drag types:
 ```typescript
 // Outer context: Inter-column (between topic groups)
 <DndContext onDragEnd={handleInterColumnDragEnd}>
-  {topicGroups.map(group => (
-    <EnhancedTopicColumn key={group.id}>
-      {/* Inner context: Intra-column (within topic group) */}
-      <DndContext onDragEnd={handleIntraColumnDragEnd}>
-        {blocks.map(block => (
-          <EnhancedSortableBlock key={block.id} />
-        ))}
-      </DndContext>
-    </EnhancedTopicColumn>
-  ))}
-</DndContext>
+	{topicGroups.map((group) => (
+		<EnhancedTopicColumn key={group.id}>
+			{/* Inner context: Intra-column (within topic group) */}
+			<DndContext onDragEnd={handleIntraColumnDragEnd}>
+				{blocks.map((block) => <EnhancedSortableBlock key={block.id} />)}
+			</DndContext>
+		</EnhancedTopicColumn>
+	))}
+</DndContext>;
 ```
 
 **Key patterns**:
+
 - Inter-column: Change `topicGroupId`, append to end
 - Intra-column: Update `sortKey` for precise positioning
 - Always use block IDs, never array indices
 
 ### State Management
+
 **Location**: `src/hooks/useMeetingState.ts`
 
 The `useMeetingState` hook provides:
+
 - Immediate UI updates
 - Debounced localStorage persistence (500ms)
 - Race condition handling via update queue
@@ -122,13 +139,14 @@ The `useMeetingState` hook provides:
 const { meeting, updateMeeting } = useMeetingState();
 
 // Always use updateMeeting for changes
-updateMeeting(meeting => ({
-  ...meeting,
-  blocks: [...meeting.blocks, newBlock]
+updateMeeting((meeting) => ({
+	...meeting,
+	blocks: [...meeting.blocks, newBlock],
 }));
 ```
 
 ### Schema Migration System
+
 **Location**: `src/schemas/export.ts`, `src/schemas/migrations.ts`
 
 Handles backward compatibility as data structures evolve:
@@ -142,9 +160,11 @@ const migratedData = autoMigrate(importedData);
 ```
 
 ### Theme Management System
+
 **Location**: `src/hooks/useTheme.ts`, `src/components/ThemeToggle.tsx`
 
-Provides comprehensive dark/light mode switching with system preference detection:
+Provides comprehensive dark/light mode switching with system preference
+detection:
 
 ```typescript
 const { theme, setTheme, cycleTheme, effectiveTheme } = useTheme();
@@ -154,6 +174,7 @@ const { theme, setTheme, cycleTheme, effectiveTheme } = useTheme();
 ```
 
 **Key features**:
+
 - System preference detection via `matchMedia('(prefers-color-scheme: dark)')`
 - localStorage persistence for user preferences
 - Bootstrap 5.3.6 integration using `data-bs-theme` attribute
@@ -165,12 +186,14 @@ const { theme, setTheme, cycleTheme, effectiveTheme } = useTheme();
 **Location**: `src/types/Block.ts`
 
 11 block types organized in semantic groups:
+
 - **Documentation**: Note, Q&A, Research, Fact
-- **Decision**: Decision, Issue  
+- **Decision**: Decision, Issue
 - **Action**: TODO, Goal, Follow-up
 - **Ideation**: Idea, Reference
 
 Each type has:
+
 - Specific fields and validation
 - Semantic colors from Bootstrap
 - Dynamic rendering in `UniversalBlock`
@@ -178,8 +201,8 @@ Each type has:
 ```typescript
 // Create new block
 const newBlock = createBlock(BlockType.Note, {
-  title: "User Note",
-  content: "As a user..."
+	title: "User Note",
+	content: "As a user...",
 });
 
 // Access type configuration
@@ -189,53 +212,54 @@ const config = BLOCK_TYPES[BlockType.Note];
 ## Common Patterns
 
 ### Adding a New Block
+
 ```typescript
 // 1. Generate sortKey for position
 const sortKey = generateSortKey(beforeBlock?.sortKey, afterBlock?.sortKey);
 
 // 2. Create block with proper fields
 const newBlock = createBlock(BlockType.Note, {
-  title: "New Note",
-  sortKey,
-  topicGroupId: currentTopicGroup.id
+	title: "New Note",
+	sortKey,
+	topicGroupId: currentTopicGroup.id,
 });
 
 // 3. Update meeting state
-updateMeeting(meeting => ({
-  ...meeting,
-  blocks: [...meeting.blocks, newBlock]
+updateMeeting((meeting) => ({
+	...meeting,
+	blocks: [...meeting.blocks, newBlock],
 }));
 ```
 
 ### Handling Drag Operations
+
 ```typescript
 function handleDragEnd(event: DragEndEvent) {
-  const { active, over } = event;
-  
-  if (!over) return;
-  
-  // Get the dragged block
-  const draggedBlock = blocks.find(b => b.id === active.id);
-  
-  // Calculate new sortKey
-  const newSortKey = calculateInsertSortKeyBetween(
-    beforeBlock?.sortKey,
-    afterBlock?.sortKey
-  );
-  
-  // Update block position
-  updateMeeting(meeting => ({
-    ...meeting,
-    blocks: meeting.blocks.map(block =>
-      block.id === draggedBlock.id
-        ? { ...block, sortKey: newSortKey }
-        : block
-    )
-  }));
+	const { active, over } = event;
+
+	if (!over) return;
+
+	// Get the dragged block
+	const draggedBlock = blocks.find((b) => b.id === active.id);
+
+	// Calculate new sortKey
+	const newSortKey = calculateInsertSortKeyBetween(
+		beforeBlock?.sortKey,
+		afterBlock?.sortKey,
+	);
+
+	// Update block position
+	updateMeeting((meeting) => ({
+		...meeting,
+		blocks: meeting.blocks.map((block) =>
+			block.id === draggedBlock.id ? { ...block, sortKey: newSortKey } : block
+		),
+	}));
 }
 ```
 
 ### Working with Topic Groups
+
 ```typescript
 const { topicGroups, createTopicGroup, updateTopicGroup } = useTopicGroups();
 
@@ -244,24 +268,25 @@ const newGroup = createTopicGroup("New Column");
 
 // Get blocks for a topic group
 const groupBlocks = blocks
-  .filter(block => block.topicGroupId === group.id)
-  .sort(sortBySortKey);
+	.filter((block) => block.topicGroupId === group.id)
+	.sort(sortBySortKey);
 ```
 
 ### Working with Themes
+
 ```typescript
 const { theme, effectiveTheme, setTheme, cycleTheme } = useTheme();
 
 // Set specific theme
-setTheme('dark');
-setTheme('light');
-setTheme('system');
+setTheme("dark");
+setTheme("light");
+setTheme("system");
 
 // Cycle through themes
 cycleTheme(); // light → dark → system → light
 
 // Get current effective theme (resolved from system if needed)
-const isDark = effectiveTheme === 'dark';
+const isDark = effectiveTheme === "dark";
 
 // Theme is automatically applied to document.documentElement
 // via data-bs-theme attribute for Bootstrap integration
@@ -270,38 +295,43 @@ const isDark = effectiveTheme === 'dark';
 ## Performance Considerations
 
 ### Auto-save Debouncing
+
 State changes are debounced (500ms) to prevent excessive localStorage writes:
 
 ```typescript
 // Multiple rapid updates are batched
-updateMeeting(meeting => ({ ...meeting, title: "New Title" }));
-updateMeeting(meeting => ({ ...meeting, description: "New Desc" }));
+updateMeeting((meeting) => ({ ...meeting, title: "New Title" }));
+updateMeeting((meeting) => ({ ...meeting, description: "New Desc" }));
 // Only saves once after 500ms
 ```
 
 ### SortKey Rebalancing
+
 When sortKeys become too long, they're automatically rebalanced:
 
 ```typescript
 // Automatic rebalancing when precision is lost
 if (newSortKey.length > 10) {
-  rebalanceSortKeys(blocks);
+	rebalanceSortKeys(blocks);
 }
 ```
 
 ## Debugging Tips
 
 ### Drag & Drop Issues
+
 - Check browser console for drag event data
 - Verify block IDs are strings, not numbers
 - Ensure sortKeys are properly generated
 
 ### State Management Issues
+
 - Check localStorage in browser dev tools
 - Verify `updateMeeting` is used instead of direct state mutation
 - Look for race conditions with rapid updates
 
 ### SortKey Issues
+
 - Verify blocks are sorted with `sortBySortKey()` before display
 - Check for duplicate or missing sortKeys
 - Ensure sortKeys are strings, not numbers
@@ -433,11 +463,15 @@ COMPONENT HIERARCHY:
 
 This architecture provides:
 
-1. **Dual Context System**: Separate drag contexts prevent conflicts between inter-column and intra-column operations
-2. **SortKey-Based Ordering**: Lexicographic sortKeys allow precise control over block order within columns
+1. **Dual Context System**: Separate drag contexts prevent conflicts between
+   inter-column and intra-column operations
+2. **SortKey-Based Ordering**: Lexicographic sortKeys allow precise control over
+   block order within columns
 3. **Visual Feedback**: Drop indicators show exactly where blocks will be placed
-4. **Scalable Data Structure**: SortKey field integrates cleanly with existing block structure
-5. **Backward Compatibility**: SortKey system maintains existing functionality while adding precise positioning
+4. **Scalable Data Structure**: SortKey field integrates cleanly with existing
+   block structure
+5. **Backward Compatibility**: SortKey system maintains existing functionality
+   while adding precise positioning
 
 ## Questions?
 

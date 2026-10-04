@@ -1,7 +1,7 @@
-import { Block } from "../types/Block";
+import { Block } from "../types/Block.ts";
 import { render } from "@testing-library/preact";
 import { h } from "preact";
-import { I18nProvider } from "../i18n/index";
+import { I18nProvider } from "../i18n/index.tsx";
 
 // Custom render function that wraps components with I18nProvider
 export const renderWithI18n = (ui: any, options = {}) => {

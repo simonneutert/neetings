@@ -2,9 +2,9 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, screen, waitFor } from "@testing-library/preact";
 import { h } from "preact";
 import { useState } from "preact/hooks";
-import { renderWithI18n } from "./testUtils";
-import { UnifiedFilter } from "../components/UnifiedFilter";
-import { Meeting } from "../types/Meeting";
+import { renderWithI18n } from "./testUtils.ts";
+import { UnifiedFilter } from "../components/UnifiedFilter.tsx";
+import { Meeting } from "../types/Meeting.ts";
 
 // Test wrapper component that manages filter state
 const TestFilterWrapper = ({ initialExpanded = false, ...props }) => {

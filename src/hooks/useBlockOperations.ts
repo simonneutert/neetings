@@ -3,10 +3,10 @@
  */
 
 import { useCallback } from "preact/hooks";
-import { Block, createBlock, normalizeTopicGroupId } from "../types/Block";
-import { Meeting } from "../types/Meeting";
-import { generateSortKey, sortBySortKey } from "../utils/sortKeys";
-import { changeBlockTypeClearData } from "../utils/blockTypeChange";
+import { Block, createBlock, normalizeTopicGroupId } from "../types/Block.ts";
+import { Meeting } from "../types/Meeting.ts";
+import { generateSortKey, sortBySortKey } from "../utils/sortKeys.ts";
+import { changeBlockTypeClearData } from "../utils/blockTypeChange.ts";
 
 interface UseBlockOperationsProps {
   meeting: Meeting;

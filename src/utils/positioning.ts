@@ -1,9 +1,9 @@
-import { Block, createBlock, normalizeTopicGroupId } from "../types/Block";
+import { Block, createBlock, normalizeTopicGroupId } from "../types/Block.ts";
 import {
   generateBatchSortKeys,
   generateSortKey,
   sortBySortKey,
-} from "./sortKeys";
+} from "./sortKeys.ts";
 
 /**
  * Gets blocks that belong to a specific topic group

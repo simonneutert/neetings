@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "preact/hooks";
-import { Attendee, createAttendee } from "../types/Attendee";
-import { APP_CONFIG } from "../constants/index";
+import { Attendee, createAttendee } from "../types/Attendee.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 const STORAGE_KEY = APP_CONFIG.LOCAL_STORAGE_KEYS.ATTENDEES;
 

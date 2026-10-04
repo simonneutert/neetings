@@ -1,7 +1,7 @@
 import { useCallback } from "preact/hooks";
-import { generateUUID } from "../utils/uuid";
-import { DEFAULT_TOPIC_GROUPS, TopicGroup } from "../types/TopicGroup";
-import { Meeting, MeetingUpdateData } from "../types/Meeting";
+import { generateUUID } from "../utils/uuid.ts";
+import { DEFAULT_TOPIC_GROUPS, TopicGroup } from "../types/TopicGroup.ts";
+import { Meeting, MeetingUpdateData } from "../types/Meeting.ts";
 
 interface UseTopicGroupsResult {
   createTopicGroup: (
