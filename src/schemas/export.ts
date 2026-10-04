@@ -122,7 +122,8 @@ export function validateExport(data: unknown): {
 export function validateExportData(data: unknown): ValidationResult {
   try {
     const _version = detectExportVersion(data);
-    const result = ExportSchema.safeParse(data);
+    // reportInput puts the offending value on each issue as `input`
+    const result = ExportSchema.safeParse(data, { reportInput: true });
 
     if (result.success) {
       return {
@@ -139,7 +140,9 @@ export function validateExportData(data: unknown): ValidationResult {
 
       return createValidationError(field, message, issue.code, {
         line,
-        value: issue.received || "unknown",
+        value: issue.code === "invalid_type"
+          ? describeType(issue.input)
+          : "unknown",
         expected: getExpectedValue(issue),
       });
     });
@@ -177,25 +180,32 @@ function getHumanReadableError(_issue: z.ZodIssue): string {
   const field = _issue.path.join(".");
 
   switch (_issue.code) {
-    case z.ZodIssueCode.invalid_type:
-      return `Expected ${_issue.expected} but received ${_issue.received} for field '${field}'`;
-    case z.ZodIssueCode.invalid_string:
+    case "invalid_type":
+      return `Expected ${_issue.expected} but received ${
+        describeType(_issue.input)
+      } for field '${field}'`;
+    case "invalid_format":
       return `Invalid string format for field '${field}': ${_issue.message}`;
-    case z.ZodIssueCode.too_small:
+    case "too_small":
       return `Field '${field}' is too small: ${_issue.message}`;
-    case z.ZodIssueCode.too_big:
+    case "too_big":
       return `Field '${field}' is too large: ${_issue.message}`;
-    case z.ZodIssueCode.invalid_enum_value:
+    case "invalid_value":
       return `Invalid value for field '${field}': expected one of ${
-        _issue.options?.join(", ")
+        _issue.values.map(String).join(", ")
       }`;
-    case z.ZodIssueCode.invalid_date:
-      return `Invalid date format for field '${field}': ${_issue.message}`;
-    case z.ZodIssueCode.custom:
+    case "custom":
       return _issue.message || `Custom validation failed for field '${field}'`;
     default:
       return _issue.message || `Validation failed for field '${field}'`;
   }
+}
+
+// Type name of a received value, as Zod 3 used to report it in `received`
+function describeType(value: unknown): string {
+  if (value === null) return "null";
+  if (Array.isArray(value)) return "array";
+  return typeof value;
 }
 
 // Helper function to extract line number from Zod issue (if available)
@@ -208,13 +218,13 @@ function extractLineNumber(_issue: z.ZodIssue): number | undefined {
 // Helper function to get expected value description
 function getExpectedValue(issue: z.ZodIssue): string {
   switch (issue.code) {
-    case z.ZodIssueCode.invalid_type:
+    case "invalid_type":
       return issue.expected;
-    case z.ZodIssueCode.invalid_enum_value:
-      return issue.options?.join(" | ") || "valid enum value";
-    case z.ZodIssueCode.too_small:
+    case "invalid_value":
+      return issue.values.map(String).join(" | ") || "valid enum value";
+    case "too_small":
       return `minimum ${issue.minimum}`;
-    case z.ZodIssueCode.too_big:
+    case "too_big":
       return `maximum ${issue.maximum}`;
     default:
       return "valid value";

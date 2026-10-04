@@ -455,7 +455,7 @@ export function useMeetingState() {
     // Remove topicGroupId from blocks that were in this group
     const updatedBlocks = meeting.blocks.map((block) =>
       block.topicGroupId === topicGroupId
-        ? { ...block, topicGroupId: undefined }
+        ? { ...block, topicGroupId: null }
         : block
     );
 

@@ -192,7 +192,7 @@ function AppContent() {
     const newMeeting = addMeeting(t("meeting.untitled"));
 
     // Track the newly created meeting for auto-focus on title input
-    setNewlyCreatedMeetingId(newMeeting.id);
+    if (newMeeting) setNewlyCreatedMeetingId(newMeeting.id);
   };
 
   return (
@@ -668,7 +668,7 @@ function AppContent() {
               />
 
               <KanbanBoard
-                meetingId={selectedMeetingId}
+                meetingId={selectedMeeting.id}
                 meeting={selectedMeeting}
                 blockOperations={{
                   addBlock: handleAddBlock,
@@ -679,7 +679,7 @@ function AppContent() {
                     topicGroupId: string | undefined,
                   ) =>
                     moveBlockToTopic(
-                      selectedMeetingId,
+                      selectedMeeting.id,
                       blockIndex,
                       topicGroupId,
                     ),
@@ -739,9 +739,9 @@ export function App() {
 }
 
 // Only render in non-test environments
-if (typeof window !== "undefined" && document.getElementById("app")) {
-  render(
-    <App />,
-    document.getElementById("app"),
-  );
+const appRoot = typeof window !== "undefined"
+  ? document.getElementById("app")
+  : null;
+if (appRoot) {
+  render(<App />, appRoot);
 }

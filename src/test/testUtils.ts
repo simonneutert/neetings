@@ -1,4 +1,5 @@
 import { Block } from "../types/Block.ts";
+import { generateSortKey } from "../utils/sortKeys.ts";
 import { render } from "@testing-library/preact";
 import { h } from "preact";
 import { I18nProvider } from "../i18n/index.tsx";
@@ -32,7 +33,8 @@ export const createTestBlock = (type: Block["type"], overrides = {}): Block => {
     id: `test-block-${Date.now()}-${Math.random()}`,
     type,
     created_at: new Date().toISOString(),
-    position: Date.now() + Math.random(), // Ensure unique positions
+    topicGroupId: null,
+    sortKey: generateSortKey(),
   };
 
   const blockData = {

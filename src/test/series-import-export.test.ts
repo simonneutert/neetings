@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { autoMigrate, createExportV1 } from "../schemas/index.ts";
 import { TestDataFactory } from "./factories/testDataFactory.ts";
+import type { Attendee } from "../types/Attendee.ts";
 
 describe("Series Import/Export Functionality", () => {
   beforeEach(() => {
@@ -12,7 +13,7 @@ describe("Series Import/Export Functionality", () => {
         TestDataFactory.createMeeting({ title: "Meeting 1" }),
         TestDataFactory.createMeeting({ title: "Meeting 2" }),
       ];
-      const attendees = [];
+      const attendees: Attendee[] = [];
       const seriesTitle = "Test Series Title";
       const seriesAgenda = "Test series agenda";
 
@@ -35,7 +36,7 @@ describe("Series Import/Export Functionality", () => {
 
     it("should handle minimal series data", () => {
       const meetings = [TestDataFactory.createMeeting({ title: "Meeting 1" })];
-      const attendees = [];
+      const attendees: Attendee[] = [];
       const seriesTitle = "Minimal Series"; // Must have at least 1 character
       const seriesAgenda = "";
 
@@ -270,7 +271,7 @@ describe("Series Import/Export Functionality", () => {
       expect(exportData.title).toBe(veryLongTitle);
       expect(exportData.agenda).toBe(veryLongAgenda);
       expect(exportData.title.length).toBe(10000);
-      expect(exportData.agenda.length).toBe(50000);
+      expect(exportData.agenda?.length).toBe(50000);
     });
 
     it("should handle series with special characters in title and agenda", () => {
@@ -319,7 +320,7 @@ describe("Series Import/Export Functionality", () => {
         expect(Array.isArray(migrationResult.data.meetings)).toBe(true);
       } else {
         expect(migrationResult.errors).toBeDefined();
-        expect(migrationResult.errors.length).toBeGreaterThan(0);
+        expect(migrationResult.errors?.length).toBeGreaterThan(0);
       }
     });
 

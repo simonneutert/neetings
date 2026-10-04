@@ -248,8 +248,8 @@ export class BaseExporter {
         : null;
 
       return createImportResult(false, {
-        partialSuccess: failureResult.recoverable && partialResult &&
-          partialResult.recoveredCount > 0,
+        partialSuccess: failureResult.recoverable &&
+          (partialResult?.recoveredCount ?? 0) > 0,
         recoveredData: partialResult,
         errors: failureResult.errors,
         summary: partialResult && partialResult.recoveredCount > 0

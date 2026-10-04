@@ -37,7 +37,7 @@ export class ContentStructure {
    * Check if meeting has topic groups
    */
   static hasTopicGroups(meeting: Meeting): boolean {
-    return meeting.topicGroups && meeting.topicGroups.length > 0;
+    return (meeting.topicGroups?.length ?? 0) > 0;
   }
 
   /**

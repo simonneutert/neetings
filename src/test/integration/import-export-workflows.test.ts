@@ -45,7 +45,10 @@ Object.defineProperty(document.body, "removeChild", { value: vi.fn() });
 
 // Mock Blob for file generation - use a class for Vitest 4.0 compatibility
 global.Blob = class MockBlob {
-  constructor(content, options) {
+  size: number;
+  type: string;
+
+  constructor(content: unknown, options?: { type?: string }) {
     this.size = Array.isArray(content) ? content.join("").length : 1024;
     this.type = options?.type || "application/octet-stream";
   }
@@ -279,7 +282,7 @@ describe("Import/Export Workflow Integration Tests", () => {
         expect(false).toBe(true);
       } catch (error) {
         // Step 3: Verify error handling
-        expect(error.message).toContain("Unsupported file type");
+        expect((error as Error).message).toContain("Unsupported file type");
       }
     });
 
@@ -303,8 +306,8 @@ describe("Import/Export Workflow Integration Tests", () => {
         expect(false).toBe(true);
       } catch (error) {
         // Step 3: Verify error handling
-        expect(error.message).toContain("File size");
-        expect(error.message).toContain("exceeds maximum");
+        expect((error as Error).message).toContain("File size");
+        expect((error as Error).message).toContain("exceeds maximum");
       }
     });
   });

@@ -13,7 +13,10 @@ Object.defineProperty(window, "URL", {
 
 // Mock Blob for file generation - use a class for Vitest 4.0 compatibility
 global.Blob = class MockBlob {
-  constructor(content, options) {
+  size: number;
+  type: string;
+
+  constructor(content: unknown, options?: { type?: string }) {
     this.size = Array.isArray(content) ? content.join("").length : 1024;
     this.type = options?.type || "application/octet-stream";
   }
@@ -285,9 +288,9 @@ describe("Export/Import Performance Tests", () => {
         console.log(
           `Large text export failed gracefully after ${
             exportTime.toFixed(2)
-          }ms: ${error.message}`,
+          }ms: ${(error as Error).message}`,
         );
-        expect(error.message).toMatch(/memory|size|limit/i);
+        expect((error as Error).message).toMatch(/memory|size|limit/i);
       }
     });
 

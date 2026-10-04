@@ -61,7 +61,7 @@ interface BlockOperations {
 interface TopicOperations {
   /** Create a new topic group */
   createTopicGroup: (
-    meetingId: string | null,
+    meetingId: string,
     name: string,
     color?: string,
   ) => void;
@@ -71,10 +71,10 @@ interface TopicOperations {
     updates: Partial<TopicGroup>,
   ) => void;
   /** Delete a topic group */
-  deleteTopicGroup: (meetingId: string | null, topicGroupId: string) => void;
+  deleteTopicGroup: (meetingId: string, topicGroupId: string) => void;
   /** Swap positions of topic groups */
   swapTopicGroups?: (
-    meetingId: string | null,
+    meetingId: string,
     topicGroupId: string,
     direction: "left" | "right",
   ) => void;
@@ -86,7 +86,7 @@ interface TopicOperations {
  */
 interface KanbanBoardProps {
   /** Meeting ID to fetch meeting data internally */
-  meetingId: string | null;
+  meetingId: string;
   /** Meeting data containing blocks and topic groups */
   meeting: Meeting;
   /** Block operations handlers */
@@ -243,7 +243,7 @@ export const KanbanBoard: FunctionalComponent<KanbanBoardProps> = ({
         >
           {allTopicIds.map((topicId) => {
             const topicGroup = topicId
-              ? topicGroups.find((tg) => tg.id === topicId)
+              ? topicGroups.find((tg) => tg.id === topicId) ?? null
               : null;
             const blocks = groupedBlocks.get(topicId) || [];
 

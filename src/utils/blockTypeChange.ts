@@ -10,7 +10,7 @@ export function changeBlockTypeClearData(
   newType: Block["type"],
 ): Block {
   const oldFields = BLOCK_TYPES[oldBlock.type].fields;
-  const newFields = BLOCK_TYPES[newType].fields;
+  const newFields: readonly string[] = BLOCK_TYPES[newType].fields;
   const allPossibleFields = Object.keys(BLOCK_TYPES).flatMap(
     (type) => BLOCK_TYPES[type as Block["type"]].fields,
   );
@@ -88,7 +88,7 @@ export function changeBlockTypePreserveData(
   oldBlock: Block,
   newType: Block["type"],
 ): Block {
-  const newFields = BLOCK_TYPES[newType].fields;
+  const newFields: readonly string[] = BLOCK_TYPES[newType].fields;
   const allPossibleFields = Object.keys(BLOCK_TYPES).flatMap(
     (type) => BLOCK_TYPES[type as Block["type"]].fields,
   );

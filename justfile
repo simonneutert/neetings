@@ -26,6 +26,7 @@ pre-release:
 	echo "Running prerelease tasks..."
 	npm test          		# All tests pass
 	npm run lint      		# Code quality checks
+	npm run typecheck 		# TypeScript type check
 	deno fmt src/**/*.ts* # Code formatting with Deno
 	npm run build     		# Production build succeeds
 	npm run preview				# Manual testing

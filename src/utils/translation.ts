@@ -3,7 +3,7 @@
  * Follows existing codebase patterns and leverages the getTranslation() system
  */
 
-import { BLOCK_TYPES } from "../types/Block.ts";
+import { type Block, BLOCK_TYPES } from "../types/Block.ts";
 
 // Get localized text with fallback logic
 export function getLocalizedText(
@@ -48,7 +48,7 @@ export function getLocalizedBlockLabel(
   }
 
   // Fallback to existing BLOCK_TYPES system (no hardcoded strings)
-  return BLOCK_TYPES[blockType]?.label?.toUpperCase() ||
+  return BLOCK_TYPES[blockType as Block["type"]]?.label?.toUpperCase() ||
     blockType.toUpperCase();
 }
 

@@ -150,12 +150,14 @@ export class DOCXTransformer extends FormatTransformer {
                 new Paragraph({
                   children: [
                     new TextRun({
-                      text: `${
-                        this.generateFooterText(meeting, t, language)
-                      } - Page `,
+                      children: [
+                        `${
+                          this.generateFooterText(meeting, t, language)
+                        } - Page `,
+                        PageNumber.CURRENT,
+                      ],
                       size: 18,
                     }),
-                    PageNumber.CURRENT,
                   ],
                   alignment: AlignmentType.CENTER,
                 }),

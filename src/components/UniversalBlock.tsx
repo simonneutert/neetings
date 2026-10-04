@@ -88,7 +88,7 @@ const UniversalBlockComponent: FunctionalComponent<UniversalBlockProps> = ({
     const value = getBlockFieldValue(block, field);
     const isTextArea = TEXTAREA_FIELDS.includes(field as any);
     const todoStyle = createTodoStyle(
-      block.type === "todoblock" && block.completed,
+      block.type === "todoblock" && !!block.completed,
     );
     const placeholder = t(`blocks.placeholders.${field}`);
 

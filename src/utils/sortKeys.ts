@@ -30,12 +30,8 @@ const MID_CHAR = "m"; // Middle character for initial splits
  * generateSortKey("a", "ab") // Returns something like "aa"
  */
 export function generateSortKey(before?: string, after?: string): string {
-  if (!before && !after) {
-    return MID_CHAR; // First item
-  }
-
   if (!before) {
-    return generateKeyBefore(after);
+    return after ? generateKeyBefore(after) : MID_CHAR; // MID_CHAR: first item
   }
 
   if (!after) {

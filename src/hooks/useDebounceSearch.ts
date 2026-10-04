@@ -1,5 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
-import { MIN_SEARCH_CHARACTERS, SEARCH_DEBOUNCE_DELAY } from "../constants/index.ts";
+import {
+  MIN_SEARCH_CHARACTERS,
+  SEARCH_DEBOUNCE_DELAY,
+} from "../constants/index.ts";
 
 interface UseDebounceSearchOptions {
   debounceDelay?: number;
@@ -25,7 +28,9 @@ export function useDebounceSearch(
   const [searchQuery, setSearchQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
-  const timeoutRef = useRef<number | undefined>(undefined);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
 
   useEffect(() => {
     if (timeoutRef.current !== undefined) {

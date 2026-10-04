@@ -63,7 +63,7 @@ describe("Security Features", () => {
 
     it("should validate export data structure", () => {
       // Test that invalid data structure is handled
-      const invalidData = { not: "meetings" };
+      const invalidData: Record<string, unknown> = { not: "meetings" };
       expect(Array.isArray(invalidData)).toBe(false);
       expect(invalidData.meetings).toBeUndefined();
     });

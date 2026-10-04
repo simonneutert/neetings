@@ -73,7 +73,7 @@ export function useTopicGroups(): UseTopicGroupsResult {
     // Remove topicGroupId from orphaned blocks
     const updatedBlocks = meeting.blocks.map((block) =>
       block.topicGroupId === topicGroupId
-        ? { ...block, topicGroupId: undefined }
+        ? { ...block, topicGroupId: null }
         : block
     );
 
@@ -94,7 +94,7 @@ export function useTopicGroups(): UseTopicGroupsResult {
     const updatedBlocks = [...meeting.blocks];
     updatedBlocks[blockIndex] = {
       ...updatedBlocks[blockIndex],
-      topicGroupId: topicGroupId || undefined,
+      topicGroupId: topicGroupId || null,
     };
 
     return { blocks: updatedBlocks };

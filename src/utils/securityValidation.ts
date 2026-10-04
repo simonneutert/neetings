@@ -101,7 +101,7 @@ export const SecureMeetingDataSchema = z.object({
     priority: z.enum(["low", "medium", "high"]).optional(),
     dueDate: z.string().datetime().optional(),
     tags: z.array(z.string().max(50)).max(20).optional(),
-    metadata: z.record(z.string().max(500)).optional(),
+    metadata: z.record(z.string(), z.string().max(500)).optional(),
   })).max(1000),
   topicGroups: z.array(z.object({
     id: SecureUUIDSchema,

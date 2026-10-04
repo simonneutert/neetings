@@ -80,13 +80,11 @@ export interface Translations {
   };
   filter: {
     showAll: string;
-    backToMeetings: string;
     showFilters: string;
     hideFilters: string;
     filtersTitle: string;
     searchPlaceholder: string;
     clearSearch: string;
-    searching: string;
     searchingFor: string;
     showing: string;
     noFiltersSelected: string;

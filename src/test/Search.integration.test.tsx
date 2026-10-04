@@ -1,13 +1,22 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { fireEvent, screen, waitFor } from "@testing-library/preact";
-import { h } from "preact";
+import { type ComponentProps, h } from "preact";
 import { useState } from "preact/hooks";
 import { renderWithI18n } from "./testUtils.ts";
 import { UnifiedFilter } from "../components/UnifiedFilter.tsx";
-import { Meeting } from "../types/Meeting.ts";
+import { createEmptyMeeting, Meeting } from "../types/Meeting.ts";
 
 // Test wrapper component that manages filter state
-const TestFilterWrapper = ({ initialExpanded = false, ...props }) => {
+type TestFilterWrapperProps =
+  & Omit<
+    ComponentProps<typeof UnifiedFilter>,
+    "isExpanded" | "onToggleExpanded"
+  >
+  & { initialExpanded?: boolean };
+
+const TestFilterWrapper = (
+  { initialExpanded = false, ...props }: TestFilterWrapperProps,
+) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
   return h(UnifiedFilter, {
@@ -65,27 +74,37 @@ vi.mock("../constants", () => ({
   },
 }));
 
+// Required Block fields the search tests don't care about
+const blockDefaults = {
+  created_at: "2024-01-01T00:00:00.000Z",
+  topicGroupId: null,
+  sortKey: "m",
+};
+
 describe("Search Functionality", () => {
   const mockMeetings: Meeting[] = [
     {
-      id: "meeting-1",
+      ...createEmptyMeeting("meeting-1"),
       title: "Sprint Planning Meeting",
       date: "2024-01-15",
       blocks: [
         {
           id: "block-1",
+          ...blockDefaults,
           type: "textblock",
           text:
             "We need to implement the search feature for better user experience",
         },
         {
           id: "block-2",
+          ...blockDefaults,
           type: "todoblock",
           todo: "Setup search infrastructure",
           completed: false,
         },
         {
           id: "block-3",
+          ...blockDefaults,
           type: "factblock",
           fact:
             "Search should work with 300ms debouncing to avoid excessive API calls",
@@ -93,17 +112,19 @@ describe("Search Functionality", () => {
       ],
     },
     {
-      id: "meeting-2",
+      ...createEmptyMeeting("meeting-2"),
       title: "Code Review Session",
       date: "2024-01-20",
       blocks: [
         {
           id: "block-4",
+          ...blockDefaults,
           type: "issueblock",
           issue: "Users cannot login when special characters are in password",
         },
         {
           id: "block-5",
+          ...blockDefaults,
           type: "decisionblock",
           decision:
             "We decided to migrate to PostgreSQL for better performance",

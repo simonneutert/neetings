@@ -23,8 +23,7 @@ const preact = [
 			},
 		},
 		plugins: {
-			"@eslint-react":
-				eslintReact.configs["recommended-typescript"].plugins["@eslint-react"],
+			"@eslint-react": eslintReact,
 		},
 		rules: {
 			/**

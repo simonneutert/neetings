@@ -371,7 +371,9 @@ describe("Enhanced Export/Import with Attendees", () => {
         const version = detectExportVersion(corruptedData);
         expect(version).toBe("1.0.0");
       } catch (error) {
-        expect(error.message).toContain("Unsupported or invalid export format");
+        expect((error as Error).message).toContain(
+          "Unsupported or invalid export format",
+        );
       }
     });
 
@@ -450,7 +452,9 @@ describe("Enhanced Export/Import with Attendees", () => {
         const version = detectExportVersion(unsupportedVersionData);
         expect(version).toBe("99.0.0");
       } catch (error) {
-        expect(error.message).toContain("Unsupported or invalid export format");
+        expect((error as Error).message).toContain(
+          "Unsupported or invalid export format",
+        );
       }
 
       expect(ExportV1Schema.safeParse(unsupportedVersionData).success).toBe(

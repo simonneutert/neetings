@@ -28,7 +28,10 @@ Object.defineProperty(document.body, "removeChild", { value: vi.fn() });
 
 // Mock Blob for DOCX testing - use a class for Vitest 4.0 compatibility
 global.Blob = class MockBlob {
-  constructor(content, options) {
+  size: number;
+  type: string;
+
+  constructor(content: unknown, options?: { type?: string }) {
     this.size = Array.isArray(content) ? content.join("").length : 1024;
     this.type = options?.type || "application/octet-stream";
   }
@@ -1058,7 +1061,7 @@ describe("Export functionality", () => {
         expect(result.content.length).toBeGreaterThan(1000000);
       } catch (error) {
         // Accept memory-related errors as expected behavior
-        expect(error.message).toMatch(/memory|size|limit/i);
+        expect((error as Error).message).toMatch(/memory|size|limit/i);
       }
     });
 

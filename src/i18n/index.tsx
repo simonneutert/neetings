@@ -18,8 +18,8 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined);
 
 // Translation data
 const translations: Record<Language, Translations> = {
-  en: enTranslations as Translations,
-  de: deTranslations as Translations,
+  en: enTranslations,
+  de: deTranslations,
 };
 
 // Browser language detection

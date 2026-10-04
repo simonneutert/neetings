@@ -1,14 +1,23 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { cleanup, screen } from "@testing-library/preact";
 import userEvent from "@testing-library/user-event";
-import { h } from "preact";
+import { type ComponentProps, h } from "preact";
 import { useState } from "preact/hooks";
 import { UnifiedFilter } from "../components/UnifiedFilter.tsx";
 import { renderWithI18n } from "./testUtils.ts";
 
 // Helper to render UnifiedFilter component with i18n context in overview mode
 // Test wrapper component that manages filter state
-const TestFilterWrapper = ({ initialExpanded = false, ...props }) => {
+type TestFilterWrapperProps =
+  & Omit<
+    ComponentProps<typeof UnifiedFilter>,
+    "isExpanded" | "onToggleExpanded"
+  >
+  & { initialExpanded?: boolean };
+
+const TestFilterWrapper = (
+  { initialExpanded = false, ...props }: TestFilterWrapperProps,
+) => {
   const [isExpanded, setIsExpanded] = useState(initialExpanded);
 
   return h(UnifiedFilter, {

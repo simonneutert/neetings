@@ -25,13 +25,12 @@ function makeBlock(
   overrides: Partial<Block> & { id: string },
 ): Block {
   return {
-    type: "note",
-    content: "test block",
+    type: "textblock",
+    text: "test block",
     topicGroupId: null,
     sortKey: generateSortKey(),
     completed: false,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
+    created_at: new Date().toISOString(),
     ...overrides,
   };
 }
