@@ -1,6 +1,6 @@
-import { useTranslation } from "../i18n/index";
-import { LanguageSwitcher } from "./LanguageSwitcher";
-import { ThemeToggle } from "./ThemeToggle";
+import { useTranslation } from "../i18n/index.tsx";
+import { LanguageSwitcher } from "./LanguageSwitcher.tsx";
+import { ThemeToggle } from "./ThemeToggle.tsx";
 
 export function Navigation(
   {
@@ -106,7 +106,7 @@ export function Navigation(
                   class="nav-link"
                   onClick={() => {
                     if (
-                      window.confirm(
+                      globalThis.confirm(
                         t("confirmations.clearMeeting"),
                       )
                     ) {
@@ -125,7 +125,7 @@ export function Navigation(
                 class="nav-link text-danger"
                 onClick={() => {
                   if (
-                    window.confirm(
+                    globalThis.confirm(
                       t("confirmations.clearAllData"),
                     )
                   ) {

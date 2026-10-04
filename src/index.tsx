@@ -1,29 +1,29 @@
 import { render } from "preact";
 import { useEffect, useRef, useState } from "preact/hooks";
-import { Navigation } from "./components/Navigation";
-import { MeetingsImportExport } from "./components/MeetingsImportExport";
-import { MeetingIndex } from "./components/MeetingIndex";
-import { AttendeeManager } from "./components/AttendeeManager";
-import { FAQ } from "./components/FAQ";
-import { Hero } from "./components/Hero";
-import { BrandTitle } from "./components/BrandTitle";
-import { TermsOfService } from "./components/TermsOfService";
-import { Imprint } from "./components/Imprint";
-import { MeetingAttendees } from "./components/MeetingAttendees";
-import { ExportModal } from "./components/ExportModal";
-import { UnifiedFilter } from "./components/UnifiedFilter";
-import { KanbanBoard } from "./components/KanbanBoard";
-import { Footer } from "./components/Footer";
-import { LoadingScreen } from "./components/LoadingScreen";
-import { useMeetingState } from "./hooks/useMeetingState";
+import { Navigation } from "./components/Navigation.tsx";
+import { MeetingsImportExport } from "./components/MeetingsImportExport.tsx";
+import { MeetingIndex } from "./components/MeetingIndex.tsx";
+import { AttendeeManager } from "./components/AttendeeManager.tsx";
+import { FAQ } from "./components/FAQ.tsx";
+import { Hero } from "./components/Hero.tsx";
+import { BrandTitle } from "./components/BrandTitle.tsx";
+import { TermsOfService } from "./components/TermsOfService.tsx";
+import { Imprint } from "./components/Imprint.tsx";
+import { MeetingAttendees } from "./components/MeetingAttendees.tsx";
+import { ExportModal } from "./components/ExportModal.tsx";
+import { UnifiedFilter } from "./components/UnifiedFilter.tsx";
+import { KanbanBoard } from "./components/KanbanBoard.tsx";
+import { Footer } from "./components/Footer.tsx";
+import { LoadingScreen } from "./components/LoadingScreen.tsx";
+import { useMeetingState } from "./hooks/useMeetingState.ts";
 import "./styles/kanban-mobile.css";
-import { Block, toggleBlockCompletion } from "./types/Block";
-import { APP_CONFIG, CONFIRM_MESSAGES } from "./constants/index";
-import { I18nProvider, useTranslation } from "./i18n/index";
-import { EnhancedDownloadButton } from "./components/EnhancedDownloadButton";
-import { EnhancedFilterButton } from "./components/EnhancedFilterButton";
-import { useTheme } from "./hooks/useTheme";
-import { Meeting } from "./types/Meeting";
+import { Block, toggleBlockCompletion } from "./types/Block.ts";
+import { APP_CONFIG, CONFIRM_MESSAGES } from "./constants/index.ts";
+import { I18nProvider, useTranslation } from "./i18n/index.tsx";
+import { EnhancedDownloadButton } from "./components/EnhancedDownloadButton.tsx";
+import { EnhancedFilterButton } from "./components/EnhancedFilterButton.tsx";
+import { useTheme } from "./hooks/useTheme.ts";
+import { Meeting } from "./types/Meeting.ts";
 
 function AppContent() {
   const { t } = useTranslation();
@@ -161,7 +161,7 @@ function AppContent() {
   const handleClearMeeting = () => {
     if (
       !selectedMeetingId ||
-      !window.confirm(CONFIRM_MESSAGES.CLEAR_MEETING)
+      !globalThis.confirm(CONFIRM_MESSAGES.CLEAR_MEETING)
     ) return;
     deleteMeeting(selectedMeetingId);
   };

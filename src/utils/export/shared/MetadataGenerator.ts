@@ -1,5 +1,5 @@
-import { Meeting } from "../../../types/Meeting";
-import { DateFormatter } from "./DateFormatter";
+import { Meeting } from "../../../types/Meeting.ts";
+import { DateFormatter } from "./DateFormatter.ts";
 
 /**
  * Shared metadata generation utilities for export transformers

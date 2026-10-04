@@ -1,13 +1,13 @@
-import { Meeting } from "../../../types/Meeting";
-import { Block, getBlockFieldValue } from "../../../types/Block";
-import { Attendee } from "../../../types/Attendee";
+import { Meeting } from "../../../types/Meeting.ts";
+import { Block, getBlockFieldValue } from "../../../types/Block.ts";
+import { Attendee } from "../../../types/Attendee.ts";
 import {
   getLocalizedBlockLabel,
   getLocalizedFieldLabel,
-} from "../../translation";
-import { DateFormatter } from "../shared/DateFormatter";
-import { AttendeeUtils } from "../shared/AttendeeUtils";
-import { BlockFormatter } from "../shared/BlockFormatter";
+} from "../../translation.ts";
+import { DateFormatter } from "../shared/DateFormatter.ts";
+import { AttendeeUtils } from "../shared/AttendeeUtils.ts";
+import { BlockFormatter } from "../shared/BlockFormatter.ts";
 
 /**
  * Shared HTML generation utility for rich text exports (RTF, DOCX)

@@ -1,15 +1,15 @@
-import { Meeting } from "../../../types/Meeting";
-import { Block } from "../../../types/Block";
-import { Attendee } from "../../../types/Attendee";
+import { Meeting } from "../../../types/Meeting.ts";
+import { Block } from "../../../types/Block.ts";
+import { Attendee } from "../../../types/Attendee.ts";
 import {
   ExportOptions,
   ExportResult,
   FormatTransformer,
-} from "../types/ExportTypes";
-import { AttendeeUtils } from "../shared/AttendeeUtils";
-import { MetadataGenerator } from "../shared/MetadataGenerator";
-import { ContentStructure } from "../shared/ContentStructure";
-import { BlockFormatter } from "../shared/BlockFormatter";
+} from "../types/ExportTypes.ts";
+import { AttendeeUtils } from "../shared/AttendeeUtils.ts";
+import { MetadataGenerator } from "../shared/MetadataGenerator.ts";
+import { ContentStructure } from "../shared/ContentStructure.ts";
+import { BlockFormatter } from "../shared/BlockFormatter.ts";
 
 export class MarkdownTransformer extends FormatTransformer {
   async transform(

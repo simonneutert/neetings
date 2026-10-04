@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { autoMigrate, createExportV1 } from "../schemas/index";
-import { TestDataFactory } from "./factories/testDataFactory";
+import { autoMigrate, createExportV1 } from "../schemas/index.ts";
+import { TestDataFactory } from "./factories/testDataFactory.ts";
 
 describe("Series Import/Export Functionality", () => {
   beforeEach(() => {

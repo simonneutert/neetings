@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { act, renderHook } from "@testing-library/preact";
-import { useFilterPreferences } from "../hooks/useFilterPreferences";
-import { APP_CONFIG } from "../constants/index";
+import { useFilterPreferences } from "../hooks/useFilterPreferences.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 // Mock localStorage
 const mockLocalStorage = (() => {

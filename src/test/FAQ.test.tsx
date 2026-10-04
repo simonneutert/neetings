@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from "@testing-library/preact";
 import { describe, expect, it, vi } from "vitest";
-import { FAQ } from "../components/FAQ";
-import { I18nProvider } from "../i18n";
+import { FAQ } from "../components/FAQ.tsx";
+import { I18nProvider } from "../i18n/index.tsx";
 
 describe("FAQ Component", () => {
   it("renders FAQ title and questions", () => {
@@ -11,7 +11,7 @@ describe("FAQ Component", () => {
       <I18nProvider>
         <FAQ
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );
@@ -53,7 +53,7 @@ describe("FAQ Component", () => {
       <I18nProvider>
         <FAQ
           onBackToMeetings={mockOnBackToMeetings}
-          hasMeetings={true}
+          hasMeetings
         />
       </I18nProvider>,
     );

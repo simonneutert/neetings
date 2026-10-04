@@ -1,10 +1,10 @@
-import { Meeting } from "../../../types/Meeting";
+import { Meeting } from "../../../types/Meeting.ts";
 import {
   ExportOptions,
   ExportResult,
   FormatTransformer,
-} from "../types/ExportTypes";
-import { HTMLGenerator } from "./HTMLGenerator";
+} from "../types/ExportTypes.ts";
+import { HTMLGenerator } from "./HTMLGenerator.ts";
 
 /**
  * HTML transformer for standalone HTML file exports

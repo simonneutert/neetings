@@ -3,8 +3,8 @@
  */
 
 import { useCallback, useState } from "preact/hooks";
-import { Block } from "../types/Block";
-import { TopicGroup } from "../types/TopicGroup";
+import { Block } from "../types/Block.ts";
+import { TopicGroup } from "../types/TopicGroup.ts";
 
 /**
  * Context for editing block types

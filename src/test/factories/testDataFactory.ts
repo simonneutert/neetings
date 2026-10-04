@@ -1,8 +1,8 @@
-import { createEmptyMeeting, Meeting } from "../../types/Meeting";
-import { Block, BLOCK_TYPES, createBlock } from "../../types/Block";
-import { Attendee, createAttendee } from "../../types/Attendee";
-import { TopicGroup } from "../../types/TopicGroup";
-import { generateSortKey } from "../../utils/sortKeys";
+import { createEmptyMeeting, Meeting } from "../../types/Meeting.ts";
+import { Block, BLOCK_TYPES, createBlock } from "../../types/Block.ts";
+import { Attendee, createAttendee } from "../../types/Attendee.ts";
+import { TopicGroup } from "../../types/TopicGroup.ts";
+import { generateSortKey } from "../../utils/sortKeys.ts";
 
 export interface TestMeetingSeries {
   title: string;

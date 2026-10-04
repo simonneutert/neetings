@@ -1,7 +1,7 @@
-import { Meeting } from "../../../types/Meeting";
-import { Block } from "../../../types/Block";
-import { TopicGroup } from "../../../types/TopicGroup";
-import { sortBySortKey } from "../../sortKeys";
+import { Meeting } from "../../../types/Meeting.ts";
+import { Block } from "../../../types/Block.ts";
+import { TopicGroup } from "../../../types/TopicGroup.ts";
+import { sortBySortKey } from "../../sortKeys.ts";
 
 /**
  * Shared content structure utilities for export transformers

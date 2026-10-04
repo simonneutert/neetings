@@ -1,11 +1,11 @@
 import { z } from "zod";
-import { MeetingArraySchema } from "./meeting";
-import { AttendeeArraySchema } from "./attendee";
+import { MeetingArraySchema } from "./meeting.ts";
+import { AttendeeArraySchema } from "./attendee.ts";
 import {
   createValidationError,
   ValidationErrorDetail,
   ValidationResult,
-} from "../utils/export/errors/ExportErrors";
+} from "../utils/export/errors/ExportErrors.ts";
 
 // Version schema for semantic versioning
 export const VersionSchema = z.string().regex(

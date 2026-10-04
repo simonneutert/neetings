@@ -1,10 +1,10 @@
-import { Meeting } from "../../../types/Meeting";
+import { Meeting } from "../../../types/Meeting.ts";
 import {
   ExportOptions,
   ExportResult,
   FormatTransformer,
-} from "../types/ExportTypes";
-import { createExportV1 } from "../../../schemas/export";
+} from "../types/ExportTypes.ts";
+import { createExportV1 } from "../../../schemas/export.ts";
 
 export class JSONTransformer extends FormatTransformer {
   async transform(

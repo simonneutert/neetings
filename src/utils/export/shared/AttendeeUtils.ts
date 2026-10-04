@@ -1,5 +1,5 @@
-import { Meeting } from "../../../types/Meeting";
-import { Attendee } from "../../../types/Attendee";
+import { Meeting } from "../../../types/Meeting.ts";
+import { Attendee } from "../../../types/Attendee.ts";
 
 /**
  * Shared attendee handling utilities for export transformers

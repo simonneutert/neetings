@@ -1,12 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { BaseExporter } from "../../utils/export/BaseExporter";
-import { autoMigrate, createExportV1 } from "../../schemas/index";
-import { TestDataFactory } from "../factories/testDataFactory";
+import { BaseExporter } from "../../utils/export/BaseExporter.ts";
+import { autoMigrate, createExportV1 } from "../../schemas/index.ts";
+import { TestDataFactory } from "../factories/testDataFactory.ts";
 import {
   handleImportError,
   safeJsonParse,
   validateFileBeforeProcessing,
-} from "../../utils/export/errors/ErrorHandler";
+} from "../../utils/export/errors/ErrorHandler.ts";
 
 // Mock file operations for testing
 const createMockFile = (content: string, filename = "test.json") => {

@@ -1,5 +1,5 @@
-import { useTheme } from "../hooks/useTheme";
-import { useTranslation } from "../i18n/index";
+import { useTheme } from "../hooks/useTheme.ts";
+import { useTranslation } from "../i18n/index.tsx";
 
 export function ThemeToggle() {
   const { theme, resolvedTheme, cycleTheme } = useTheme();

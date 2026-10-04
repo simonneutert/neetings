@@ -1,10 +1,10 @@
 // Central export for all Zod schemas and utilities
-export * from "./block";
-export * from "./meeting";
-export * from "./attendee";
-export * from "./topicGroup";
-export * from "./export";
-export * from "./migrations";
+export * from "./block.ts";
+export * from "./meeting.ts";
+export * from "./attendee.ts";
+export * from "./topicGroup.ts";
+export * from "./export.ts";
+export * from "./migrations.ts";
 
 // Re-export commonly used schemas for convenience
 export {
@@ -14,7 +14,7 @@ export {
   parseBlock,
   parseBlockSafe,
   validateBlock,
-} from "./block";
+} from "./block.ts";
 
 export {
   MeetingArraySchema,
@@ -23,21 +23,21 @@ export {
   parseMeeting,
   parseMeetingSafe,
   validateMeeting,
-} from "./meeting";
+} from "./meeting.ts";
 
 export {
   AttendeeArraySchema,
   AttendeeSchema,
   parseAttendee,
   validateAttendee,
-} from "./attendee";
+} from "./attendee.ts";
 
 export {
   parseTopicGroup,
   TopicGroupArraySchema,
   TopicGroupSchema,
   validateTopicGroup,
-} from "./topicGroup";
+} from "./topicGroup.ts";
 
 export {
   createExportV1,
@@ -49,7 +49,7 @@ export {
   parseExport,
   parseExportSafe,
   validateExport,
-} from "./export";
+} from "./export.ts";
 
 export {
   autoMigrate,
@@ -58,7 +58,7 @@ export {
   isMigrationNeeded,
   migrateData,
   rollbackData,
-} from "./migrations";
+} from "./migrations.ts";
 
 // Version constants - Update these when adding new versions
 export const CURRENT_EXPORT_VERSION = "1.0.0";

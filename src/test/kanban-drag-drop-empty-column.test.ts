@@ -13,9 +13,9 @@
 
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { act, renderHook } from "@testing-library/preact";
-import { useDragDrop } from "../hooks/useDragDrop";
-import { Block } from "../types/Block";
-import { generateSortKey } from "../utils/sortKeys";
+import { useDragDrop } from "../hooks/useDragDrop.ts";
+import { Block } from "../types/Block.ts";
+import { generateSortKey } from "../utils/sortKeys.ts";
 
 // ---------------------------------------------------------------------------
 // Helpers

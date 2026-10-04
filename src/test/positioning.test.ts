@@ -6,8 +6,8 @@ import {
   groupAndSortBlocks,
   moveBlockInTopic,
   sortTopicBlocks,
-} from "../utils/positioning";
-import { Block } from "../types/Block";
+} from "../utils/positioning.ts";
+import { Block } from "../types/Block.ts";
 
 // Helper to create test blocks
 const createTestBlock = (

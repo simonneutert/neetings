@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { BlockArraySchema, BlockSchema } from "./block";
-import { TopicGroupArraySchema, TopicGroupSchema } from "./topicGroup";
+import { BlockArraySchema, BlockSchema } from "./block.ts";
+import { TopicGroupArraySchema, TopicGroupSchema } from "./topicGroup.ts";
 
 // Meeting schema
 export const MeetingSchema = z.object({

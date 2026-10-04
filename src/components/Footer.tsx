@@ -1,4 +1,4 @@
-import { MarketingInfo } from "./MarketingInfo";
+import { MarketingInfo } from "./MarketingInfo.tsx";
 
 interface FooterProps {
   onTermsClick?: () => void;

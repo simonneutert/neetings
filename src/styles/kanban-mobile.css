@@ -53,7 +53,8 @@
 
 /* Tablet and up: columns should never be less than 550px */
 @media (min-width: 769px) {
-  .kanban-column, .enhanced-topic-column {
+  .kanban-column,
+  .enhanced-topic-column {
     min-width: 550px !important;
     max-width: 1fr !important;
   }

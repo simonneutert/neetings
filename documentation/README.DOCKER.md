@@ -1,11 +1,15 @@
 # Docker Setup for Neetings JSX
 
-This document explains how to run the **Neetings JSX** meeting notes application using Docker for both development and production environments.
+This document explains how to run the **Neetings JSX** meeting notes application
+using Docker for both development and production environments.
 
 ## About Neetings JSX
 
-Neetings JSX is a TypeScript/Preact-based meeting notes application that allows you to:
-- Create and manage meetings with 11 structured block types (Note, Q&A, Research, Fact, Decision, Issue, TODO, Goal, Follow-up, Idea, Reference)
+Neetings JSX is a TypeScript/Preact-based meeting notes application that allows
+you to:
+
+- Create and manage meetings with 11 structured block types (Note, Q&A,
+  Research, Fact, Decision, Issue, TODO, Goal, Follow-up, Idea, Reference)
 - Filter and navigate through meeting content
 - Import/export meeting data
 - Track TODO completion status
@@ -14,11 +18,13 @@ Neetings JSX is a TypeScript/Preact-based meeting notes application that allows 
 ## 📋 Prerequisites
 
 - [Docker](https://docs.docker.com/get-docker/) installed on your system
-- [Docker Compose](https://docs.docker.com/compose/install/) (usually included with Docker Desktop)
+- [Docker Compose](https://docs.docker.com/compose/install/) (usually included
+  with Docker Desktop)
 
 ## 🏗️ Docker Architecture
 
-The Dockerfile uses a multi-stage build approach optimized for Preact/Vite applications:
+The Dockerfile uses a multi-stage build approach optimized for Preact/Vite
+applications:
 
 1. **Base**: Sets up Node.js 24 Alpine with production dependencies
 2. **Dev**: Development environment with Vite hot reloading on port 5173
@@ -40,6 +46,7 @@ docker-compose up -d dev
 The application will be available at: http://localhost:5173
 
 **Features available in development mode:**
+
 - Hot module replacement (HMR) for instant code updates
 - TypeScript compilation with error reporting
 - Preact DevTools support (install browser extension)
@@ -60,6 +67,7 @@ docker-compose up -d prod
 The application will be available at: http://localhost:80
 
 **Production features:**
+
 - Optimized static asset serving via Nginx
 - Compressed bundle sizes for faster loading
 - All meeting management functionality
@@ -97,29 +105,32 @@ docker run -p 8080:80 neeting-jsx:prod
 
 ### Docker Compose Services
 
-| Service | Purpose | Port | Target |
-|---------|---------|------|--------|
-| `dev` | Development with hot reload | 5173 | development |
-| `prod` | Production with Nginx | 80 | production |
+| Service | Purpose                     | Port | Target      |
+| ------- | --------------------------- | ---- | ----------- |
+| `dev`   | Development with hot reload | 5173 | development |
+| `prod`  | Production with Nginx       | 80   | production  |
 
 ## 📁 Volume Mounts
 
 ### Development Mode
+
 - **Source code**: `./` → `/app` (enables hot reloading)
 - **Node modules**: `/app/node_modules` (prevents overwriting)
 
 ### Production Mode
+
 - No volumes (self-contained image)
 
 ## 🌍 Environment Variables
 
-| Variable | Default | Description |
-|----------|---------|-------------|
+| Variable   | Default                    | Description             |
+| ---------- | -------------------------- | ----------------------- |
 | `NODE_ENV` | `development`/`production` | Application environment |
 
 ## 🧪 Running Tests in Docker
 
-The Neetings JSX project includes comprehensive tests using Vitest and Testing Library:
+The Neetings JSX project includes comprehensive tests using Vitest and Testing
+Library:
 
 ```bash
 # Run all tests (196+ test cases)
@@ -142,6 +153,7 @@ docker-compose run --rm dev npm run lint:fix
 ```
 
 **Test Coverage Areas:**
+
 - Block creation and management (UniversalBlock, BlockVisual)
 - Meeting CRUD operations
 - Filter and navigation functionality
@@ -151,6 +163,7 @@ docker-compose run --rm dev npm run lint:fix
 - Complex integration workflows
 
 **Code Quality:**
+
 - ESLint with TypeScript support for code quality
 - Preact-specific linting rules
 - Auto-fixable issues for consistent code style
@@ -175,6 +188,7 @@ docker build --target production -t neetings:prod .
 ```
 
 **CI/CD Features:**
+
 - Automated testing on every PR
 - Code quality checks with ESLint
 - Docker builds only on main branch commits
@@ -249,6 +263,7 @@ docker image prune -a
 ### Common Issues
 
 #### Port Already in Use
+
 ```bash
 # Check what's using the port
 lsof -i :5173
@@ -258,12 +273,14 @@ docker run -p 3000:5173 neeting-jsx:dev
 ```
 
 #### Permission Issues (macOS/Linux)
+
 ```bash
 # Fix file permissions
 sudo chown -R $(whoami) .
 ```
 
 #### Node Modules Issues
+
 ```bash
 # Clear node_modules volume and rebuild
 docker-compose down -v
@@ -271,6 +288,7 @@ docker-compose up dev
 ```
 
 #### TypeScript Compilation Issues
+
 ```bash
 # Check TypeScript errors in container
 docker-compose run --rm dev npx tsc --noEmit
@@ -280,6 +298,7 @@ docker-compose up dev 2>&1 | grep -E "(error|Error|ERROR)"
 ```
 
 #### Preact/Vite Specific Issues
+
 ```bash
 # Clear Vite cache
 docker-compose run --rm dev npm run dev -- --force
@@ -289,6 +308,7 @@ docker-compose run --rm dev cat vite.config.ts
 ```
 
 #### Build Failures
+
 ```bash
 # Clean build
 docker system prune -a
@@ -298,12 +318,14 @@ docker-compose build --no-cache
 ### Performance Optimization
 
 #### Development
+
 - Volume mounts enable instant file watching and HMR
 - Vite's fast rebuild system works seamlessly in Docker
 - TypeScript incremental compilation reduces build times
 - Preact's small bundle size ensures quick container startup
 
 #### Production
+
 - Multi-stage builds reduce final image size (~50MB)
 - Nginx efficiently serves static Preact bundles
 - Alpine Linux base images minimize attack surface
@@ -312,7 +334,9 @@ docker-compose build --no-cache
 ## 📊 Image Sizes
 
 Typical image sizes for Neetings JSX:
-- **Development**: ~400MB (includes dev dependencies, TypeScript, Vitest, ESLint)
+
+- **Development**: ~400MB (includes dev dependencies, TypeScript, Vitest,
+  ESLint)
 - **Production**: ~50MB (Nginx + optimized Preact bundle only)
 - **Built assets**: ~2MB (optimized TypeScript/Preact application)
 
@@ -350,13 +374,16 @@ docker stats
 2. **Access the application**: Open http://localhost:5173
 3. **Create your first meeting**: Click "New Meeting" and add blocks
 4. **Make code changes**: Files auto-reload with Vite HMR
-5. **Run tests**: `docker-compose run --rm dev npm test` (should pass all 196+ tests)
+5. **Run tests**: `docker-compose run --rm dev npm test` (should pass all 196+
+   tests)
 6. **Check code quality**: `docker-compose run --rm dev npm run lint`
-7. **Test different block types**: Try TODO, Q&A, Research, Facts, Decisions, Issues, Stories
+7. **Test different block types**: Try TODO, Q&A, Research, Facts, Decisions,
+   Issues, Stories
 8. **Build for production**: `docker-compose up prod`
 9. **Clean up**: `docker-compose down`
 
 ### Key Application Features to Test:
+
 - **Block Management**: Create, edit, move, and delete different block types
 - **TODO Functionality**: Mark TODOs as complete/incomplete
 - **Meeting Navigation**: Switch between meetings and overview
@@ -369,14 +396,17 @@ docker stats
 - [Docker Documentation](https://docs.docker.com/)
 - [Docker Compose Documentation](https://docs.docker.com/compose/)
 - [Vite Docker Guide](https://vitejs.dev/guide/static-deploy.html)
-- [Preact Documentation](https://preactjs.com/guide/v10/getting-started)
+- [Preact Documentation](https://preactjs.com/guide/v11/getting-started/)
 - [Nginx Configuration](https://nginx.org/en/docs/)
 - [TypeScript Docker Best Practices](https://nodejs.org/en/docs/guides/nodejs-docker-webapp/)
 
 ## 🎯 Project-Specific Notes
 
-- **Data Storage**: All meeting data is stored in browser localStorage (no backend required)
-- **Block Types**: The application supports 7 different block types with color-coded badges
+- **Data Storage**: All meeting data is stored in browser localStorage (no
+  backend required)
+- **Block Types**: The application supports 7 different block types with
+  color-coded badges
 - **Testing**: Comprehensive test suite covers all major functionality
 - **Type Safety**: Full TypeScript coverage with strict type checking
-- **Component Architecture**: Uses shared BlockVisual component for consistent styling
+- **Component Architecture**: Uses shared BlockVisual component for consistent
+  styling

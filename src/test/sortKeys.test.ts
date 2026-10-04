@@ -5,7 +5,7 @@ import {
   isValidSortKey,
   positionToSortKey,
   sortBySortKey,
-} from "../utils/sortKeys";
+} from "../utils/sortKeys.ts";
 
 describe("sortKeys utilities", () => {
   describe("generateSortKey", () => {

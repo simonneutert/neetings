@@ -1,5 +1,5 @@
-import { useTranslation } from "../i18n/index";
-import type { Language } from "../i18n/types";
+import { useTranslation } from "../i18n/index.tsx";
+import type { Language } from "../i18n/types.ts";
 
 export const LanguageSwitcher = () => {
   const { language, setLanguage } = useTranslation();

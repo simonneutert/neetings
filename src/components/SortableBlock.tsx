@@ -2,9 +2,9 @@ import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { Block } from "../types/Block";
-import { UniversalBlock } from "./UniversalBlock";
-import { DropIndicator } from "./DropIndicator";
+import { Block } from "../types/Block.ts";
+import { UniversalBlock } from "./UniversalBlock.tsx";
+import { DropIndicator } from "./DropIndicator.tsx";
 
 interface SortableBlockProps {
   block: Block;

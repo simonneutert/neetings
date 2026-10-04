@@ -1,6 +1,6 @@
-import { Block } from "./Block";
-import { TopicGroup } from "./TopicGroup";
-import { APP_CONFIG } from "../constants/index";
+import { Block } from "./Block.ts";
+import { TopicGroup } from "./TopicGroup.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 export interface Meeting {
   id: string;

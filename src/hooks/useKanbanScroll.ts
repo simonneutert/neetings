@@ -2,6 +2,7 @@
  * Custom hook for managing smooth scroll behavior in KanbanBoard
  */
 
+import type { RefObject } from "preact";
 import { useCallback, useRef } from "preact/hooks";
 
 // Helper function for custom smooth scrolling
@@ -37,7 +38,7 @@ function customSmoothScrollTo(
 }
 
 interface KanbanScrollOperations {
-  scrollContainerRef: React.RefObject<HTMLDivElement>;
+  scrollContainerRef: RefObject<HTMLDivElement | null>;
   scrollToTopic: (topicGroupId: string) => void;
 }
 

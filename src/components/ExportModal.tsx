@@ -1,13 +1,13 @@
 import { FunctionalComponent } from "preact";
 import { useCallback, useEffect, useMemo, useState } from "preact/hooks";
-import { Meeting } from "../types/Meeting";
-import { BaseExporter } from "../utils/export/BaseExporter";
-import { ExportOptions } from "../utils/export/types/ExportTypes";
-import { useTranslation } from "../i18n/index";
-import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
-import { APP_CONFIG } from "../constants/index";
-import { createErrorDetail, ErrorModal } from "./ErrorModal";
-import { Attendee } from "../types/Attendee";
+import { Meeting } from "../types/Meeting.ts";
+import { BaseExporter } from "../utils/export/BaseExporter.ts";
+import { ExportOptions } from "../utils/export/types/ExportTypes.ts";
+import { useTranslation } from "../i18n/index.tsx";
+import { useGlobalAttendees } from "../hooks/useGlobalAttendees.ts";
+import { APP_CONFIG } from "../constants/index.ts";
+import { createErrorDetail, ErrorModal } from "./ErrorModal.tsx";
+import { Attendee } from "../types/Attendee.ts";
 
 interface ExportModalProps {
   isOpen: boolean;

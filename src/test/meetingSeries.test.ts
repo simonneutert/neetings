@@ -11,9 +11,9 @@ import {
   UpdateSeriesSchema,
   validateMeetingSeries,
   validateSeriesIntegrity,
-} from "../schemas/meetingSeries";
-import { Meeting } from "../types/Meeting";
-import { APP_CONFIG } from "../constants";
+} from "../schemas/meetingSeries.ts";
+import { Meeting } from "../types/Meeting.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 // Helper to create a valid meeting
 const createTestMeeting = (id: string = "test-1"): Meeting => ({

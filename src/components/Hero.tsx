@@ -1,6 +1,6 @@
 import { FunctionalComponent } from "preact";
-import { useTranslation } from "../i18n/index";
-import { ImportExportButtons } from "./ImportExportButtons";
+import { useTranslation } from "../i18n/index.tsx";
+import { ImportExportButtons } from "./ImportExportButtons.tsx";
 
 interface HeroProps {
   onCreateMeeting?: () => void;

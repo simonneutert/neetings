@@ -1,10 +1,10 @@
-import { Meeting } from "../../../types/Meeting";
+import { Meeting } from "../../../types/Meeting.ts";
 import {
   ExportOptions,
   ExportResult,
   FormatTransformer,
-} from "../types/ExportTypes";
-import { RTFGenerator } from "../rtf/RTFGenerator";
+} from "../types/ExportTypes.ts";
+import { RTFGenerator } from "../rtf/RTFGenerator.ts";
 
 /**
  * RTF (Rich Text Format) transformer

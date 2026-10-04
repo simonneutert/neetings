@@ -1,12 +1,12 @@
 import { FunctionalComponent } from "preact";
 import { useState } from "preact/hooks";
-import { useTranslation } from "../i18n/index";
+import { useTranslation } from "../i18n/index.tsx";
 import {
   getErrorSeverity,
   getLocalizedActionMessage,
   getLocalizedErrorMessage,
   isRecoverable,
-} from "../utils/export/errors/ErrorMessages";
+} from "../utils/export/errors/ErrorMessages.ts";
 
 interface ErrorDetail {
   code: string;

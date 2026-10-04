@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { MeetingArraySchema, MeetingSchema } from "./meeting";
+import { MeetingArraySchema, MeetingSchema } from "./meeting.ts";
 
 // Series schema for workspace-level meeting series
 export const MeetingSeriesSchema = z.object({

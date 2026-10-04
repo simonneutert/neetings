@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "preact/hooks";
-import { MIN_SEARCH_CHARACTERS, SEARCH_DEBOUNCE_DELAY } from "../constants";
+import { MIN_SEARCH_CHARACTERS, SEARCH_DEBOUNCE_DELAY } from "../constants/index.ts";
 
 interface UseDebounceSearchOptions {
   debounceDelay?: number;
@@ -40,7 +40,7 @@ export function useDebounceSearch(
 
     setIsSearching(true);
 
-    timeoutRef.current = window.setTimeout(() => {
+    timeoutRef.current = globalThis.setTimeout(() => {
       setDebouncedQuery(searchQuery);
       setIsSearching(false);
     }, debounceDelay);

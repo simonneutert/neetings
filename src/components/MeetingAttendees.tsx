@@ -1,10 +1,10 @@
 import { FunctionalComponent } from "preact";
 import { useEffect, useState } from "preact/hooks";
-import { Meeting } from "../types/Meeting";
-import { AttendeeAutocomplete } from "./AttendeeAutocomplete";
-import { useTranslation } from "../i18n";
-import { useGlobalAttendees } from "../hooks/useGlobalAttendees";
-import { APP_CONFIG } from "../constants/index";
+import { Meeting } from "../types/Meeting.ts";
+import { AttendeeAutocomplete } from "./AttendeeAutocomplete.tsx";
+import { useTranslation } from "../i18n/index.tsx";
+import { useGlobalAttendees } from "../hooks/useGlobalAttendees.ts";
+import { APP_CONFIG } from "../constants/index.ts";
 
 interface MeetingAttendeesProps {
   meeting: Meeting;

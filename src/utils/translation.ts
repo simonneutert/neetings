@@ -3,7 +3,7 @@
  * Follows existing codebase patterns and leverages the getTranslation() system
  */
 
-import { BLOCK_TYPES } from "../types/Block";
+import { BLOCK_TYPES } from "../types/Block.ts";
 
 // Get localized text with fallback logic
 export function getLocalizedText(

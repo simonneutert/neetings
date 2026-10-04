@@ -1,7 +1,7 @@
 import { screen } from "@testing-library/preact";
 import { beforeEach, describe, expect, it } from "vitest";
-import { App } from "../index";
-import { renderWithI18n } from "./testUtils";
+import { App } from "../index.tsx";
+import { renderWithI18n } from "./testUtils.ts";
 
 describe("Debug App Rendering", () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { Block, BLOCK_TYPES } from "../types/Block";
+import { Block, BLOCK_TYPES } from "../types/Block.ts";
 
 /**
  * Returns a new block object with the new type, transferring content smartly and clearing old fields.

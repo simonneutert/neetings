@@ -1,9 +1,9 @@
 import { FunctionalComponent } from "preact";
 import { memo } from "preact/compat";
 import { useState } from "preact/hooks";
-import { TopicGroup } from "../types/TopicGroup";
-import { TOPIC_GROUP_COLORS } from "../utils/colors";
-import { useTranslation } from "../i18n/index";
+import { TopicGroup } from "../types/TopicGroup.ts";
+import { TOPIC_GROUP_COLORS } from "../utils/colors.ts";
+import { useTranslation } from "../i18n/index.tsx";
 
 interface TopicGroupManagerProps {
   meetingId: string;
@@ -116,7 +116,7 @@ const TopicGroupManagerComponent: FunctionalComponent<TopicGroupManagerProps> =
 
     const handleDeleteTopic = (topicGroup: TopicGroup) => {
       if (
-        window.confirm(
+        globalThis.confirm(
           t("topics.topicGroupManager.confirmDelete", {
             topicName: topicGroup.name,
           }),

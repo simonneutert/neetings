@@ -1,6 +1,6 @@
 import { act, renderHook } from "@testing-library/preact";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { useDebounceSearch } from "../hooks/useDebounceSearch";
+import { useDebounceSearch } from "../hooks/useDebounceSearch.ts";
 
 describe("useDebounceSearch - isolated test", () => {
   beforeEach(() => {
