@@ -89,9 +89,7 @@ describe("CTASection Component", () => {
     // Check if card is present with gradient background
     const card = document.querySelector(".card");
     expect(card).toBeInTheDocument();
-    expect(card).toHaveStyle(
-      "background: linear-gradient(135deg, rgb(40, 167, 69) 0%, rgb(32, 201, 151) 100%);",
-    );
+    expect(card).toHaveStyle("background: linear-gradient(135deg, rgb(40, 167, 69) 0%, rgb(32, 201, 151) 100%);");
   });
 
   it("has accessible button with proper styling", () => {
