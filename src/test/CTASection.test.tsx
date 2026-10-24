@@ -90,7 +90,7 @@ describe("CTASection Component", () => {
     const card = document.querySelector(".card");
     expect(card).toBeInTheDocument();
     expect(card).toHaveStyle(
-      "background: linear-gradient(135deg, #28a745 0%, #20c997 100%)",
+      "background: linear-gradient(135deg, rgb(40, 167, 69) 0%, rgb(32, 201, 151) 100%);",
     );
   });
 
